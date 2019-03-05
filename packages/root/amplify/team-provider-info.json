@@ -1,0 +1,14 @@
+{
+    "jeeves": {
+        "awscloudformation": {
+            "AuthRoleName": "root-20190305121306-authRole",
+            "UnauthRoleArn": "arn:aws:iam::942055413099:role/root-20190305121306-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::942055413099:role/root-20190305121306-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "root-20190305121306-deployment",
+            "UnauthRoleName": "root-20190305121306-unauthRole",
+            "StackName": "root-20190305121306",
+            "StackId": "arn:aws:cloudformation:us-east-2:942055413099:stack/root-20190305121306/53774da0-3f72-11e9-b008-022c6f51bf82"
+        }
+    }
+}

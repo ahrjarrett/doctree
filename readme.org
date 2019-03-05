@@ -1,6 +1,11 @@
 #+TITLE: ahrjarrett.com
 #+AUTHOR: Andrew Jarrett <ahrjarrett@gmail.com>
 
+* Structure
+
+** 
+
+
 * AWS
 
 ** Amplify CLI
@@ -9,21 +14,31 @@ Assuming your IAM user is created and the Amplify CLI is installed:
 
 - New project:
   =amplify init=
-- New hosting:
-  =amplify add hosting=
-- Get =aws-exports.js= file (sync Amplify with our project?)
+- Make =aws-exports.js=, build all your local backend resources & provision it
+  =amplify push=
 - Deploy:
   =amplify publish=
-  - Creates an S3 bucket in our account and uses Route 53 for hosting (I think?).
+  - Creates an S3 bucket in our account and uses Route 53 for hosting
+- Status, get URL
+  =amplify status=
+
+  
+*** Route 53
+- New hosting:
+  =amplify add hosting=
 
 
 *** CloudFront
-To update your hosting to use CloudFront run:
+To update your hosting to use (or not use) CloudFront run:
 
 =amplify configure hosting=
 
 
+* DNS
 
+** Point domain to bucket
+
+https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html
 
 
 
