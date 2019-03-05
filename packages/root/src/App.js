@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import Delete from "@ahrjarrett/shared";
+// import { Delete } from "@ahrjarrett/shared"
+import "./App.css";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+        {console.log("IMPORTED! DELETE:", Delete)}
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
