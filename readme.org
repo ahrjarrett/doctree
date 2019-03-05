@@ -1,0 +1,32 @@
+#+TITLE: ahrjarrett.com
+#+AUTHOR: Andrew Jarrett <ahrjarrett@gmail.com>
+
+* AWS
+
+** Amplify CLI
+
+Assuming your IAM user is created and the Amplify CLI is installed:
+
+- New project:
+  =amplify init=
+- New hosting:
+  =amplify add hosting=
+- Get =aws-exports.js= file (sync Amplify with our project?)
+- Deploy:
+  =amplify publish=
+  - Creates an S3 bucket in our account and uses Route 53 for hosting (I think?).
+
+
+*** CloudFront
+To update your hosting to use CloudFront run:
+
+=amplify configure hosting=
+
+
+
+
+
+
+
+
+
