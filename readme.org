@@ -27,6 +27,18 @@ Assuming your IAM user is created and the Amplify CLI is installed:
 - New hosting:
   =amplify add hosting=
 
+  
+**** Hosted Zones
+
+"A hosted zone is a container for records, and records contain information about how you want to route traffic for a specific domain, such as example.com, and its subdomains (acme.example.com, zenith.example.com). A hosted zone and the corresponding domain have the same name." [[https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/hosted-zones-working-with.html][Route 53 Docs on Hosted Zones]]
+
+- When you register a domain with Route 53, we create a hosted zone for you automatically.
+
+- In both cases, you then create records in the hosted zone to specify how you want to route traffic for the domain and subdomains. [[https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/AboutHZWorkingWith.html][Working with Records]]
+
+
+
+
 
 *** CloudFront
 To update your hosting to use (or not use) CloudFront run:
