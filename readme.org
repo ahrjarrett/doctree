@@ -52,6 +52,15 @@ To update your hosting to use (or not use) CloudFront run:
 
 https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html
 
+** Point Google Domain
+
+Basically:
+
+- Make sure the bucket is set up to serve a static site
+- Create a hosted zones with records that point to our S3 bucket (or in our case, our CloudFront CDN)
+
+https://medium.com/@limichelle21/connecting-google-domains-to-amazon-s3-d0d9da467650
+
 
 
 
