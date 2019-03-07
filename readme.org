@@ -45,6 +45,24 @@ To update your hosting to use (or not use) CloudFront run:
 
 =amplify configure hosting=
 
+**** SSL Configuration
+
+We use the AWS Certificate Manager to create a certificate that points to our Hosted Zones.
+
+Then we have to update our CloudFront config to use that certificate, instead of the one provided.
+
+**** HSTS
+
+/This part is necessary for .dev domains!/
+
+If you want Cloudfront to handle custom security headers (like HSTS), you need to use a Lambda Edge function.
+
+Guide:
+https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/
+
+Lambda Role:
+cognito704b3e59_userpoolclient_lambda_role-dev
+
 
 * DNS
 
