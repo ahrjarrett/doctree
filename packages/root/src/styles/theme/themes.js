@@ -1,5 +1,21 @@
 export const themes = {
   leuven: {
+    meta: {
+      key: {
+        bg: "#eaeaff",
+        color: "#008ed0"
+      },
+      value: {
+        bg: "transparent",
+        color: "#484848"
+      },
+      title: {
+        color: "#000",
+        fontSize: "1.75rem",
+        textDecoration: "none"
+      }
+    },
+
     bg: "#fff",
     color: "#333",
     font: "Fira Code, Courier, monospace",
@@ -63,6 +79,22 @@ export const themes = {
   },
 
   spacemacs: {
+    meta: {
+      key: {
+        bg: "transparent",
+        color: "#9f8766"
+      },
+      value: {
+        bg: "transparent",
+        color: "#afeeed"
+      },
+      title: {
+        color: "#bc6ec5",
+        fontSize: "1.625rem",
+        textDecoration: "#bc6ec5"
+      }
+    },
+
     bg: "#292b2e",
     color: "#e3dedd",
     font: "Fira Code, Courier, monospace",

@@ -1,4 +1,6 @@
-#+TITLE: I’m Andrew Jarrett
+#+TITLE: jeeves.dev
+#+AUTHOR: Andrew Jarrett
+
 
 * I’m Andrew Jarrett
 ** I am a Production Team Lead at [[https://www.ownlocal.com/][OwnLocal]] and a lover of all things functional programming.

@@ -4,7 +4,7 @@ import { defaultTheme } from "./defaultTheme";
 
 const OrgThemeStyles = styled.div`
   .org__section {
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     margin-left: 1rem;
     &:first-of-type {
       margin-left: 0;
@@ -20,7 +20,7 @@ const OrgThemeStyles = styled.div`
   }
   .org__headline {
     position: relative;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     p:first-of-type {
       margin-left: 1.25rem;
     }
@@ -62,7 +62,7 @@ const OrgThemeStyles = styled.div`
     &::before {
       content: "○";
       position: absolute;
-      margin-top: -0.1rem;
+      margin-top: -0.09375rem;
     }
   }
 

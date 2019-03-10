@@ -7,8 +7,19 @@ const DOMTree = ({ node, theme }) => {
     console.log("WalkTree:", node);
 
     if (node.type === "root") {
+      const keys = Object.keys(node.meta);
       return (
         <org.Outline theme={theme} className="org__root">
+          {keys.length > 0 && (
+            <div className="org__meta">
+              {keys.map((key, i) => (
+                <org.Meta className={`org__meta-${key}`} key={i}>
+                  <span className="org__meta-key">#+{key.toUpperCase()}:</span>
+                  <span className="org__meta-value">{node.meta[key]}</span>
+                </org.Meta>
+              ))}
+            </div>
+          )}
           {node.children.map((child, i) => (
             <WalkTree node={child} level={level} key={i} />
           ))}

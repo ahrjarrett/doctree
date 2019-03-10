@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   }
   font-family: ${props => props.theme.font};
   font-weight: 400;
-  line-height: 1.2rem;
+  line-height: 1.25;
   li {
     list-style: none;
   }
@@ -27,12 +27,47 @@ const Wrapper = styled.div`
   & ::selection {
     background: ${({ theme }) => theme.selection};
   }
+
+  .org__meta {
+    margin-bottom: 2.5rem;
+  }
+`;
+
+export const Meta = styled.div`
+  .org__meta-key {
+    color: ${({ theme }) => theme.meta.key.color};
+    background: ${({ theme }) => theme.meta.key.bg};
+    display: inline-block;
+  }
+  .org__meta-value {
+    color: ${({ theme }) => theme.meta.value.color};
+    background: ${({ theme }) => theme.meta.value.bg};
+    padding-left: 0.75rem;
+  }
+
+  &.org__meta-title {
+    display: flex;
+    line-height: 1.125;
+    .org__meta-key {
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 0.1875rem;
+    }
+    .org__meta-value {
+      color: ${({ theme }) => theme.meta.title.color};
+      font-size: ${({ theme }) => theme.meta.title.fontSize};
+      font-weight: 600;
+    }
+  }
 `;
 
 const Tree = styled.ul`
   padding-inline-start: 0;
   margin-block-start: 0rem;
   margin-block-end: 0rem;
+  & > .org__section {
+    margin-left: 0;
+  }
 `;
 
 export const Outline = ({ children, theme }) => (
@@ -96,16 +131,22 @@ export const OrgLink = ({ children, to, newTab }) => (
 );
 
 const StyledList = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 `;
 
 const StyledListItem = styled.li`
   position: relative;
-  margin-left: 1.5rem;
+  margin-left: 1.125rem;
   &::before {
     content: "${props => props.char}";
     position: absolute;
-    left: -1.5rem;
+    left: -1.125rem;
+  }
+  &.org__list_item-char-n {
+    margin-left: 1.8125rem;
+    &::before {
+      left: -1.8125rem;
+    }
   }
 `;
 
@@ -122,7 +163,7 @@ export const List = ({ children, ordered = false }) => (
 export const ListItem = ({ children, char = "-" }) => (
   <StyledListItem
     char={typeof char === "number" ? `${char}. ` : `${char} `}
-    className={`org__list-item org__list_item-char-${char}`}
+    className={`org__list-item org__list_item-char-${char === "-" ? "-" : "n"}`}
   >
     {children}
   </StyledListItem>
