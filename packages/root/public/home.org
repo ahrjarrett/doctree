@@ -1,0 +1,45 @@
+* I’m Andrew Jarrett
+** I am a Production Team Lead at [[https://www.ownlocal.com/][OwnLocal]] and a lover of all things functional programming.
+
+- Emacs is pretty cool
+- Currently I’m reading [[https://www.amazon.com/Mock-Mockingbird-Raymond-Smullyan/dp/0192801422][To Mock a Mockingbird]]
+
+** I went to undergrad at Northwestern University’s [[https://www.weinberg.northwestern.edu/][Weinberg College of Arts & Sciences]].
+
+** About me
+
+#+BEGIN_SRC emacs-lisp
+I grew up in Denver and now live in Austin, Texas. My dog is named Ash and he’s cute as hell but also a tortured soul.
+#+END_SRC
+
+** Hire me
+
+- Here’s a link to my [[https://thegrepper.com/resume][resume]]
+
+*** Contact info
+
+- [[ahrjarrett@gmail.com][ahrjarrett@gmail.com]]
+- [[https://github.com/ahrjarrett/][GitHub]]
+- [[https://www.linkedin.com/in/andrewhjarrett/][LinkedIn]]
+  
+
+*** Other cool stuff
+
+1. [[/][Toggle light/dark theme]]
+2. [[https://blog.thegrepper.com/][My perfunctory blog]]
+3. [[https://github.com/fniessen/emacs-leuven-theme][Leuven]], the Emacs/Org Mode theme this page is based on
+4. [[https://github.com/ahrjarrett/.emacs.d/][My Emacs config]]
+5. [[https://github.com/Lambda-School-Labs/LabsPT1_Backwoods][bkwds]], elevating the Google Maps experience for hikers
+
+*** Hype
+
+**** More
+
+mo[[[thing][lhsdlfkj]]reo
+
+*more*
+
+more /even/ even?
+
+
+
