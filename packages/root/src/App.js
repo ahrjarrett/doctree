@@ -1,18 +1,27 @@
 import React, { Component } from "react";
-import "./styles/App.styles.css";
+import { GlobalStyles } from "./styles/theme/Global.styles";
+import org from "@ahrjarrett/org-mode";
+import { AppStyles } from "./styles/App.styles.js";
 
 const ThemeContext = React.createContext();
 
 class ThemeProvider extends Component {
-  state = {
-    theme: "leuven",
-    toggleTheme: this.toggleTheme
-  };
+  constructor(props) {
+    super(props);
+    const theme = localStorage.getItem("theme") || "leuven";
+    localStorage.setItem("theme", theme);
+    this.state = {
+      theme,
+      toggleTheme: this.toggleTheme
+    };
+  }
 
   toggleTheme = e => {
     e.preventDefault();
+    const theme = this.state.theme === "leuven" ? "spacemacs" : "leuven";
+    localStorage.setItem("theme", theme);
     this.setState({
-      theme: this.state.theme === "leuven" ? "spacemacs" : "leuven"
+      theme
     });
   };
 
@@ -47,23 +56,22 @@ const App = () => (
   <ThemeProvider>
     <ThemeContext.Consumer>
       {({ theme }) => (
-        <div id="Home" className={theme}>
+        <AppStyles>
+          <GlobalStyles />
+          <h1 id="andrew-jarrett" style={{ display: "none" }}>
+            I’m Andrew Jarrett
+          </h1>
           <div className="theme-wrapper">
-            <h1 id="andrew-jarrett" style={{ display: "none" }}>
-              I’m Andrew Jarrett
-            </h1>
-            <div className="home-wrapper">
-              <article>
+            <org.Outline theme={theme}>
+              <div className="home-wrapper">
                 <br />
-                <ul>
-                  <li className="org-bullet-1">
-                    <p>
-                      <span>I’m Andrew Jarrett</span>
-                    </p>
-                  </li>
-                  <br />
-                  <li className="org-bullet-2">
-                    <span>
+
+                <org.HL level={1} headline="I’m Andrew Jarrett" />
+                <br />
+                <org.HL
+                  level={2}
+                  headline={
+                    <>
                       I am a Production Team Lead at{" "}
                       <a
                         href="https://ownlocal.com"
@@ -73,8 +81,10 @@ const App = () => (
                         OwnLocal
                       </a>{" "}
                       and a lover of all things functional programming.
-                    </span>
-                  </li>
+                      <br />
+                    </>
+                  }
+                >
                   <br />
                   <p>- Emacs is pretty cool</p>
                   <p>
@@ -88,8 +98,12 @@ const App = () => (
                     </a>
                   </p>
                   <br />
-                  <li className="org-bullet-2">
-                    <span>
+                </org.HL>
+
+                <org.HL
+                  level={2}
+                  headline={
+                    <>
                       I went to undergrad at Northwestern University’s{" "}
                       <a
                         href="https://www.weinberg.northwestern.edu/"
@@ -99,20 +113,21 @@ const App = () => (
                         Weinberg College of Arts & Sciences
                       </a>
                       .
-                    </span>
-                  </li>
+                    </>
+                  }
+                />
+                <br />
+
+                <org.HL level={2} headline="About me">
                   <br />
-                  <li className="org-bullet-2">About me</li>
-                  <br />
-                  <p className="src-block src-header">
-                    <span className="">Description</span>:
-                  </p>
-                  <p className="src-block">
+                  <org.Src lang="Description:">
                     I grew up in Denver and now live in Austin, Texas. My dog is
                     named Ash and he’s cute as hell but also a tortured soul.
-                  </p>
-                  <br />
-                  <li className="org-bullet-2">Hire me</li>
+                  </org.Src>
+                </org.HL>
+                <br />
+                <br />
+                <org.HL level={2} headline="Hire me">
                   <br />
                   <p>
                     - Here's a link to my{" "}
@@ -127,34 +142,35 @@ const App = () => (
                     </a>
                   </p>
                   <br />
-                  <li className="org-bullet-3">Contact info</li>
-                  <br />
-                  <p>
-                    -{" "}
-                    <a href="mailto:ahrjarrett@gmail.com">
-                      ahrjarrett@gmail.com
-                    </a>
-                  </p>
-                  <p>
-                    -{" "}
-                    <a
-                      href="https://github.com/ahrjarrett/"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      GitHub
-                    </a>
-                  </p>
-                  <p>
-                    -{" "}
-                    <a
-                      href="https://www.linkedin.com/in/andrewhjarrett/"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      LinkedIn
-                    </a>
-                  </p>
+                  <org.HL level={3} headline="Contact info">
+                    <br />
+                    <p>
+                      -{" "}
+                      <a href="mailto:ahrjarrett@gmail.com">
+                        ahrjarrett@gmail.com
+                      </a>
+                    </p>
+                    <p>
+                      -{" "}
+                      <a
+                        href="https://github.com/ahrjarrett/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        GitHub
+                      </a>
+                    </p>
+                    <p>
+                      -{" "}
+                      <a
+                        href="https://www.linkedin.com/in/andrewhjarrett/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        LinkedIn
+                      </a>
+                    </p>
+                  </org.HL>
                   <br />
                   <li className="org-bullet-3">Other cool stuff</li>
                   <br />
@@ -196,16 +212,16 @@ const App = () => (
                   </p>
                   <br />
                   <br />
-                </ul>
+                </org.HL>
 
                 <div className="home-copyright">
                   <span className="copyright-symbol">©</span> Andrew Jarrett{" "}
                   {1900 + new Date().getYear()}
                 </div>
-              </article>
-            </div>
+              </div>
+            </org.Outline>
           </div>
-        </div>
+        </AppStyles>
       )}
     </ThemeContext.Consumer>
   </ThemeProvider>
