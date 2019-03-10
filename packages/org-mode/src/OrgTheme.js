@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { themes } from "./themes";
+import { defaultTheme } from "./defaultTheme";
 
 const OrgThemeStyles = styled.div`
   .org__section {
@@ -80,8 +80,8 @@ export const SourceBlockStyles = styled.div`
   }
 `;
 
-export const OrgTheme = ({ children, theme }) => (
-  <ThemeProvider theme={themes[theme]}>
+export const OrgTheme = ({ children, theme = defaultTheme }) => (
+  <ThemeProvider theme={theme}>
     <OrgThemeStyles>{children}</OrgThemeStyles>
   </ThemeProvider>
 );

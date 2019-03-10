@@ -27,8 +27,7 @@
 
 *** Other cool stuff
 
-1. [[/][Toggle light/dark theme]]
-2. [[https://blog.thegrepper.com/][My perfunctory blog]]
-3. [[https://github.com/fniessen/emacs-leuven-theme][Leuven]], the Emacs/Org Mode theme this page is based on
-4. [[https://github.com/ahrjarrett/.emacs.d/][My Emacs config]]
-5. [[https://github.com/Lambda-School-Labs/LabsPT1_Backwoods][bkwds]], elevating the Google Maps experience for hikers
+1. [[https://blog.thegrepper.com/][My perfunctory blog]]
+2. [[https://github.com/fniessen/emacs-leuven-theme][Leuven]], the Emacs/Org Mode theme this page is based on
+3. [[https://github.com/ahrjarrett/.emacs.d/][My Emacs config]]
+4. [[https://github.com/Lambda-School-Labs/LabsPT1_Backwoods][bkwds]], elevating the Google Maps experience for hikers

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { AST, org } from "@ahrjarrett/org-mode";
+import { AST } from "@ahrjarrett/org-mode";
 import { GlobalStyles } from "./styles/theme/Global.styles";
 import { AppStyles } from "./styles/App.styles.js";
+import { themes } from "./styles/theme/themes";
 
 const ThemeContext = React.createContext();
 
@@ -42,11 +43,10 @@ class ThemeProvider extends Component {
 
 const ThemeToggler = () => (
   <ThemeContext.Consumer>
-    {({ toggleTheme, theme }) => (
+    {({ toggleTheme }) => (
       <p>
-        1.{" "}
-        <a href="/" onClick={toggleTheme}>
-          Toggle light/dark theme
+        <a href="/" onClick={toggleTheme} className="theme-toggler">
+          Toggle theme
         </a>
       </p>
     )}
@@ -67,15 +67,24 @@ class App extends Component {
     return (
       <ThemeProvider>
         <ThemeContext.Consumer>
-          {({ theme }) => (
-            <AppStyles>
+          {({ theme, toggleTheme }) => (
+            <AppStyles className="AppStyles" theme={themes[theme]}>
               <GlobalStyles />
               <h1 id="andrew-jarrett" style={{ display: "none" }}>
                 I’m Andrew Jarrett
               </h1>
-              {this.state.content && (
-                <AST orgfile={this.state.content} theme={theme} />
-              )}
+              <div className="orgmode-wrapper">
+                {this.state.content && (
+                  <AST orgfile={this.state.content} theme={themes[theme]} />
+                  // <AST orgfile={this.state.content} />
+                )}
+                <div className="footer">
+                  <ThemeToggler />
+                  <div className="home-copyright">
+                    <span>©</span> Andrew Jarrett {new Date().getFullYear()}
+                  </div>
+                </div>
+              </div>
             </AppStyles>
           )}
         </ThemeContext.Consumer>

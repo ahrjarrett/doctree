@@ -4,8 +4,6 @@ import * as org from "./Outline";
 
 const DOMTree = ({ node, theme }) => {
   const WalkTree = ({ node, level = 0, ...props }) => {
-    console.log("calling WalkTree, node:", node);
-
     if (node.type === "root") {
       return (
         <org.Outline theme={theme} className="org__root">
@@ -16,6 +14,16 @@ const DOMTree = ({ node, theme }) => {
 
     if (node.type === "text") {
       return <span className="org__text">{node.value}</span>;
+    }
+
+    if (node.type === "verbatim") {
+      return (
+        <span className="org__verbatim">
+          {node.children.map((child, i) => (
+            <WalkTree node={child} level={level} key={i} />
+          ))}
+        </span>
+      );
     }
 
     if (node.type === "link") {
@@ -71,7 +79,12 @@ const DOMTree = ({ node, theme }) => {
 
     if (node.type === "list") {
       return (
-        <org.List ordered={node.ordered}>
+        <org.List
+          ordered={node.ordered}
+          style={{
+            marginLeft: node.parent.type === "list.item" ? "1rem" : "inherit"
+          }}
+        >
           {node.children.map((child, i) => (
             <WalkTree node={child} level={level} nth={i + 1} key={i} />
           ))}

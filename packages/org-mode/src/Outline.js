@@ -3,6 +3,11 @@ import styled from "styled-components";
 import { OrgTheme, SourceBlockStyles } from "./OrgTheme";
 
 const Wrapper = styled.div`
+  background: ${({ theme }) => theme.bg};
+  li,
+  .org__paragraph {
+    color: ${({ theme }) => theme.color};
+  }
   font-family: ${props => props.theme.font};
   font-weight: 400;
   line-height: 1.2rem;
@@ -19,13 +24,30 @@ const Wrapper = styled.div`
     margin-block-end: 0;
   }
 
+  & ::selection {
+    background: ${({ theme }) => theme.selection};
+  }
+
   .org__headline {
-    /* INDENT SIBLING AFTER HEADLINE: */
+    /* IMPORTANT: Indent sibling after headline */
     & + * {
       margin-left: 1rem;
     }
-    display: flex;
-    align-items: center;
+  }
+
+  .org__verbatim {
+    text-decoration: underline;
+    border: ${({ theme }) => theme.verbatim.border};
+    background: ${({ theme }) => theme.verbatim.bg};
+    color: ${({ theme }) => theme.verbatim.color};
+    text-decoration-color: ${({ theme }) => theme.verbatim.textDecoration};
+    &:hover {
+      border: ${({ theme }) => theme.verbatimHover.border};
+      background: ${({ theme }) => theme.verbatimHover.bg};
+      color: ${({ theme }) => theme.verbatimHover.color};
+      text-decoration-color: ${({ theme }) =>
+        theme.verbatimHover.textDecoration};
+    }
   }
 `;
 
