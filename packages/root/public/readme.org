@@ -26,14 +26,10 @@ Assuming your IAM user is created and the Amplify CLI is installed:
 "A hosted zone is a container for records, and records contain information about how you want to route traffic for a specific domain, such as example.com, and its subdomains (acme.example.com, zenith.example.com). A hosted zone and the corresponding domain have the same name." [[https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/hosted-zones-working-with.html][Route 53 Docs on Hosted Zones]]
 
 - When you register a domain with Route 53, we create a hosted zone for you automatically.
-
 - In both cases, you then create records in the hosted zone to specify how you want to route traffic for the domain and subdomains. [[https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/AboutHZWorkingWith.html][Working with Records]]
 
-
-
-
-
 *** CloudFront
+
 To update your hosting to use (or not use) CloudFront run:
 
 ~amplify configure hosting~
@@ -48,13 +44,12 @@ Then we have to update our CloudFront config to use that certificate, instead of
 
 /This part is necessary for .dev domains!/
 
-If you want Cloudfront to handle custom security headers (like HSTS), you need to use a Lambda Edge function.
+If you want Cloudfront to handle custom security headers (like HSTS), you need to use a Lambda Edge function:
 
-Guide:
-https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/
+[[https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/][AWS Guide on Using Lambda@Edge for HSTS Headers]]
 
 Lambda Role:
-cognito704b3e59_userpoolclient_lambda_role-dev
+- cognito704b3e59_userpoolclient_lambda_role-dev
 
 
 * DNS

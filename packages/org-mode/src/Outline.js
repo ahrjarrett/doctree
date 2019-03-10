@@ -7,6 +7,10 @@ const Wrapper = styled.div`
   li,
   .org__paragraph {
     color: ${({ theme }) => theme.color};
+    margin-bottom: 1rem;
+  }
+  .org__list-item {
+    margin-bottom: 0rem;
   }
   font-family: ${props => props.theme.font};
   font-weight: 400;
