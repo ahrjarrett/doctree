@@ -20,6 +20,16 @@ const DOMTree = ({ node, theme }) => {
       return <span className="org__text">{node.value}</span>;
     }
 
+    if (node.type === "code") {
+      return (
+        <span className="org__code">
+          {node.children.map((child, i) => (
+            <WalkTree node={child} level={level} key={i} />
+          ))}
+        </span>
+      );
+    }
+
     if (node.type === "verbatim") {
       return (
         <span className="org__verbatim">

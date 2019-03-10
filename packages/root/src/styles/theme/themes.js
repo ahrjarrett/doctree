@@ -18,6 +18,11 @@ export const themes = {
       color: "#075424",
       border: "none"
     },
+    headline4: {
+      bg: "transparent",
+      color: "#ea6301",
+      border: "none"
+    },
     src: {
       lang: {
         bg: "#e2e1d6",
@@ -50,6 +55,10 @@ export const themes = {
       bg: "#e6ecfe",
       color: "inherit",
       textDecoration: "#257bb5"
+    },
+    code: {
+      color: "#075424",
+      bg: "#ebf5eb"
     }
   },
 
@@ -70,6 +79,11 @@ export const themes = {
     headline3: {
       bg: "transparent",
       color: "#bc6ec5",
+      border: "none"
+    },
+    headline4: {
+      bg: "transparent",
+      color: "#b1951d",
       border: "none"
     },
     src: {
@@ -104,6 +118,10 @@ export const themes = {
       bg: "#444155",
       color: "#e3dedd",
       textDecoration: "#2a9dac"
+    },
+    code: {
+      color: "#28def0",
+      bg: "transparent"
     }
   }
 };

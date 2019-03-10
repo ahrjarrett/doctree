@@ -13,13 +13,17 @@ const OrgThemeStyles = styled.div`
 
   .org__section > * {
     /* IMPORTANT: Indent sibling after headline */
-    margin-left: 1.15rem;
+    margin-left: 1.25rem;
   }
   .org__section > :first-child {
-    margin-left: 0 !important;
+    margin-left: 0;
   }
   .org__headline {
+    position: relative;
     margin-bottom: 1rem;
+    p:first-of-type {
+      margin-left: 1.25rem;
+    }
   }
 
   [class^="org__bullet-"] {
@@ -37,15 +41,17 @@ const OrgThemeStyles = styled.div`
     padding-bottom: 0.15rem;
     font-size: 1.5rem;
     font-weight: 600;
-
     color: ${({ theme }) => theme.headline1.color};
     background: ${({ theme }) => theme.headline1.bg};
     border-top: ${({ theme }) => theme.headline1.border};
     font-weight: 600;
     &::before {
       content: "◉";
-      padding-right: 0.75rem;
+      position: absolute;
       margin-top: -0.1rem;
+    }
+    p:first-of-type {
+      margin-left: 1.875rem;
     }
   }
 
@@ -55,7 +61,7 @@ const OrgThemeStyles = styled.div`
     border-top: ${({ theme }) => theme.headline2.border};
     &::before {
       content: "○";
-      padding-right: 0.5rem;
+      position: absolute;
       margin-top: -0.1rem;
     }
   }
@@ -66,8 +72,20 @@ const OrgThemeStyles = styled.div`
     border-top: ${({ theme }) => theme.headline3.border};
     &::before {
       content: "✸";
-      margin-top: -0.1rem;
-      padding-right: 0.5rem;
+      position: absolute;
+      /* margin-top: -0.1rem; */
+      /* transform: rotate(20deg); */
+    }
+  }
+
+  .org__bullet-4 {
+    color: ${({ theme }) => theme.headline4.color};
+    background: ${({ theme }) => theme.headline4.bg};
+    border-top: ${({ theme }) => theme.headline4.border};
+    &::before {
+      content: "✿";
+      position: absolute;
+      /* margin-top: -0.1rem; */
       /* transform: rotate(20deg); */
     }
   }
@@ -85,6 +103,11 @@ const OrgThemeStyles = styled.div`
       text-decoration-color: ${({ theme }) =>
         theme.verbatimHover.textDecoration};
     }
+  }
+
+  .org__code {
+    color: ${({ theme }) => theme.code.color};
+    background: ${({ theme }) => theme.code.bg};
   }
 `;
 
