@@ -1,4 +1,20 @@
 export const defaultTheme = {
+  meta: {
+    key: {
+      bg: "#eaeaff",
+      color: "#008ed0"
+    },
+    value: {
+      bg: "transparent",
+      color: "#484848"
+    },
+    title: {
+      color: "#000",
+      fontSize: "1.75rem",
+      textDecoration: "none"
+    }
+  },
+
   bg: "#fff",
   color: "#333",
   font: "Fira Code, Courier, monospace",

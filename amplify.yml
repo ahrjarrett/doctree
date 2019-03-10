@@ -3,9 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
-        - cat package.json
         - yarn install
-        - cd packages/root
     # IMPORTANT - Please verify your build commands
     build:
       commands:

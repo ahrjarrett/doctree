@@ -4,6 +4,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "build": "./node_modules/.bin/lerna exec -- npm run build"
+  },
   "devDependencies": {
     "lerna": "^3.13.1"
   }
