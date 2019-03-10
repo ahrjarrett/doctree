@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   li {
     list-style: none;
   }
+  ol,
   ul {
     padding-left: 0;
   }
@@ -18,37 +19,13 @@ const Wrapper = styled.div`
     margin-block-end: 0;
   }
 
-  .org-headline {
+  .org__headline {
+    /* INDENT SIBLING AFTER HEADLINE: */
+    & + * {
+      margin-left: 1rem;
+    }
     display: flex;
-  }
-
-  .org-headline-body {
-    margin-left: 1rem;
-  }
-
-  li.org-bullet-2 .org-headline::before {
-    content: "○ ";
-    padding-right: 0.5rem;
-    margin-top: -0.1rem;
-  }
-  li.org-bullet-2 {
-    font-weight: 500;
-  }
-  li.org-bullet-2 ~ p {
-    /* margin-left: 2rem; */
-  }
-
-  li.org-bullet-3 .org-headline::before {
-    content: "✸ ";
-    margin-top: -0.1rem;
-    padding-right: 0.5rem;
-    /* transform: rotate(20deg); */
-  }
-  li.org-bullet-3 {
-    /* margin-left: 2rem; */
-  }
-  li.org-bullet-3 ~ p {
-    /* margin-left: 3rem; */
+    align-items: center;
   }
 `;
 
@@ -66,26 +43,85 @@ export const Outline = ({ children, theme }) => (
   </OrgTheme>
 );
 
-export const Headline = ({ children, level, headline }) => (
-  <li className={`org-bullet-${level}`} style={{ marginLeft: "1rem" }}>
-    <div className="org-headline">
-      <p>{headline}</p>
-    </div>
-    {children && <div className="org-headline-body">{children}</div>}
-  </li>
+export const Headline = ({ children, level }) => (
+  <div className={`org__bullet-${level} org__headline`}>
+    <p className="org__headline-text">{children}</p>
+  </div>
 );
 
 export const SourceBlock = ({ children, lang }) => (
   <SourceBlockStyles>
-    <div className="org-src-block">
+    <div className="org__src-block">
       {lang && (
-        <p className="org-src-lang">
+        <p className="org__src-lang">
           <span>{lang}</span>
         </p>
       )}
-      <p className="org-src-body">{children}</p>
+      <p className="org__src-body">{children}</p>
     </div>
   </SourceBlockStyles>
+);
+
+const Link = styled.a`
+  &.org__link {
+    color: ${({ theme }) => theme.link.color};
+    background: ${({ theme }) => theme.link.bg};
+    text-decoration-color: ${({ theme }) => theme.link.textDecoration};
+    &:hover {
+      color: ${({ theme }) => theme.linkHover.color};
+      background: ${({ theme }) => theme.linkHover.bg};
+      text-decoration-color: ${({ theme }) => theme.linkHover.textDecoration};
+    }
+  }
+`;
+
+export const OrgLink = ({ children, to, newTab }) => (
+  <React.Fragment>
+    {newTab && (
+      <Link
+        className="org__link org__link-external"
+        href={to}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {children}
+      </Link>
+    )}
+    {!newTab && (
+      <Link className="org__link org__link-internal" href={to}>
+        {children}
+      </Link>
+    )}
+  </React.Fragment>
+);
+
+const StyledList = styled.div`
+  margin-bottom: 1rem;
+`;
+
+const StyledListItem = styled.li`
+  &::before {
+    content: "${props => props.char}";
+  }
+`;
+
+export const List = ({ children, ordered = false }) => (
+  <StyledList className="org__list">
+    {ordered ? (
+      <ol className="org__list-ordered">{children}</ol>
+    ) : (
+      <ul className="org__list-unordered">{children}</ul>
+    )}
+  </StyledList>
+);
+
+export const ListItem = ({ children, char = "-" }) => (
+  <StyledListItem
+    char={typeof char === "number" ? `${char}. ` : `${char} `}
+    className={`org__list-item org__list_item-char-${char}`}
+  >
+    {children}
+  </StyledListItem>
 );
 
 // Aliases:

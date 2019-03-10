@@ -26,6 +26,18 @@ export const themes = {
         bg: "#fffee1",
         color: "#061188"
       }
+    },
+    link: {
+      color: "#0f6fb0",
+      bg: "transparent",
+      textDecoration: "#0f6fb0"
+    },
+    linkHover: {
+      color: "#333334",
+      bg: "#e6ecfe",
+      textDecoration: "#257bb5"
     }
-  }
+  },
+
+  spacemacs: {}
 };

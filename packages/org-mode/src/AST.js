@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { parse } from "orga";
+import * as org from "./Outline";
 
-const DOMTree = ({ node }) => {
-  const WalkTree = ({ node, level = 0 }) => {
+const DOMTree = ({ node, theme }) => {
+  const WalkTree = ({ node, level = 0, ...props }) => {
     console.log("calling WalkTree, node:", node);
 
     if (node.type === "root") {
       return (
-        <div className="org__root">
+        <org.Outline theme={theme} className="org__root">
           <WalkTree node={node.children[0]} level={0} />
-        </div>
+        </org.Outline>
       );
     }
 
@@ -18,19 +19,13 @@ const DOMTree = ({ node }) => {
     }
 
     if (node.type === "link") {
-      return node.uri.protocol === "file" ? (
-        <a className="org__link org__link-internal" href={node.uri.raw}>
-          {node.desc}
-        </a>
-      ) : (
-        <a
-          className="org__link org__link-external"
-          href={node.uri.raw}
-          target="_blank"
-          rel="noopener noreferrer"
+      return (
+        <org.OrgLink
+          to={node.uri.raw}
+          newTab={node.uri.protocol === "file" ? false : true}
         >
           {node.desc}
-        </a>
+        </org.OrgLink>
       );
     }
 
@@ -66,32 +61,31 @@ const DOMTree = ({ node }) => {
 
     if (node.type === "headline") {
       return (
-        <p className={`org__headline org__bullet-${level}`}>
-          {level}:{" "}
+        <org.HL level={level}>
           {node.children.map((child, i) => (
             <WalkTree node={child} level={level} key={i} />
           ))}
-        </p>
+        </org.HL>
       );
     }
 
     if (node.type === "list") {
       return (
-        <ul className="org__list">
+        <org.List ordered={node.ordered}>
           {node.children.map((child, i) => (
-            <WalkTree node={child} level={level} key={i} />
+            <WalkTree node={child} level={level} nth={i + 1} key={i} />
           ))}
-        </ul>
+        </org.List>
       );
     }
 
     if (node.type === "list.item") {
       return (
-        <li className="org__list-item">
+        <org.ListItem char={node.parent.ordered ? props.nth : "-"}>
           {node.children.map((child, i) => (
             <WalkTree node={child} level={level} key={i} />
           ))}
-        </li>
+        </org.ListItem>
       );
     }
 
@@ -106,16 +100,7 @@ const DOMTree = ({ node }) => {
     }
 
     if (node.type === "block" && node.name === "SRC") {
-      return (
-        <div className="org__src-block">
-          {node.params.length && (
-            <p className="org__src-lang">
-              <span>{node.params.join(" ")}</span>
-            </p>
-          )}
-          <p className="org__src-body">{node.value}</p>
-        </div>
-      );
+      return <org.Src lang={node.params.join(" ")}>{node.value}</org.Src>;
     }
   };
 
@@ -126,23 +111,24 @@ class AST extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ast: ""
+      ast: null
     };
   }
 
   async componentDidMount() {
     const ast = await parse(this.props.orgfile);
-    window.ast = ast;
-
     this.setState({ ast });
   }
 
   render() {
     const { ast } = this.state;
+    const { theme } = this.props;
     return (
-      <React.Fragment>
-        {ast.children && ast.children.length > 0 && <DOMTree node={ast} />}
-      </React.Fragment>
+      <div className="AST">
+        {ast && ast.children && ast.children.length > 0 && (
+          <DOMTree node={ast} theme={theme} />
+        )}
+      </div>
     );
   }
 }

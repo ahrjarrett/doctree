@@ -1,3 +1,5 @@
+#+TITLE: I’m Andrew Jarrett
+
 * I’m Andrew Jarrett
 ** I am a Production Team Lead at [[https://www.ownlocal.com/][OwnLocal]] and a lover of all things functional programming.
 
@@ -8,8 +10,8 @@
 
 ** About me
 
-#+BEGIN_SRC emacs-lisp
-I grew up in Denver and now live in Austin, Texas. My dog is named Ash and he’s cute as hell but also a tortured soul.
+#+BEGIN_SRC Description:
+  I grew up in Denver and now live in Austin, Texas. My dog is named Ash and he’s cute as hell but also a tortured soul.
 #+END_SRC
 
 ** Hire me
@@ -30,16 +32,3 @@ I grew up in Denver and now live in Austin, Texas. My dog is named Ash and he’
 3. [[https://github.com/fniessen/emacs-leuven-theme][Leuven]], the Emacs/Org Mode theme this page is based on
 4. [[https://github.com/ahrjarrett/.emacs.d/][My Emacs config]]
 5. [[https://github.com/Lambda-School-Labs/LabsPT1_Backwoods][bkwds]], elevating the Google Maps experience for hikers
-
-*** Hype
-
-**** More
-
-mo[[[thing][lhsdlfkj]]reo
-
-*more*
-
-more /even/ even?
-
-
-
