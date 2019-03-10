@@ -4,10 +4,14 @@ import * as org from "./Outline";
 
 const DOMTree = ({ node, theme }) => {
   const WalkTree = ({ node, level = 0, ...props }) => {
+    console.log("WalkTree:", node);
+
     if (node.type === "root") {
       return (
         <org.Outline theme={theme} className="org__root">
-          <WalkTree node={node.children[0]} level={0} />
+          {node.children.map((child, i) => (
+            <WalkTree node={child} level={level} key={i} />
+          ))}
         </org.Outline>
       );
     }

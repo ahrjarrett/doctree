@@ -31,7 +31,6 @@ export const AppStyles = styled.div`
         theme.verbatimHover.textDecoration};
     }
   }
-  }
 
   .home-copyright {
     text-align: right;

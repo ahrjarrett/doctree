@@ -59,7 +59,7 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    const { data } = await axios.get("/home.org");
+    const { data } = await axios.get(this.props.data);
     this.setState({ content: data });
   }
 

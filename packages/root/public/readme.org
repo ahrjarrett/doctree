@@ -1,10 +1,6 @@
 #+TITLE: ahrjarrett.com
 #+AUTHOR: Andrew Jarrett <ahrjarrett@gmail.com>
 
-* Structure
-
-** 
-
 
 * AWS
 
@@ -12,15 +8,10 @@
 
 Assuming your IAM user is created and the Amplify CLI is installed:
 
-- New project:
-  =amplify init=
-- Make =aws-exports.js=, build all your local backend resources & provision it
-  =amplify push=
-- Deploy:
-  =amplify publish=
-  - Creates an S3 bucket in our account and uses Route 53 for hosting
-  =amplify publish -c=
-  - Invalidates cache when publishing
+- New project: =amplify init=
+- Make =aws-exports.js=, build all your local backend resources & provision it: =amplify push=
+- Deploy: =amplify publish= (creates an S3 bucket in our account and uses Route 53 for hosting)
+- Invalidate cache when publishing: =amplify publish -c=
 - Status, get URL
   =amplify status=
 
@@ -69,17 +60,17 @@ cognito704b3e59_userpoolclient_lambda_role-dev
 * DNS
 
 ** Point domain to bucket
+[[https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html][Here's how we do that]]
 
-https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html
 
 ** Point Google Domain
 
-Basically:
+/Basically:/
 
 - Make sure the bucket is set up to serve a static site
 - Create a hosted zones with records that point to our S3 bucket (or in our case, our CloudFront CDN)
-
-https://medium.com/@limichelle21/connecting-google-domains-to-amazon-s3-d0d9da467650
+  
+[[https://medium.com/@limichelle21/connecting-google-domains-to-amazon-s3-d0d9da467650][Medium article about it]]
 
 
 

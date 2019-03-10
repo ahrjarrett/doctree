@@ -8,7 +8,8 @@ import * as serviceWorker from "./serviceWorker";
 ReactDOM.render(
   <Router>
     <Switch>
-      <Route exact path="/" component={App} />
+      <Route exact path="/" render={() => <App data="/home.org" />} />
+      <Route exact path="/readme" render={() => <App data="/readme.org" />} />
     </Switch>
   </Router>,
   document.getElementById("root")

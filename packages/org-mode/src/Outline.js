@@ -27,28 +27,6 @@ const Wrapper = styled.div`
   & ::selection {
     background: ${({ theme }) => theme.selection};
   }
-
-  .org__headline {
-    /* IMPORTANT: Indent sibling after headline */
-    & + * {
-      margin-left: 1rem;
-    }
-  }
-
-  .org__verbatim {
-    text-decoration: underline;
-    border: ${({ theme }) => theme.verbatim.border};
-    background: ${({ theme }) => theme.verbatim.bg};
-    color: ${({ theme }) => theme.verbatim.color};
-    text-decoration-color: ${({ theme }) => theme.verbatim.textDecoration};
-    &:hover {
-      border: ${({ theme }) => theme.verbatimHover.border};
-      background: ${({ theme }) => theme.verbatimHover.bg};
-      color: ${({ theme }) => theme.verbatimHover.color};
-      text-decoration-color: ${({ theme }) =>
-        theme.verbatimHover.textDecoration};
-    }
-  }
 `;
 
 const Tree = styled.ul`
@@ -59,8 +37,8 @@ const Tree = styled.ul`
 
 export const Outline = ({ children, theme }) => (
   <OrgTheme theme={theme}>
-    <Wrapper>
-      <Tree>{children}</Tree>
+    <Wrapper className="Wrapper">
+      <Tree className="Tree">{children}</Tree>
     </Wrapper>
   </OrgTheme>
 );
@@ -122,8 +100,12 @@ const StyledList = styled.div`
 `;
 
 const StyledListItem = styled.li`
+  position: relative;
+  margin-left: 1.5rem;
   &::before {
     content: "${props => props.char}";
+    position: absolute;
+    left: -1.5rem;
   }
 `;
 

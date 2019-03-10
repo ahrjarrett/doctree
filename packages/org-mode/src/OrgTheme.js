@@ -11,6 +11,13 @@ const OrgThemeStyles = styled.div`
     }
   }
 
+  .org__section > * {
+    /* IMPORTANT: Indent sibling after headline */
+    margin-left: 1.15rem;
+  }
+  .org__section > :first-child {
+    margin-left: 0 !important;
+  }
   .org__headline {
     margin-bottom: 1rem;
   }
@@ -62,6 +69,21 @@ const OrgThemeStyles = styled.div`
       margin-top: -0.1rem;
       padding-right: 0.5rem;
       /* transform: rotate(20deg); */
+    }
+  }
+
+  .org__verbatim {
+    text-decoration: underline;
+    border: ${({ theme }) => theme.verbatim.border};
+    background: ${({ theme }) => theme.verbatim.bg};
+    color: ${({ theme }) => theme.verbatim.color};
+    text-decoration-color: ${({ theme }) => theme.verbatim.textDecoration};
+    &:hover {
+      border: ${({ theme }) => theme.verbatimHover.border};
+      background: ${({ theme }) => theme.verbatimHover.bg};
+      color: ${({ theme }) => theme.verbatimHover.color};
+      text-decoration-color: ${({ theme }) =>
+        theme.verbatimHover.textDecoration};
     }
   }
 `;
