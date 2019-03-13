@@ -81,5 +81,5 @@ Lambda Role:
 
 | It liiives                        | 12345 | 78904 | 123    |
 |-----------------------------------+-------+-------+--------|
-| 1. This is how big it gets!       | Also  | a     | header |
-| 2. This *is* how _large_ [[http://localhost:3000/readme][it gets]]! | Also  | a     | header |
+| 1. This is how big it gets!       | Also  | a     | head   |
+| 2. This *is* how _large_ it gets! | Also  | a     | header |

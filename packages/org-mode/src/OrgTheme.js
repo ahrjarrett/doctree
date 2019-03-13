@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { defaultTheme } from "./defaultTheme";
+import { unstyle } from "ansi-colors";
 
 const OrgThemeStyles = styled.div`
   .org__section {
@@ -122,6 +123,59 @@ export const SourceBlockStyles = styled.div`
   .org__src-body {
     color: ${({ theme }) => theme.src.body.color};
     background: ${({ theme }) => theme.src.body.bg};
+  }
+`;
+
+export const TableStyles = styled.div`
+  table {
+    background: ${({ theme }) => theme.table.bg};
+    color: ${({ theme }) => theme.table.color};
+  }
+
+  td {
+    padding: 0;
+  }
+
+  tr.org__table-separator-row {
+    /* &::before {
+      content: "|";
+    } */
+    td:first-child {
+      &::before {
+        content: "|-";
+      }
+    }
+    td:last-child {
+      &::after {
+        content: "-|";
+      }
+    }
+    td:not(:first-child) {
+      &::before {
+        content: "-+-";
+        margin-left: -0.625rem;
+      }
+    }
+  }
+
+  tr.org__table-row {
+    td {
+      &::before {
+        content: "| ";
+      }
+      &::after {
+        content: "M";
+        display: inline-block;
+        opacity: 0;
+      }
+    }
+    td:last-child {
+      &::after {
+        content: " |";
+        opacity: 1;
+        display: unset;
+      }
+    }
   }
 `;
 

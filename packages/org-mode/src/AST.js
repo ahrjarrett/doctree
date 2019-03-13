@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { parse } from "orga";
 import * as org from "./Outline";
-import Table from "./Table";
+import { Cell, Table } from "./Table";
 
 const DOMTree = ({ node, theme }) => {
-  const WalkTree = ({ node, level = 0, ...props }) => {
+  const WalkTree = ({ node, level = 0, cellLength, cellIndex, ...props }) => {
     // console.log("WalkTree:", node);
 
     if (node.type === "root") {
@@ -22,7 +22,7 @@ const DOMTree = ({ node, theme }) => {
             </div>
           )}
           {node.children.map((child, i) => (
-            <WalkTree node={child} level={level} key={i} />
+            <WalkTree node={child} level={level} key={i} {...props} />
           ))}
         </org.Outline>
       );
@@ -36,7 +36,7 @@ const DOMTree = ({ node, theme }) => {
       return (
         <span className="org__code">
           {node.children.map((child, i) => (
-            <WalkTree node={child} level={level} key={i} />
+            <WalkTree node={child} level={level} key={i} {...props} />
           ))}
         </span>
       );
@@ -46,7 +46,7 @@ const DOMTree = ({ node, theme }) => {
       return (
         <span className="org__verbatim">
           {node.children.map((child, i) => (
-            <WalkTree node={child} level={level} key={i} />
+            <WalkTree node={child} level={level} key={i} {...props} />
           ))}
         </span>
       );
@@ -67,7 +67,7 @@ const DOMTree = ({ node, theme }) => {
       return (
         <p className="org__paragraph">
           {node.children.map((child, i) => (
-            <WalkTree node={child} level={level} key={i} />
+            <WalkTree node={child} level={level} key={i} {...props} />
           ))}
         </p>
       );
@@ -77,7 +77,7 @@ const DOMTree = ({ node, theme }) => {
       return (
         <i className="org__italic">
           {node.children.map((child, i) => (
-            <WalkTree node={child} level={level} key={i} />
+            <WalkTree node={child} level={level} key={i} {...props} />
           ))}
         </i>
       );
@@ -87,7 +87,7 @@ const DOMTree = ({ node, theme }) => {
       return (
         <b className="org__bold">
           {node.children.map((child, i) => (
-            <WalkTree node={child} level={level} key={i} />
+            <WalkTree node={child} level={level} key={i} {...props} />
           ))}
         </b>
       );
@@ -97,7 +97,7 @@ const DOMTree = ({ node, theme }) => {
       return (
         <span className="org__underline">
           {node.children.map((child, i) => (
-            <WalkTree node={child} level={level} key={i} />
+            <WalkTree node={child} level={level} key={i} {...props} />
           ))}
         </span>
       );
@@ -107,7 +107,7 @@ const DOMTree = ({ node, theme }) => {
       return (
         <span className="org__strike-through">
           {node.children.map((child, i) => (
-            <WalkTree node={child} level={level} key={i} />
+            <WalkTree node={child} level={level} key={i} {...props} />
           ))}
         </span>
       );
@@ -117,7 +117,7 @@ const DOMTree = ({ node, theme }) => {
       return (
         <org.HL level={level}>
           {node.children.map((child, i) => (
-            <WalkTree node={child} level={level} key={i} />
+            <WalkTree node={child} level={level} key={i} {...props} />
           ))}
         </org.HL>
       );
@@ -132,7 +132,13 @@ const DOMTree = ({ node, theme }) => {
           }}
         >
           {node.children.map((child, i) => (
-            <WalkTree node={child} level={level} nth={i + 1} key={i} />
+            <WalkTree
+              node={child}
+              level={level}
+              nth={i + 1}
+              key={i}
+              {...props}
+            />
           ))}
         </org.List>
       );
@@ -141,7 +147,7 @@ const DOMTree = ({ node, theme }) => {
       return (
         <div className="org__section">
           {node.children.map((child, i) => (
-            <WalkTree node={child} level={node.level} key={i} />
+            <WalkTree node={child} level={node.level} key={i} {...props} />
           ))}
         </div>
       );
@@ -155,38 +161,43 @@ const DOMTree = ({ node, theme }) => {
       return (
         <org.ListItem char={node.parent.ordered ? props.nth : "-"}>
           {node.children.map((child, i) => (
-            <WalkTree node={child} level={level} key={i} />
+            <WalkTree node={child} level={level} key={i} {...props} />
           ))}
         </org.ListItem>
       );
     }
 
     if (node.type === "table") {
-      return <Table WalkTreeComponent={WalkTree} node={node} />;
+      return <Table WalkTreeComponent={WalkTree} node={node} {...props} />;
     }
 
     if (node.type === "table.row") {
       return (
         <tr className="org__table-row">
           {node.children.map((child, i) => (
-            <WalkTree node={child} level={node.level} key={i} />
+            <WalkTree
+              node={child}
+              level={node.level}
+              key={i}
+              cellIndex={i}
+              {...props}
+            />
           ))}
         </tr>
       );
     }
 
     if (node.type === "table.separator") {
-      const cells = node.parent;
       return null;
     }
 
     if (node.type === "table.cell") {
       return (
-        <td className="org__table-cell">
-          {node.children.map((child, i) => (
-            <WalkTree node={child} level={node.level} key={i} />
-          ))}
-        </td>
+        <Cell
+          cellLength={props.maxLengths[cellIndex]}
+          node={node}
+          WalkTreeComponent={WalkTree}
+        />
       );
     }
   };

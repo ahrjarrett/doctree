@@ -16,6 +16,11 @@ export const themes = {
       }
     },
 
+    table: {
+      bg: "#ebffeb",
+      color: "#166c19"
+    },
+
     bg: "#fff",
     color: "#333",
     font: "Fira Code, Courier, monospace",

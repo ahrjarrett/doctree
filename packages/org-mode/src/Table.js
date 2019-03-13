@@ -1,13 +1,14 @@
 import React, { Component } from "react";
+import { TableStyles } from "./OrgTheme";
 
 const getCellLength = node => {
   let len = 0;
   const recurse = ({ children, type, value }) => {
-    console.group("recurse");
-    console.log("calling recurse, node type:", type);
-    console.log("calling recurse, node children:", children);
-    console.log("calling recurse, len:", len);
-    console.groupEnd("recurse");
+    // console.group("recurse");
+    // console.log("calling recurse, node type:", type);
+    // console.log("calling recurse, node children:", children);
+    // console.log("calling recurse, len:", len);
+    // console.groupEnd("recurse");
 
     if (type === "text") len = len + value.length;
     children.forEach(child => recurse(child));
@@ -57,7 +58,7 @@ class Table extends Component {
     const { node, WalkTreeComponent } = this.props;
     const separators = this.maxLengths.map(len => "-".repeat(len));
     return (
-      <div className="org__table">
+      <TableStyles className="org__table">
         <table>
           <tbody>
             {node.children.map((child, i) => {
@@ -84,9 +85,54 @@ class Table extends Component {
             })}
           </tbody>
         </table>
-      </div>
+      </TableStyles>
     );
   }
 }
 
-export default Table;
+class Cell extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      whiteSpace: ""
+    };
+    this.cell = React.createRef();
+    this.textLength = 0;
+    this.padding = 0;
+  }
+
+  componentDidMount() {
+    window.cell = this.cell;
+
+    const { cellLength } = this.props;
+    const innerText = this.cell.current.innerText;
+
+    this.textLength = innerText ? innerText.length : 0;
+    this.padding = cellLength - this.textLength;
+    this.setState({ whiteSpace: `M`.repeat(this.padding) });
+
+    console.log("textLength:", this.textLength);
+    console.log("padding:", this.padding);
+    console.log("whiteSpace:", this.state.whiteSpace);
+  }
+
+  render() {
+    const { WalkTreeComponent, node, cellLength } = this.props;
+    console.log("node:", node);
+    console.log("cellLength:", cellLength);
+
+    const cell = node.children.map((child, i) => (
+      <WalkTreeComponent node={child} level={node.level} key={i} />
+    ));
+    return (
+      <td className="org__table-cell" ref={this.cell}>
+        {cell}
+        <span className="org__table-whitespace" style={{ opacity: 0 }}>
+          {this.state.whiteSpace}
+        </span>
+      </td>
+    );
+  }
+}
+
+export { Table, Cell };
