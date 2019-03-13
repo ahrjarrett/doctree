@@ -130,6 +130,7 @@ export const TableStyles = styled.div`
   table {
     background: ${({ theme }) => theme.table.bg};
     color: ${({ theme }) => theme.table.color};
+    margin-bottom: 1.25rem;
   }
 
   td {
@@ -137,9 +138,13 @@ export const TableStyles = styled.div`
   }
 
   tr.org__table-separator-row {
-    /* &::before {
-      content: "|";
-    } */
+    td:not(:first-child) {
+      &::before {
+        content: "-+-";
+        margin-left: -0.625rem;
+      }
+    }
+
     td:first-child {
       &::before {
         content: "|-";
@@ -148,12 +153,6 @@ export const TableStyles = styled.div`
     td:last-child {
       &::after {
         content: "-|";
-      }
-    }
-    td:not(:first-child) {
-      &::before {
-        content: "-+-";
-        margin-left: -0.625rem;
       }
     }
   }

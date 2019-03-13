@@ -38,7 +38,7 @@ class Table extends Component {
         acc[i] = length > acc[i] ? length : acc[i];
       });
       return acc;
-    }, new Array(rows.length + 1).fill(0));
+    }, new Array(rows[0].children.length).fill(0));
 
     // console.group("TABLE COMPONENT");
     // console.log("tableAst", tableAst);
@@ -57,6 +57,7 @@ class Table extends Component {
   render() {
     const { node, WalkTreeComponent } = this.props;
     const separators = this.maxLengths.map(len => "-".repeat(len));
+    console.log("separators:", separators);
     return (
       <TableStyles className="org__table">
         <table>

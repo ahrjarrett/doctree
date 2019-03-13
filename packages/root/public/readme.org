@@ -8,6 +8,15 @@
 
 Assuming your IAM user is created and the Amplify CLI is installed:
 
+| Command            | Behavior                          |
+|--------------------+-----------------------------------|
+| amplify init       | New project                       |
+| amplify push       | Build & provision backend         |
+| amplify publish    | Create S3 bucket, host w Route 53 |
+| amplify publish -c | Invalidate cache when publishing  |
+| amplify status     | Status, get URL                   |
+
+
 - New project: ~amplify init~
 - Make ~aws-exports.js~, build all your local backend resources & provision it: ~amplify push~
 - Deploy: ~amplify publish~ (creates an S3 bucket in our account and uses Route 53 for hosting)
@@ -72,14 +81,3 @@ Lambda Role:
 
 
 
-
-* Tables test
-
-+Test+
-
-
-
-| It liiives                        | 12345 | 78904 | 123    |
-|-----------------------------------+-------+-------+--------|
-| 1. This is how big it gets!       | Also  | a     | head   |
-| 2. This *is* how _large_ it gets! | Also  | a     | header |
