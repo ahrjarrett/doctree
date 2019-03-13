@@ -94,10 +94,10 @@ class Cell extends Component {
 
   render() {
     const { WalkTreeComponent, node, cellLength } = this.props;
-
     const cell = node.children.map((child, i) => (
       <WalkTreeComponent node={child} level={node.level} key={i} />
     ));
+
     return (
       <td className="org__table-cell" ref={this.cell}>
         {cell}
@@ -109,4 +109,18 @@ class Cell extends Component {
   }
 }
 
-export { Table, Cell };
+const TableRow = ({ node, WalkTreeComponent, ...props }) => (
+  <tr className="org__table-row">
+    {node.children.map((child, i) => (
+      <WalkTreeComponent
+        node={child}
+        level={node.level}
+        key={i}
+        cellIndex={i}
+        {...props}
+      />
+    ))}
+  </tr>
+);
+
+export { Table, TableRow, Cell };

@@ -44,10 +44,10 @@ class ThemeProvider extends Component {
 
 export const ThemeToggler = () => (
   <ThemeContext.Consumer>
-    {({ toggleTheme }) => (
+    {({ theme, toggleTheme }) => (
       <div className="theme-toggler">
         <a href="/" onClick={toggleTheme}>
-          Toggle theme
+          {theme === "leuven" ? "☾" : "☀"} Toggle theme
         </a>
       </div>
     )}
@@ -78,13 +78,6 @@ class App extends Component {
                 {this.state.content && (
                   <AST orgfile={this.state.content} theme={themes[theme]} />
                 )}
-                {/* <div className="footer">
-                  <ThemeToggler />
-                  <div className="home-copyright">
-                    <span className="copyright-symbol">©</span> Andrew Jarrett{" "}
-                    {new Date().getFullYear()}
-                  </div>
-                </div> */}
                 <Modeline data={this.props.data} />
               </div>
             </AppStyles>

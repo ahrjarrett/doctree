@@ -1,7 +1,6 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { defaultTheme } from "./defaultTheme";
-import { unstyle } from "ansi-colors";
 
 const OrgThemeStyles = styled.div`
   .org__section {
@@ -25,6 +24,13 @@ const OrgThemeStyles = styled.div`
     p:first-of-type {
       margin-left: 1.25rem;
     }
+    cursor: pointer;
+  }
+  .org__headline-open-icon {
+    font-size: 85%;
+    margin-top: 1px;
+    display: inline-block;
+    margin-left: 1rem;
   }
 
   [class^="org__bullet-"] {

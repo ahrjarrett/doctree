@@ -4,6 +4,7 @@ export const AppStyles = styled.div`
   background: ${({ theme }) => theme.bg};
   .orgmode-wrapper {
     position: relative;
+    min-height: 100vh;
     max-width: 1000px;
     width: calc(700px + 1rem);
     padding: 0 0 2.5rem 0;

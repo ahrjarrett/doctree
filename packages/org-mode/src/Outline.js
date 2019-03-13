@@ -98,9 +98,17 @@ export const Outline = ({ children, theme }) => (
   </OrgTheme>
 );
 
-export const Headline = ({ children, level }) => (
+export const Headline = ({ children, level, open }) => (
   <div className={`org__bullet-${level} org__headline`}>
-    <p className="org__headline-text">{children}</p>
+    <p className="org__headline-text">
+      {children}{" "}
+      <span
+        className="org__headline-open-icon"
+        style={{ transform: open ? "rotate(90deg)" : "unset" }}
+      >
+        ►
+      </span>
+    </p>
   </div>
 );
 
@@ -170,7 +178,7 @@ const StyledListItem = styled.li`
   }
 `;
 
-export const List = ({ children, ordered = false }) => (
+export const OrgList = ({ children, ordered = false }) => (
   <StyledList className="org__list">
     {ordered ? (
       <ol className="org__list-ordered">{children}</ol>
