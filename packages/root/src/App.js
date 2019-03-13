@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { AST } from "@ahrjarrett/org-mode";
+import Modeline from "./Modeline";
 import { GlobalStyles } from "./styles/theme/Global.styles";
 import { AppStyles } from "./styles/App.styles.js";
 import { themes } from "./styles/theme/themes";
@@ -41,14 +42,14 @@ class ThemeProvider extends Component {
   }
 }
 
-const ThemeToggler = () => (
+export const ThemeToggler = () => (
   <ThemeContext.Consumer>
     {({ toggleTheme }) => (
-      <p>
-        <a href="/" onClick={toggleTheme} className="theme-toggler">
+      <div className="theme-toggler">
+        <a href="/" onClick={toggleTheme}>
           Toggle theme
         </a>
-      </p>
+      </div>
     )}
   </ThemeContext.Consumer>
 );
@@ -76,14 +77,15 @@ class App extends Component {
               <div className="orgmode-wrapper">
                 {this.state.content && (
                   <AST orgfile={this.state.content} theme={themes[theme]} />
-                  // <AST orgfile={this.state.content} />
                 )}
-                <div className="footer">
+                {/* <div className="footer">
                   <ThemeToggler />
                   <div className="home-copyright">
-                    <span>©</span> Andrew Jarrett {new Date().getFullYear()}
+                    <span className="copyright-symbol">©</span> Andrew Jarrett{" "}
+                    {new Date().getFullYear()}
                   </div>
-                </div>
+                </div> */}
+                <Modeline data={this.props.data} />
               </div>
             </AppStyles>
           )}

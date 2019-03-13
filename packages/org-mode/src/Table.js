@@ -4,12 +4,6 @@ import { TableStyles } from "./OrgTheme";
 const getCellLength = node => {
   let len = 0;
   const recurse = ({ children, type, value }) => {
-    // console.group("recurse");
-    // console.log("calling recurse, node type:", type);
-    // console.log("calling recurse, node children:", children);
-    // console.log("calling recurse, len:", len);
-    // console.groupEnd("recurse");
-
     if (type === "text") len = len + value.length;
     children.forEach(child => recurse(child));
   };
@@ -31,7 +25,6 @@ class Table extends Component {
       []
     );
 
-    // [29, 5, 5, 6]
     this.maxLengths = rows.reduce((acc, curr) => {
       const cellLengths = curr.children.map(getCellLength);
       cellLengths.forEach((length, i) => {
@@ -39,25 +32,11 @@ class Table extends Component {
       });
       return acc;
     }, new Array(rows[0].children.length).fill(0));
-
-    // console.group("TABLE COMPONENT");
-    // console.log("tableAst", tableAst);
-    // console.log("children", children);
-    // console.log("rows", rows);
-    // console.log("separatorIndexes", this.separatorIndexes);
-
-    // console.log("\n\n");
-    // // console.log(getCellLength(rows[2].children[0]));
-    // console.log("maxLengths", this.maxLengths);
-    // console.groupEnd("TABLE COMPONENT");
-
-    // this.maxLengths = Array(this.props.)
   }
 
   render() {
     const { node, WalkTreeComponent } = this.props;
     const separators = this.maxLengths.map(len => "-".repeat(len));
-    console.log("separators:", separators);
     return (
       <TableStyles className="org__table">
         <table>
@@ -111,16 +90,10 @@ class Cell extends Component {
     this.textLength = innerText ? innerText.length : 0;
     this.padding = cellLength - this.textLength;
     this.setState({ whiteSpace: `M`.repeat(this.padding) });
-
-    console.log("textLength:", this.textLength);
-    console.log("padding:", this.padding);
-    console.log("whiteSpace:", this.state.whiteSpace);
   }
 
   render() {
     const { WalkTreeComponent, node, cellLength } = this.props;
-    console.log("node:", node);
-    console.log("cellLength:", cellLength);
 
     const cell = node.children.map((child, i) => (
       <WalkTreeComponent node={child} level={node.level} key={i} />

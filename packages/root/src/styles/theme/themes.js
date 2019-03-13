@@ -16,11 +16,6 @@ export const themes = {
       }
     },
 
-    table: {
-      bg: "#ebffeb",
-      color: "#166c19"
-    },
-
     bg: "#fff",
     color: "#333",
     font: "Fira Code, Courier, monospace",
@@ -65,21 +60,51 @@ export const themes = {
       textDecoration: "#257bb5"
     },
     selection: "#fbbc43",
+
+    // verbatim: {
+    //   border: "1px solid #fc4b4f",
+    //   bg: "#fec8c9",
+    //   color: "#333334",
+    //   textDecoration: "inherit"
+    // },
+
     verbatim: {
-      border: "1px solid #fc4b4f",
-      bg: "#fec8c9",
-      color: "#333334",
-      textDecoration: "inherit"
+      bg: "#f7fdff",
+      color: "#1069c9",
+      textDecoration: "transparent",
+      border: "none"
     },
     verbatimHover: {
-      border: "1px solid #fc4b4f",
-      bg: "#e6ecfe",
-      color: "inherit",
-      textDecoration: "#257bb5"
+      bg: "#f7fdff",
+      color: "#1069c9",
+      textDecoration: "transparent",
+      border: "none"
     },
+
     code: {
       color: "#075424",
       bg: "#ebf5eb"
+    },
+
+    table: {
+      bg: "#ebffeb",
+      color: "#166c19"
+    },
+    gutter: "#deeefe",
+    modeLine: {
+      bg: "#3560a6",
+      border: "1px solid #244170",
+      context: "#fff",
+      modes: "#82cadb",
+      hover: "#fef937",
+      indicator: "#f6b539",
+      indicatorBorder: "#58464b"
+    },
+    highlight: {
+      border: "1px solid transparent"
+    },
+    highlightHover: {
+      border: "1px solid #fc4b4f"
     }
   },
 
@@ -98,6 +123,27 @@ export const themes = {
         fontSize: "1.625rem",
         textDecoration: "#bc6ec5"
       }
+    },
+
+    table: {
+      bg: "#293239",
+      color: "#b2b2b2"
+    },
+    gutter: "#212026",
+    modeLine: {
+      bg: "#222226",
+      border: "1px solid #4a415e",
+      context: "#bb71c3",
+      modes: "#b2b2b2",
+      hover: "#fef937",
+      indicator: "#f6b539",
+      indicatorBorder: "#58464b"
+    },
+    highlight: {
+      border: "1px solid transparent"
+    },
+    highlightHover: {
+      border: "1px solid #fc4b4f"
     },
 
     bg: "#292b2e",
