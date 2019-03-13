@@ -1,7 +1,9 @@
 import React from "react";
-import { Meta, Outline } from "./Outline";
+import { Meta } from "./OrgTheme";
+import { Outline } from "./Outline";
+import WalkTree from "./WalkTree";
 
-const Root = ({ node, theme, level, WalkTreeComponent, ...props }) => {
+const Root = ({ node, theme, level, ...props }) => {
   const keys = Object.keys(node.meta);
   return (
     <Outline theme={theme} className="org__root">
@@ -16,7 +18,7 @@ const Root = ({ node, theme, level, WalkTreeComponent, ...props }) => {
         </div>
       )}
       {node.children.map((child, i) => (
-        <WalkTreeComponent node={child} level={level} key={i} {...props} />
+        <WalkTree node={child} level={level} key={i} {...props} />
       ))}
     </Outline>
   );

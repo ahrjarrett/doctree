@@ -2,7 +2,194 @@ import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { defaultTheme } from "./defaultTheme";
 
-const OrgThemeStyles = styled.div`
+export const Wrapper = styled.div`
+  background: ${({ theme }) => theme.bg};
+  li,
+  .org__paragraph {
+    color: ${({ theme }) => theme.color};
+    margin-bottom: 1rem;
+  }
+  .org__list-item {
+    margin-bottom: 0rem;
+  }
+  font-family: ${props => props.theme.font};
+  font-weight: 400;
+  line-height: 1.25;
+  li {
+    list-style: none;
+  }
+  ol,
+  ul {
+    padding-left: 0;
+  }
+
+  p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+
+  b,
+  strong {
+    font-weight: 700;
+  }
+
+  i,
+  em {
+    font-style: italic;
+  }
+  span.org__underline {
+    text-decoration: underline;
+  }
+  span.org__strike-through {
+    text-decoration: line-through;
+  }
+
+  & ::selection {
+    background: ${({ theme }) => theme.selection};
+  }
+
+  .org__meta {
+    margin-bottom: 2.5rem;
+  }
+`;
+
+export const Meta = styled.div`
+  .org__meta-key {
+    color: ${({ theme }) => theme.meta.key.color};
+    background: ${({ theme }) => theme.meta.key.bg};
+    display: inline-block;
+  }
+  .org__meta-value {
+    color: ${({ theme }) => theme.meta.value.color};
+    background: ${({ theme }) => theme.meta.value.bg};
+    padding-left: 0.75rem;
+  }
+
+  &.org__meta-title {
+    display: flex;
+    line-height: 1.125;
+    .org__meta-key {
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 0.1875rem;
+    }
+    .org__meta-value {
+      color: ${({ theme }) => theme.meta.title.color};
+      font-size: ${({ theme }) => theme.meta.title.fontSize};
+      font-weight: 600;
+    }
+  }
+`;
+
+export const StyledList = styled.div`
+  margin-bottom: 1.25rem;
+`;
+
+export const StyledListItem = styled.li`
+  position: relative;
+  margin-left: 1.125rem;
+  &::before {
+    content: "${props => props.char}";
+    position: absolute;
+    left: -1.125rem;
+  }
+  &.org__list_item-char-n {
+    margin-left: 1.8125rem;
+    &::before {
+      left: -1.8125rem;
+    }
+  }
+`;
+
+export const StyledLink = styled.a`
+  &.org__link {
+    color: ${({ theme }) => theme.link.color};
+    background: ${({ theme }) => theme.link.bg};
+    text-decoration-color: ${({ theme }) => theme.link.textDecoration};
+    &:hover {
+      color: ${({ theme }) => theme.linkHover.color};
+      background: ${({ theme }) => theme.linkHover.bg};
+      text-decoration-color: ${({ theme }) => theme.linkHover.textDecoration};
+    }
+  }
+`;
+
+export const Tree = styled.ul`
+  padding-inline-start: 0;
+  margin-block-start: 0rem;
+  margin-block-end: 0rem;
+  & > .org__section {
+    margin-left: 0;
+  }
+`;
+
+export const SourceBlockStyles = styled.div`
+  .org__src-block {
+    max-width: 600px;
+  }
+  .org__src-lang {
+    color: ${({ theme }) => theme.src.lang.color};
+    background: ${({ theme }) => theme.src.lang.bg};
+  }
+  .org__src-body {
+    color: ${({ theme }) => theme.src.body.color};
+    background: ${({ theme }) => theme.src.body.bg};
+  }
+`;
+
+export const TableStyles = styled.div`
+  table {
+    background: ${({ theme }) => theme.table.bg};
+    color: ${({ theme }) => theme.table.color};
+    margin-bottom: 1.25rem;
+  }
+
+  td {
+    padding: 0;
+  }
+
+  tr.org__table-separator-row {
+    td:not(:first-child) {
+      &::before {
+        content: "-+-";
+        margin-left: -0.625rem;
+      }
+    }
+
+    td:first-child {
+      &::before {
+        content: "|-";
+      }
+    }
+    td:last-child {
+      &::after {
+        content: "-|";
+      }
+    }
+  }
+
+  tr.org__table-row {
+    td {
+      &::before {
+        content: "| ";
+      }
+      &::after {
+        content: "M";
+        display: inline-block;
+        opacity: 0;
+      }
+    }
+    td:last-child {
+      &::after {
+        content: " |";
+        opacity: 1;
+        display: unset;
+      }
+    }
+  }
+`;
+
+export const OrgThemeStyles = styled.div`
   .org__section {
     margin-bottom: 1.25rem;
     margin-left: 1rem;
@@ -115,72 +302,6 @@ const OrgThemeStyles = styled.div`
   .org__code {
     color: ${({ theme }) => theme.code.color};
     background: ${({ theme }) => theme.code.bg};
-  }
-`;
-
-export const SourceBlockStyles = styled.div`
-  .org__src-block {
-    max-width: 600px;
-  }
-  .org__src-lang {
-    color: ${({ theme }) => theme.src.lang.color};
-    background: ${({ theme }) => theme.src.lang.bg};
-  }
-  .org__src-body {
-    color: ${({ theme }) => theme.src.body.color};
-    background: ${({ theme }) => theme.src.body.bg};
-  }
-`;
-
-export const TableStyles = styled.div`
-  table {
-    background: ${({ theme }) => theme.table.bg};
-    color: ${({ theme }) => theme.table.color};
-    margin-bottom: 1.25rem;
-  }
-
-  td {
-    padding: 0;
-  }
-
-  tr.org__table-separator-row {
-    td:not(:first-child) {
-      &::before {
-        content: "-+-";
-        margin-left: -0.625rem;
-      }
-    }
-
-    td:first-child {
-      &::before {
-        content: "|-";
-      }
-    }
-    td:last-child {
-      &::after {
-        content: "-|";
-      }
-    }
-  }
-
-  tr.org__table-row {
-    td {
-      &::before {
-        content: "| ";
-      }
-      &::after {
-        content: "M";
-        display: inline-block;
-        opacity: 0;
-      }
-    }
-    td:last-child {
-      &::after {
-        content: " |";
-        opacity: 1;
-        display: unset;
-      }
-    }
   }
 `;
 

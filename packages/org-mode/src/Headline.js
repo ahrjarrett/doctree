@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import WalkTree from "./WalkTree";
 import { HL } from "./Outline";
 import { v4 } from "node-uuid";
 
@@ -54,12 +55,12 @@ class Headline extends Component {
   };
 
   render() {
-    const { level, node, WalkTreeComponent } = this.props;
+    const { level, node } = this.props;
     return (
       <div id={`org__headline-${this.uuid}`} onClick={this.toggleSection(node)}>
         <HL level={level} open={this.state.display}>
           {node.children.map((child, i) => (
-            <WalkTreeComponent node={child} level={level} key={i} />
+            <WalkTree node={child} level={level} key={i} />
           ))}
         </HL>
       </div>
