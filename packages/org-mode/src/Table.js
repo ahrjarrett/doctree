@@ -2,14 +2,15 @@ import React, { Component } from "react";
 
 const getCellLength = node => {
   let len = 0;
-  const recurse = node => {
-    console.log("calling recurse, node:", node);
-    if (node.children.length === 1) {
-      len = len + node.children[0].value.length;
-    }
-    node.children.forEach(child => {
-      recurse(child);
-    });
+  const recurse = ({ children, type, value }) => {
+    console.group("recurse");
+    console.log("calling recurse, node type:", type);
+    console.log("calling recurse, node children:", children);
+    console.log("calling recurse, len:", len);
+    console.groupEnd("recurse");
+
+    if (type === "text") len = len + value.length;
+    children.forEach(child => recurse(child));
   };
 
   recurse(node);
@@ -38,16 +39,16 @@ class Table extends Component {
       return acc;
     }, new Array(rows.length + 1).fill(0));
 
-    console.group("TABLE COMPONENT");
-    console.log("tableAst", tableAst);
-    console.log("children", children);
-    console.log("rows", rows);
-    console.log("separatorIndexes", this.separatorIndexes);
+    // console.group("TABLE COMPONENT");
+    // console.log("tableAst", tableAst);
+    // console.log("children", children);
+    // console.log("rows", rows);
+    // console.log("separatorIndexes", this.separatorIndexes);
 
-    console.log("\n\n");
-    // console.log(getCellLength(rows[2].children[0]));
-    console.log("maxLengths", this.maxLengths);
-    console.groupEnd("TABLE COMPONENT");
+    // console.log("\n\n");
+    // // console.log(getCellLength(rows[2].children[0]));
+    // console.log("maxLengths", this.maxLengths);
+    // console.groupEnd("TABLE COMPONENT");
 
     // this.maxLengths = Array(this.props.)
   }
@@ -62,9 +63,11 @@ class Table extends Component {
             {node.children.map((child, i) => {
               if (this.separatorIndexes.includes(i)) {
                 return (
-                  <tr className="org__table-separator">
-                    {separators.map(separator => (
-                      <td>{separator}</td>
+                  <tr className="org__table-separator-row" key={i}>
+                    {separators.map((separator, index) => (
+                      <td className="org__table-separator-cell" key={index}>
+                        {separator}
+                      </td>
                     ))}
                   </tr>
                 );
