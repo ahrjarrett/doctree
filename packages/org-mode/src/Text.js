@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import WalkTree from "./WalkTree";
-import { OrgLink } from "./Outline";
+import { OrgLink } from "./Org";
 
 export const Code = ({ node, level, open }) =>
   !open ? null : (

@@ -4,11 +4,12 @@ import {
   OrgTheme,
   SourceBlockStyles,
   StyledList,
-  Sty./Org.stylesrapper,
+  StyledListItem,
   Meta,
   Tree,
-  StyledLink
-} from "./OrgTheme";
+  StyledLink,
+  Wrapper
+} from "./Org.styles";
 
 export const Outline = ({ children, theme }) => (
   <OrgTheme theme={theme}>

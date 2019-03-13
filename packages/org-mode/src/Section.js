@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import WalkTree from "./WalkTree";
-import { OrgList, OrgListItem, Src } from "./Outline";
+import { OrgList, OrgListItem, Src } from "./Org";
 
 export const List = ({ node, level, open, ...props }) =>
   !open ? null : (

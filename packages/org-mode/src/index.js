@@ -1,4 +1,4 @@
-import * as Org from "./Outline";
+import * as Org from "./Org";
 import Ast from "./AST";
 
 export const org = Org;

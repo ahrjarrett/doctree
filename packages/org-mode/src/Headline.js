@@ -1,6 +1,6 @@
 import React from "react";
 import WalkTree from "./WalkTree";
-import { HL } from "./Outline";
+import { HL } from "./Org";
 
 const Headline = ({ level, node, open, toggleSection }) => (
   <div id={`org__headline-wrapper`} onClick={toggleSection(node)}>

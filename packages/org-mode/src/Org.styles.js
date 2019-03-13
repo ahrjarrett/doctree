@@ -1,8 +1,46 @@
 import React from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled, { css, ThemeProvider } from "styled-components";
 import { defaultTheme } from "./defaultTheme";
 
+export const fontDeclarations = css`
+  /* No italic for Fira Code */
+  @font-face {
+    font-family: "Fira Code";
+    src: url("./fonts/FiraCode-Bold.otf") format("otf");
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Fira Code";
+    src: url("./fonts/FiraCode-Bold.otf") format("otf");
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Fira Code";
+    src: url("./fonts/FiraCode-Retina.otf") format("otf");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Fira Code";
+    src: url("./fonts/FiraCode-Light.otf") format("otf");
+    font-weight: 300;
+    font-style: normal;
+  }
+`;
+
+export const fontMixin = css`
+  div * {
+    font-family: Fira Code;
+  }
+`;
+
 export const Wrapper = styled.div`
+  ${fontDeclarations};
+  ${fontMixin};
+  font-family: 
+
   background: ${({ theme }) => theme.bg};
   li,
   .org__paragraph {

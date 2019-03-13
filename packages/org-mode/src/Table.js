@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import WalkTree from "./WalkTree";
-import { TableStyles } from "./OrgTheme";
+import { TableStyles } from "./Org.styles";
 
 const getCellLength = node => {
   let len = 0;

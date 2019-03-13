@@ -1,6 +1,6 @@
 import React from "react";
-import { Meta } from "./OrgTheme";
-import { Outline } from "./Outline";
+import { Meta } from "./Org.styles";
+import { Outline } from "./Org";
 import WalkTree from "./WalkTree";
 
 const Root = ({ node, theme, level, ...props }) => {
