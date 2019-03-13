@@ -36,9 +36,9 @@ class Table extends Component {
   }
 
   render() {
-    const { node } = this.props;
+    const { node, open } = this.props;
     const separators = this.maxLengths.map(len => "-".repeat(len));
-    return (
+    return !open ? null : (
       <TableStyles className="org__table">
         <table>
           <tbody>
