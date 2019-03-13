@@ -1,0 +1,218 @@
+#+TITLE: Spacemacs Org-Mode Cheatsheet
+#+DATE: <2017-11-13 Wed>
+#+AUTHOR: Andrew Jarrett
+#+EMAIL: ahrjarrett@gmail.com
+
+/This is quickly becoming an Emacs Cheatsheet. Might consider breaking this up into multiple cheatsheets?/
+
+These are the keybindings that I find useful from within Spacemacs, assuming evil-mode is on and generally in order of discovery, with an emphasis on applications in org-mode. I think there is a correlation between necessity of use and when that particular command becomes useful, and as such, this cheatsheet itelf documents my exploration of and dive into [[http://spacemacs.org/layers/+emacs/org/README.html][Spacemacs’ Org Layer]].
+
+*Contributing:* Feel free to submit a pull request if you find gaps :)
+
+At any point from within Spacemacs you can access the help menu for your current major mode/layer by hitting `C-h i`. Appropriately, the first section is about navigating the manual itself, which isn’t exactly straightforward given the sometimes odd combination of keybindings between the two (Vim and Emacs).
+
+* Spacemacs Cheatsheet
+
+At any point, from within Spacemacs, you can access “An Introduction to Programming in Emacs Lisp” by hitting =C-h i=.
+
+Resource: [[https://ontologicalblog.files.wordpress.com/2016/11/spacemacs_cheat_sheet_compact_1-1.pdf][Other Spacemacs Org-Mode Cheatsheet]]
+
+** Spacemacs General Cheatsheet
+
+ | Spacemacs Command | Result                      | Mode    |
+ |-------------------+-----------------------------+---------|
+ | =<SPC> <SPC>=     | M-x Equivalent (Emacs mode) | Command |
+ | =<SPC> T s=       | Take a theme for a spin     | Command |
+
+** Working With Text:
+ | =<SPC> x U=       | Uppercase Region            | Visual  |
+
+* Org Mode
+** Org-Mode Command Cheatsheet
+*** Todos
+ | Org Mode Command | Behavior                                            | Mode                     |
+ |------------------+-----------------------------------------------------+--------------------------|
+ | =<SPC> a o t=    | Jump to todo tree, even if Org isn’t the major mode | Command (from any layer) |
+ | =C-c C-t=        | Mark todo as complete                               | Todos                    |
+ | =C-c C-c=        | Toggle checkbox                                     | Todos                    |
+ | =C-c c t=        | Add inline todo to [[file:todos.org][todos.org file]]                   | (specific to my [[https://github.com/ahrjarrett/dotfiles/blob/master/.spacemacs.d/init.el#L250][config]])  |
+
+
+
+ | Org Mode Command | Result                                                              | Mode                                     |
+ |------------------+---------------------------------------------------------------------+------------------------------------------|
+ | =<SPC> m <RET>=  | Create another of that heading below                                | Command                                  |
+ | =<SPC> m p=      | Start Pomodoro (25 min)                                             | Command                                  |
+ | =<=              | Move Cursor Left One Word (works like =<SHIFT TAB>= in tables, too) | Command                                  |
+ | =>=              | Move Cursor Right One Word (works like =<TAB>= in tables)           | Command                                  |
+ | =<TAB>=          | Rotate Current Subtree Btwn States                                  | Command, cursor on tree                  |
+ | =<SHIFT TAB>=    | Rotate Entire Buffer Btwn States                                    | Command, cursor on tree                  |
+ | =g j=            | Go down (forward) one heading                                       | Command, cursor on tree                  |
+ | =g k=            | Go up (backward) one heading                                        | Command, cursor on tree                  |
+ | =< s <TAB>=      | In insert mode, add source block                                    | Insert                                   |
+ | =C-c '=          | Enter source mode of specfied language in new buffer                | Command                                  |
+ | =, c=            | In command mode, exit source entry mode                             | Command (from within source code buffer) |
+ | =C-c C-e=        | Export menu                                                         | Command                                  |
+ | =C-c C-e h o=    | Export to html and open file                                        | Command (changes current application)    |
+ | =<SPC> m <RET>=  | Create table header below line                                      | Org table                                |
+ | =<=              | Swap column left                                                    | Within Table                             |
+ | =>=              | Swap column right                                                   | Within Table                             |
+ | =<SPC> C c=      | org-capture                                                         | Command                                  |
+
+** Org Capture
+ Org capture is a study unto itself. [[http://cestlaz.github.io/posts/using-emacs-23-capture-1/#.WiY5ILQ-fOQ][Here’s a great blog post on the subject]].
+
+ *Shortcut:* Todo Items are prepended as nodes to “Todo Items” tree automatically with =org-capture t=, which is currently bound as =SPC C c=, then =t= for “Todo Item”. Done forget to add this snipped to your Spacemacs file for it to work:
+ #+BEGIN_SRC emacs-lisp
+ '(("t" "Todo Item" entry
+     (file+headline "~/Desktop/stuff/org/TODOs.org" "Todo Items")
+     "* %?\n%T" :prepend t))
+ #+END_SRC
+
+ *Overview:* (Insert Link)[From the org docs on Org capture (=C-h i=)]
+
+ “An important part of any organization system is the ability to quickly
+ capture new ideas and tasks, and to associate reference material with
+ them.  Org does this using a process called capture.  It also can store
+ files related to a task (attachments) in a special directory.  Once in
+ the system, tasks and projects need to be moved around.  *Moving
+ completed project trees to an archive file keeps the system compact and
+ fast.*”
+
+ I feel like that last part is key.
+
+* Emacs
+** Vanilla Emacs Stuff
+| Command       | Behavior                                                                  |
+|---------------+---------------------------------------------------------------------------|
+| =C-h a=       | Enter Apropos mode, search and learn about different elisp fns            |
+| =C-h f=       | Describe function (=describe-function=)                                   |
+| =C-w C-o=     | Switch to other window                                                    |
+| =C-x C-e=     | Evaluate last s-expression                                                |
+| =C-u C-x C-e= | Evaluates and prints last s-expression                                    |
+| =C-x 0=       | Kill current window                                                       |
+| =C-x 1=       | Make current window, the only window (hide others)                        |
+| =C-x o=       | Switch to other window                                                    |
+| =C-h m=       | See enabled minor modes (and list of commands)                            |
+| =C-h k=       | See help docs associated with a particular keystroke                      |
+| =C-x u=       | Runs =undo-tree-visualize=, which opens up a dope undo visualization mode |
+
+** Manipulating Text
+| Command        | Behavior             |
+|----------------+----------------------|
+| =M-l= && =M-u= | Upper/lowercase word |
+
+** Navigating Through Text (Native Emacs)
+Even if you have Evil Mode on, sometimes you can only navigate text (or, for example, cycle through Swiper search results or lists of active buffers). I always forget the Emacs native commands, so I'm putting them here for quick access. Some of these are particularly painful to use when you know how easy evil mode makes it (=C-b= and =C-f=, for example).
+| Command        | Behavior                                                                   |
+|----------------+----------------------------------------------------------------------------|
+| =C-n= && =C-p= | Next/previous line                                                         |
+| =C-f= && =C-b= | Forward/backward character                                                 |
+| =M-f= && =M-b= | Forward/backward word (does this a little differently than evil's version) |
+
+** Useful M-x Commands
+Consider binding some of these to shortcuts. Need to set up a custom leader key, something like =C-.= or something.
+
+| Command                    | Behavior                                                       |
+|----------------------------+----------------------------------------------------------------|
+| =M-x el-cu RET=            | elint-current-buffer                                           |
+| =M-x visual-line-mode RET= | visual-line-mode. Doesn't work perfectly with org-mode tables! |
+
+** Notes
+*** Interactive Mode
+Tip from [[https://www.gnu.org/software/emacs/manual/pdf/eintr.pdf][Intro to Emacs Lisp]]: When creating an interactive function (which is designed to have side-effects), evaluating the function with =C-x C-e= doesn't print anything in the message window. To get around this, you can use the *message* function to print something to the screen.
+** Org Mode in Emacs
+| Command   | Behavior                                             |
+|-----------+------------------------------------------------------|
+| =C-c C-c= | Evaluate source code block & print under #+RESULTS   |
+| =C-c '=   | Enter source code block buffer w/ proper indentation |
+
+* Emacs Evil Mode
+| Command | Behavior                        |
+| =C-z=   | Toggle Emacs state (important!) |
+
+* Emacs Manual (DocView)
+
+[[https://www.gnu.org/software/emacs/manual/html_node/emacs/DocView-Navigation.html][DocView Navigation Resource]]
+
+| Command | Action                                        |
+|---------+-----------------------------------------------|
+| =n=     | doc-view-next-page                            |
+| =p=     | Previous page                                 |
+| =<=     | doc-view-first-page                           |
+| ???     | doc-view-last-page (=>= doesn’t seem to work) |
+| =g=     | doc-view-goto-page                            |
+
+* Emacs Lisp
+** Major Mode: Emacs Lisp
+| Command                     | Behavior                                           | Mode (if applicable)            |
+|-----------------------------+----------------------------------------------------+---------------------------------|
+| =C-q (= or =C-q)=           | Disable Smart Parens While Writing elisp           | Insert                          |
+| =M-x M-x info= or =C-h i=   | Jump into Emacs reference manual from within Emacs | Command, in any context         |
+| =M-x lisp-interaction-mode= | Enable LISP interaction mode (usually in scratch)  | Scratch buffer (test elsewhere) |
+
+** Major Mode: Lisp Interactive Mode
+This mode is useful for learning Emacs LISP because it allows you to, from within the scratch buffer, evaluate elisp. The following chart assumes the context of the scratch buffer, from within =lisp-interaction-mode=.
+| Command                     | Behavior                          | Mode                                |
+|-----------------------------+-----------------------------------+-------------------------------------|
+| =M-x lisp-interaction-mode= | Enter LISP Interactive major mode | Scratch buffer, possibly elsewhere? |
+| =C-j=                       | /eval-print-last-sexp/ at point   | LISP Interactive                    |
+See also the documenatation on [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Lisp-Interaction.html][Lisp Interaction buffers]].
+
+* Ivy
+** Emacs Ivy Cheatsheet
+Whoa, Ivy is so cool! Here are some ivy functions I've been discovering.
+
+** Spacemacs Ivy Cheatsheet [[http://develop.spacemacs.org/layers/+completion/ivy/README.html][(Lightweight alternative to HELM)]]
+
+ | =<SPC> a '= | See Available Ivy REPLs and launch | Command |
+
+* Source Code
+  
+  :LOGBOOK:
+  CLOCK: [2017-12-03 Sun 08:22]--[2017-12-03 Sun 08:48] =>  0:26
+  CLOCK: [2017-12-03 Sun 08:22]--[2017-12-03 Sun 08:22] =>  0:00
+  :END:
+
+#+BEGIN_SRC javascript
+
+/* how does this format in the browser?
+  * is this rendered like ``` blocks in github flavored markdown? */
+
+// single line comment
+
+const myConstant = 'this is my constant'
+
+// not tail-recursive tho
+function factorial(n) {
+  if(n === 1) return n
+  return n * factorial(n-1)
+}
+
+let a = Array.prototype
+
+console.log(a) // [constructor: ƒ, concat: ƒ, pop: ƒ, push: ƒ, shift: ƒ, …]
+
+factorial(5)
+#+END_SRC
+
+* Clojure/ClojureScript
+** Inf-Clojure Mode
+
+| Command                      | Behavior                                                                   |
+|------------------------------+----------------------------------------------------------------------------|
+| =M-x lisp-eval-last-sexp=    | sends last s-expression to inferior lisp REPL (works w/ CIDER? test this)  |
+| =M-x inf-clojure-minor-mode= | adds relevant keybindings for this mode (consider adding to emacs config** |
+| =C-c C-s=                    | view source code for function under point (only in inf-clojure mode)       |
+
+**This is the hook you would add, if you wanted to turn on inferior-clojure mode automatically while working with ClojureScript files:
+
+*NOTE: just make sure you disable CIDER if you decide to go with inf-clojure!*
+
+
+** CIDER
+| Command             | Behavior                                                         |
+|---------------------+------------------------------------------------------------------|
+| =M-x cider-quit=    | Kill CIDER nREPL and leave cider-mode                            |
+| =M-x cider-connect= | After running =lein repl=, use host and port to connect to nREPL |
+

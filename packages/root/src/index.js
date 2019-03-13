@@ -10,6 +10,7 @@ ReactDOM.render(
     <Switch>
       <Route exact path="/" render={() => <App data="/home.org" />} />
       <Route exact path="/readme" render={() => <App data="/readme.org" />} />
+      <Route exact path="/cheatsheet" render={() => <App data="/cheatsheet.org" />} />
     </Switch>
   </Router>,
   document.getElementById("root")

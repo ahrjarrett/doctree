@@ -1,0 +1,46 @@
+Gatsby blog with org-mode rendering.
+
+[[https://xiaoxinghu.github.io/orgajs/docs/generate-static-website-with-gatsby][gatsby-orga docs]]
+
+This is interesting:
+
+gatsby-transformer-orga plugin provides 2 ways to generate your content from your org-mode source files.
+
+- one document per org-mode file
+one document per section (sub-tree)
+
+#+BEGIN_QUOTE
+The former is the default option. To enable section based generation, add ORGA_PUBLISH_KEYWORD to your org file, and sections with matching keyword will be transformed into a standalone document. E.g.
+#+END_QUOTE
+
+#+BEGIN_SRC 
+  ,#+ORGA_PUBLISH_KEYWORD: DONE
+
+     ,* DONE My First Post
+       CLOSED: [2018-12-14 Fri 15:44]
+
+       ...
+
+     ,* TODO A Draft
+#+END_SRC
+
+
+* GraphQL Queries
+
+To get all org files:
+
+#+BEGIN_SRC 
+{
+  allOrgContent: {
+    edges: {
+      node: {
+        html
+        meta {
+          tags
+          category
+	  }
+	}
+    }
+  }
+}
+#+END_SRC

@@ -30,7 +30,7 @@ export const fontDeclarations = css`
 
 export const fontMixin = css`
   html {
-    font-family: Fira Code, monospace;
+    font-family: Fira Code Bold, monospace;
     /* @SET: 1rem === 16px */
     font-size: 16px;
     text-rendering: optimizeLegibility;
