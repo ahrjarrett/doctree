@@ -72,3 +72,14 @@ Lambda Role:
 
 
 
+
+* Tables test
+
++Test+
+
+
+
+| It liiives                    | 12345 | 78904 | 123    |
+|-------------------------------+-------+-------+--------|
+| 1. This is how big it gets!   | Also  | a     | header |
+| 2. This is how large it gets! | Also  | a     | header |

@@ -28,6 +28,22 @@ const Wrapper = styled.div`
     margin-block-end: 0;
   }
 
+  b,
+  strong {
+    font-weight: 700;
+  }
+
+  i,
+  em {
+    font-style: italic;
+  }
+  span.org__underline {
+    text-decoration: underline;
+  }
+  span.org__strike-through {
+    text-decoration: line-through;
+  }
+
   & ::selection {
     background: ${({ theme }) => theme.selection};
   }
