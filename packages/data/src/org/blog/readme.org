@@ -10,7 +10,7 @@ Gatsby blog with org-mode rendering.
   
 
 * TODO
-- [ ] Deploy (S3 / Route 53?)
+- [ ] Deploy
 
 * Config
 

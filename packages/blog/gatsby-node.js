@@ -1,46 +1,39 @@
-const path = require("path")
-// const data = require("@ahrjarrett/data")
-
-// console.log("data:", data)
+const path = require("path");
 
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage } = actions;
 
   return new Promise((resolve, reject) => {
-    const blogPostTemplate = path.resolve("./src/templates/Post.js")
+    const blogPostTemplate = path.resolve("./src/templates/Post.js");
 
-    graphql(
-      `
-        {
-          allGithubFile(
-            filter: { relativePath: { regex: "/^packages/data/src/org/+/" } }
-          ) {
-            edges {
-              node {
-                base
-              }
+    graphql(`
+      {
+        allGithubFile(
+          filter: { relativePath: { regex: "/^packages/data/src/org/+/" } }
+        ) {
+          edges {
+            node {
+              base
             }
           }
         }
-      `
-    ).then(result => {
-      if (result.errors) {
-        console.log(result.errors)
       }
-
-      const { edges } = result.data.allGithubFile
-
+    `).then(result => {
+      if (result.errors) console.log(result.errors);
+      const { edges } = result.data.allGithubFile;
       edges.forEach(edge => {
+        const slug = `/posts/${edge.node.base}`;
         createPage({
-          path: `/` + edge.node.base,
+          path: slug,
           component: blogPostTemplate,
           context: {
             base: edge.node.base,
-          },
-        })
-      })
+            slug
+          }
+        });
+      });
 
-      resolve()
-    })
-  })
-}
+      resolve();
+    });
+  });
+};

@@ -3,6 +3,7 @@ import { Cell, Table, TableRow } from "./Table";
 import Headline from "./Headline";
 import Root from "./Root";
 import Section, { List, ListItem, Source } from "./Section";
+import { defaultTheme } from "./defaultTheme";
 import {
   Text,
   Code,
@@ -16,14 +17,14 @@ import {
 } from "./Text";
 
 const WalkTree = ({
-  node,
   level = 0,
+  theme = defaultTheme,
+  open = true,
+  node,
   cellLength,
   cellIndex,
-  theme,
   nth,
   toggleSection,
-  open = true,
   ...props
 }) => {
   switch (node.type) {
@@ -78,6 +79,7 @@ const WalkTree = ({
 
     case "block":
       if (node.name === "SRC") return <Source node={node} open={open} />;
+      if (node.name === "QUOTE") return <Source node={node} open={open} />;
       break;
 
     case "table":

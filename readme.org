@@ -1,11 +1,6 @@
 #+TITLE: ahrjarrett.com
 #+AUTHOR: Andrew Jarrett <ahrjarrett@gmail.com>
 
-* Structure
-
-** 
-
-
 * AWS
 
 ** Amplify CLI
