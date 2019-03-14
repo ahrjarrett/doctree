@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "gatsby";
 import { parse } from "orga";
-import { DocTree } from "@ahrjarrett/org-mode";
+import { DocTree, defaultTheme } from "@ahrjarrett/org-mode";
 import styled from "styled-components";
 
 const OrgWrapper = styled.div`
@@ -19,7 +19,8 @@ const Template = ({ data, pageContext }) => {
 
   return (
     <OrgWrapper>
-      <DocTree node={ast} />
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+      {/* <DocTree node={ast} theme={defaultTheme} /> */}
     </OrgWrapper>
   );
 };

@@ -20,3 +20,10 @@
 *** TODO If you had to describe the specific service you can provide a perspective employer or client in a single sentence, what would it be?
     :PROPERTIES: career writing-assignment
 **** /An obsessively curious self-learner who has worked in many positions for a variety of tech startups, which informs my holistic view of how to find and maintain the health and bottom-line of your company./
+#+BEGIN_SRC js
+const thing = 2
+function help(arg) {
+  return 5
+}
+
+#+END_SRC
