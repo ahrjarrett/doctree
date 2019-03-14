@@ -1,5 +1,5 @@
 #+TITLE: Soft Skills
-#+DATE: [2017-12-13 Wed]
+#+DATE: <2019-03-14 Thu>
 #+AUTHOR: Andrew Jarrett
 #+EMAIL: ahrjarrett@gmail.com
 

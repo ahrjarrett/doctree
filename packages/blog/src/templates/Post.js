@@ -10,8 +10,10 @@ const OrgWrapper = styled.div`
 
 // pageContext is passed thru via context object in gatsby-node.js
 const Template = ({ data, pageContext }) => {
-  const { content } = data.githubFile;
-  const ast = parse(content);
+  console.log("data:", data);
+  console.log("pageContext:", pageContext);
+  const { html } = data.orgContent;
+  const ast = parse(html);
 
   console.log(ast);
 
@@ -23,9 +25,9 @@ const Template = ({ data, pageContext }) => {
 };
 
 export const pageQuery = graphql`
-  query OrgFilesOnGithub($base: String!) {
-    githubFile(base: { eq: $base }) {
-      content
+  query OrgContentBySlug($slug: String!) {
+    orgContent(fields: { slug: { eq: $slug } }) {
+      html
     }
   }
 `;

@@ -8,26 +8,26 @@ exports.createPages = ({ graphql, actions }) => {
 
     graphql(`
       {
-        allGithubFile(
-          filter: { relativePath: { regex: "/^packages/data/src/org/+/" } }
-        ) {
+        allOrgContent {
           edges {
             node {
-              base
+              fields {
+                slug
+              }
             }
           }
         }
       }
     `).then(result => {
       if (result.errors) console.log(result.errors);
-      const { edges } = result.data.allGithubFile;
+      const { edges } = result.data.allOrgContent;
+
       edges.forEach(edge => {
-        const slug = `/posts/${edge.node.base}`;
+        const { slug } = edge.node.fields;
         createPage({
           path: slug,
           component: blogPostTemplate,
           context: {
-            base: edge.node.base,
             slug
           }
         });

@@ -6,12 +6,12 @@ import Image from "../components/image";
 import SEO from "../components/seo";
 
 const IndexPage = ({ data, ...props }) => {
-  const { edges } = data.allGithubFile;
+  const { edges } = data.allOrgContent;
   const posts = edges.map(({ node }, i) => {
     return (
       <div key={i}>
         <h2>
-          <Link to={`/posts/${node.base}`}>{node.base}</Link>
+          <Link to={`${node.fields.slug}`}>{node.meta.title}</Link>
         </h2>
       </div>
     );
@@ -41,14 +41,15 @@ export const pageQuery = graphql`
         title
       }
     }
-    allGithubFile(
-      filter: {
-        relativePath: { regex: "/^(packages/data/src/org/).+(.org)$/" }
-      }
-    ) {
+    allOrgContent {
       edges {
         node {
-          base
+          fields {
+            slug
+          }
+          meta {
+            title
+          }
         }
       }
     }

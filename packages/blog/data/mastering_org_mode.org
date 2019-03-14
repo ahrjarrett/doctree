@@ -2,7 +2,7 @@
 #+TITLE:Mastering Org-Mode
 #+AUTHOR:WLHarvey4
 #+EMAIL:wlharvey4@mac.com
-#+DATE:<2019-03-11 Mon 21:40>
+#+DATE: <2019-03-14 Thu>
 #+VERSION:{{{version}}}
 #+MACRO:version 0.2.7
 
@@ -25,7 +25,6 @@
 #+KEYWORDS:
 #+SUBTITLE:
 #+LATEX_COMPILER: pdflatex
-#+DATE: \today
 
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:auto
 #+OPTIONS: html-preamble:t html-scripts:t html-style:t
