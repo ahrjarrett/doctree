@@ -16,23 +16,26 @@ Gatsby blog with org-mode rendering.
 Maybe I should create a GraphQL API to serve my data, instead of doing this quirky Github thing!
 
 
-| Project name  | org-blog             |
-| environment   | local                |
-| Src path      | src                  |
-| Build path    | build                |
-| Build command | gatsby build         |
-| Start command | gatsby serve         |
-|---------------+----------------------|
-| Region        | US East (N Virginia) |
-|               |                      |
+| Project name  | org-blog            |
+|---------------+---------------------|
+| environment   | local               |
+| Src path      | src                 |
+| Build path    | public              |
+| Build command | gatsby build        |
+| Start command | gatsby serve        |
+| Region        | US Ohio (US East-2) |
 
 ** Hosting
 
 Did ~amplify add hosting~:
 
-- Added Cloudfront CDN
+- Static Website URL:
 
-| Bucket Name | org-blog   |
+http://orgblog-local.s3-website.us-east-2.amazonaws.com/
+
+- Added Cloudfront CDN:
+
+| Bucket Name | orgblog   |
 | index doc   | index.html |
 | error doc   | index.html |
 

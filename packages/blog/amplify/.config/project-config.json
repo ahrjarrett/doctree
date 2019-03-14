@@ -1,12 +1,12 @@
 {
-    "projectName": "org-blog",
+    "projectName": "orgblog",
     "version": "1.0",
     "frontend": "javascript",
     "javascript": {
         "framework": "react",
         "config": {
             "SourceDir": "src",
-            "DistributionDir": "build",
+            "DistributionDir": "public",
             "BuildCommand": "gatsby build",
             "StartCommand": "gatsby serve"
         }

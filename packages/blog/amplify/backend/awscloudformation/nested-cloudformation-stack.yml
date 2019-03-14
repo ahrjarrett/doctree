@@ -81,9 +81,9 @@
 		"hostingS3AndCloudFront": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/org-blog-20190313235324-deployment/amplify-cfn-templates/hosting/template.json",
+				"TemplateURL": "https://s3.amazonaws.com/orgblog-20190314012506-deployment/amplify-cfn-templates/hosting/template.json",
 				"Parameters": {
-					"bucketName": "org-blog",
+					"bucketName": "orgblog",
 					"env": "local"
 				}
 			}

@@ -1,14 +1,14 @@
 {
     "local": {
         "awscloudformation": {
-            "AuthRoleName": "org-blog-20190313235324-authRole",
-            "UnauthRoleArn": "arn:aws:iam::942055413099:role/org-blog-20190313235324-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::942055413099:role/org-blog-20190313235324-authRole",
+            "AuthRoleName": "orgblog-20190314012506-authRole",
+            "UnauthRoleArn": "arn:aws:iam::942055413099:role/orgblog-20190314012506-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::942055413099:role/orgblog-20190314012506-authRole",
             "Region": "us-east-2",
-            "DeploymentBucketName": "org-blog-20190313235324-deployment",
-            "UnauthRoleName": "org-blog-20190313235324-unauthRole",
-            "StackName": "org-blog-20190313235324",
-            "StackId": "arn:aws:cloudformation:us-east-2:942055413099:stack/org-blog-20190313235324/19557800-4615-11e9-a4b4-060ae44bf6ec"
+            "DeploymentBucketName": "orgblog-20190314012506-deployment",
+            "UnauthRoleName": "orgblog-20190314012506-unauthRole",
+            "StackName": "orgblog-20190314012506",
+            "StackId": "arn:aws:cloudformation:us-east-2:942055413099:stack/orgblog-20190314012506/e8e3f770-4621-11e9-af9c-02278d0d93fc"
         }
     }
 }
