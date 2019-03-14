@@ -40,11 +40,11 @@ Did ~amplify add hosting~:
 
 Go into Route 53 and click Create Record Set. Create a new record set:
 
-| Name         | blog.jeeves.dev                 |
-| Type         | Choosing IPv6 to learn about it |
-| Alias        | Yes                             |
-| Alias Target | CloudFront URI                  |
-| Rest:        | Accepting default settings      |
+| Name                | blog.jeeves.dev                       |
+| Type                | Choosing IPv6 to learn about it       |
+| Alias               | Yes                                   |
+| Target (Cloudfront) | https://d24j2v3111v1y5.cloudfront.net |
+| Rest:               | Accepting default settings            |
 
 ** Add API?
 
@@ -53,6 +53,7 @@ Add GraphQL endpoint for my own files? Very interested in gatbsy-orga's feature 
 ** Add Auth?
 
 That would keep my files safe, and allow for collaboration.
+
 
 * Config
 
