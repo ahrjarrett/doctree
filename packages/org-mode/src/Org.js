@@ -1,11 +1,9 @@
 import React from "react";
-import styled from "styled-components";
 import {
   OrgTheme,
   SourceBlockStyles,
   StyledList,
   StyledListItem,
-  Meta,
   Tree,
   StyledLink,
   Wrapper

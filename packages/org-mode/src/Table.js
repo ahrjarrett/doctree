@@ -94,7 +94,7 @@ class Cell extends Component {
   }
 
   render() {
-    const { node, cellLength } = this.props;
+    const { node } = this.props;
     const cell = node.children.map((child, i) => (
       <WalkTree node={child} level={node.level} key={i} />
     ));

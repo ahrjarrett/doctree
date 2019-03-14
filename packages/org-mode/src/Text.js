@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import WalkTree from "./WalkTree";
 import { OrgLink } from "./Org";
 

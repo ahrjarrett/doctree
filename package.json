@@ -1,5 +1,5 @@
 {
-  "name": "ahrjarrett.com",
+  "name": "ahrjarrett",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -8,6 +8,7 @@
     "build": "./node_modules/.bin/lerna exec -- npm run build"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "7.2.0",
     "lerna": "^3.13.1"
   }
 }

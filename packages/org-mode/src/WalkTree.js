@@ -78,6 +78,7 @@ const WalkTree = ({
 
     case "block":
       if (node.name === "SRC") return <Source node={node} open={open} />;
+      break;
 
     case "table":
       return <Table node={node} {...props} open={open} />;
@@ -91,6 +92,8 @@ const WalkTree = ({
     case "table.cell":
       const cellLength = props.maxLengths[cellIndex];
       return <Cell node={node} cellLength={cellLength} open={open} />;
+    default:
+      return null;
   }
 };
 

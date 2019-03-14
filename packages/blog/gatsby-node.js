@@ -1,7 +1,7 @@
 const path = require("path")
-const data = require("@ahrjarrett/data")
+// const data = require("@ahrjarrett/data")
 
-console.log("data:", data)
+// console.log("data:", data)
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
@@ -12,12 +12,12 @@ exports.createPages = ({ graphql, actions }) => {
     graphql(
       `
         {
-          allOrgContent(limit: 5) {
+          allGithubFile(
+            filter: { relativePath: { regex: "/^packages/data/src/org/+/" } }
+          ) {
             edges {
               node {
-                fields {
-                  slug
-                }
+                base
               }
             }
           }
@@ -28,14 +28,14 @@ exports.createPages = ({ graphql, actions }) => {
         console.log(result.errors)
       }
 
-      const { edges } = result.data.allOrgContent
+      const { edges } = result.data.allGithubFile
 
       edges.forEach(edge => {
         createPage({
-          path: edge.node.fields.slug,
+          path: `/` + edge.node.base,
           component: blogPostTemplate,
           context: {
-            slug: edge.node.fields.slug,
+            base: edge.node.base,
           },
         })
       })

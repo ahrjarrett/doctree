@@ -12,8 +12,8 @@ class AST extends Component {
     this.state = {
       ast: null
     };
+    console.log("AST PROPS:", this.props);
   }
-
   async componentDidMount() {
     const ast = await parse(this.props.orgfile);
     this.setState({ ast });
@@ -24,9 +24,9 @@ class AST extends Component {
     const { theme } = this.props;
     return (
       <div className="AST">
-        {ast && ast.children && ast.children.length > 0 && (
+        {ast && ast.children && ast.children.length > 0 ? (
           <DOMTree node={ast} theme={theme} />
-        )}
+        ) : null}
       </div>
     );
   }

@@ -1,5 +1,7 @@
-import * as Org from "./Org";
-import Ast from "./AST";
+const AST = require("./AST");
+const Org = require("./Org");
 
-export const org = Org;
-export const AST = Ast;
+module.exports = {
+  AST,
+  Org
+};

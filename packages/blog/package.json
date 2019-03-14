@@ -1,10 +1,10 @@
 {
   "name": "@ahrjarrett/blog",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
   "author": "Andrew Jarrett <ahrjarrett@gmail.com>",
   "dependencies": {
-    "@ahrjarrett/data": "1.0.0",
+    "@ahrjarrett/org-mode": "1.0.0",
     "@mosch/gatsby-source-github": "0.4.1",
     "dotenv": "7.0.0",
     "gatsby": "^2.1.31",
@@ -21,9 +21,7 @@
     "react-dom": "^16.8.4",
     "react-helmet": "^5.2.0"
   },
-  "devDependencies": {
-    "prettier": "^1.16.4"
-  },
+  "devDependencies": {},
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
