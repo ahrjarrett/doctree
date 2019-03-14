@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import WalkTree from "./WalkTree";
+import DocTree from "./DocTree";
 import { TableStyles } from "./Org.styles";
 
 const getCellLength = node => {
@@ -55,7 +55,7 @@ class Table extends Component {
                 );
               }
               return (
-                <WalkTree
+                <DocTree
                   node={child}
                   level={node.level}
                   key={i}
@@ -96,7 +96,7 @@ class Cell extends Component {
   render() {
     const { node } = this.props;
     const cell = node.children.map((child, i) => (
-      <WalkTree node={child} level={node.level} key={i} />
+      <DocTree node={child} level={node.level} key={i} />
     ));
 
     return (
@@ -113,7 +113,7 @@ class Cell extends Component {
 const TableRow = ({ node, ...props }) => (
   <tr className="org__table-row">
     {node.children.map((child, i) => (
-      <WalkTree
+      <DocTree
         node={child}
         level={node.level}
         key={i}

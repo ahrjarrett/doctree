@@ -16,7 +16,7 @@ import {
   StrikeThrough
 } from "./Text";
 
-const WalkTree = ({
+const DocTree = ({
   level = 0,
   theme = defaultTheme,
   open = true,
@@ -99,4 +99,4 @@ const WalkTree = ({
   }
 };
 
-export default WalkTree;
+export default DocTree;

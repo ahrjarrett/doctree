@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { parse } from "orga";
-import WalkTree from "./WalkTree";
+import DocTree from "./DocTree";
 
 class AST extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class AST extends Component {
 }
 
 const DOMTree = ({ node, theme }) => {
-  return <WalkTree node={node} theme={theme} />;
+  return <DocTree node={node} theme={theme} />;
 };
 
 export default AST;

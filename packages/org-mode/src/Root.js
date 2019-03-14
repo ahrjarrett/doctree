@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta } from "./Org.styles";
 import { Outline } from "./Org";
-import WalkTree from "./WalkTree";
+import DocTree from "./DocTree";
 
 const Root = ({ node, theme, level, ...props }) => {
   const keys = Object.keys(node.meta);
@@ -18,7 +18,7 @@ const Root = ({ node, theme, level, ...props }) => {
         </div>
       )}
       {node.children.map((child, i) => (
-        <WalkTree node={child} level={level} key={i} {...props} />
+        <DocTree node={child} level={level} key={i} {...props} />
       ))}
     </Outline>
   );

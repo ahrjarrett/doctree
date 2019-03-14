@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import WalkTree from "./WalkTree";
+import DocTree from "./DocTree";
 import { OrgList, OrgListItem, Src } from "./Org";
 
 export const List = ({ node, level, open, ...props }) =>
@@ -11,7 +11,7 @@ export const List = ({ node, level, open, ...props }) =>
       }}
     >
       {node.children.map((child, i) => (
-        <WalkTree node={child} level={level} nth={i + 1} key={i} {...props} />
+        <DocTree node={child} level={level} nth={i + 1} key={i} {...props} />
       ))}
     </OrgList>
   );
@@ -20,7 +20,7 @@ export const ListItem = ({ node, level, open, nth }) =>
   !open ? null : (
     <OrgListItem char={node.parent.ordered ? nth : "-"}>
       {node.children.map((child, i) => (
-        <WalkTree node={child} level={level} key={i} />
+        <DocTree node={child} level={level} key={i} />
       ))}
     </OrgListItem>
   );
@@ -47,7 +47,7 @@ export default class Section extends Component {
         {!open
           ? null
           : node.children.map((child, i) => (
-              <WalkTree
+              <DocTree
                 node={child}
                 level={node.level}
                 key={i}

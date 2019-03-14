@@ -5,13 +5,13 @@ import Layout from "../components/layout";
 import Image from "../components/image";
 import SEO from "../components/seo";
 
-const IndexPage = ({ data }) => {
+const IndexPage = ({ data, ...props }) => {
   const { edges } = data.allGithubFile;
   const posts = edges.map(({ node }, i) => {
     return (
       <div key={i}>
         <h2>
-          <Link to={`/${node.base}`}>{node.base}</Link>
+          <Link to={`/posts/${node.base}`}>{node.base}</Link>
         </h2>
       </div>
     );
@@ -19,7 +19,7 @@ const IndexPage = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+      <SEO title="Home" keywords={[`org-mode`, `emacs`, `graphql`]} />
       <h1>Hi people</h1>
       <p>Welcome to your new Gatsby site.</p>
       <p>Now go build something great.</p>

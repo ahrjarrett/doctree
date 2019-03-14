@@ -1,6 +1,6 @@
 import AST from "./AST";
 import * as Org from "./Org";
 import { defaultTheme } from "./defaultTheme";
-import WalkTree from "./WalkTree";
+import DocTree from "./DocTree";
 
-export { AST, Org, defaultTheme, WalkTree };
+export { AST, Org, defaultTheme, DocTree };
