@@ -1,7 +1,5 @@
-const AST = require("./AST");
-const Org = require("./Org");
+import AST from "./AST";
+import * as Org from "./Org";
+import { defaultTheme } from "./defaultTheme";
 
-module.exports = {
-  AST,
-  Org
-};
+export { AST, Org, defaultTheme };

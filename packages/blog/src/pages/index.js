@@ -1,22 +1,21 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
+import React from "react";
+import { Link, graphql } from "gatsby";
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import Layout from "../components/layout";
+import Image from "../components/image";
+import SEO from "../components/seo";
 
 const IndexPage = ({ data }) => {
-  const { edges } = data.allGithubFile
+  const { edges } = data.allGithubFile;
   const posts = edges.map(({ node }, i) => {
-    // const title = node.meta.title || node.fields.slug
     return (
       <div key={i}>
         <h2>
           <Link to={`/${node.base}`}>{node.base}</Link>
         </h2>
       </div>
-    )
-  })
+    );
+  });
 
   return (
     <Layout>
@@ -30,10 +29,10 @@ const IndexPage = ({ data }) => {
       </div>
       <Link to="/page-2/">Go to page 2</Link>
     </Layout>
-  )
-}
+  );
+};
 
-export default IndexPage
+export default IndexPage;
 
 export const pageQuery = graphql`
   query IndexQuery {
@@ -54,4 +53,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

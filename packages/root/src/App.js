@@ -56,7 +56,7 @@ export const ThemeToggler = () => (
 
 class App extends Component {
   state = {
-    content: ""
+    content: null
   };
 
   async componentDidMount() {
@@ -75,7 +75,7 @@ class App extends Component {
                 I’m Andrew Jarrett
               </h1>
               <div className="orgmode-wrapper">
-                {this.state.content && (
+                {!this.state.content ? null : (
                   <AST orgfile={this.state.content} theme={themes[theme]} />
                 )}
                 <Modeline data={this.props.data} />

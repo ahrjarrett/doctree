@@ -1,18 +1,15 @@
-import React from "react"
-import { graphql } from "gatsby"
-import { parse } from "orga"
-import { AST, defaultTheme } from "@ahrjarrett/org-mode"
+import React from "react";
+import { graphql } from "gatsby";
+import { parse } from "orga";
+import { AST, defaultTheme } from "@ahrjarrett/org-mode";
 
 // pageContext is passed thru via context object in gatsby-node.js
 const Template = ({ data, pageContext }) => {
-  const { content } = data.githubFile
-  const ast = parse(content)
+  const { content } = data.githubFile;
+  const ast = parse(content);
 
-  console.log("content:", content)
-  console.log("AST:", ast)
-
-  return <AST orgfile={content} theme={defaultTheme} />
-}
+  return <AST orgfile={content} theme={defaultTheme} />;
+};
 
 export const pageQuery = graphql`
   query OrgFilesOnGithub($base: String!) {
@@ -20,6 +17,6 @@ export const pageQuery = graphql`
       content
     }
   }
-`
+`;
 
-export default Template
+export default Template;
