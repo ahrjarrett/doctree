@@ -1,0 +1,633 @@
+# -*- mode: org; fill-column: 79 -*-
+
+#+TITLE:Mastering Emacs Notes
+#+AUTHOR:WLHarvey4
+#+DATE:<2019-03-14 Thu>
+#+VERSION:0.0.5
+#+TEXINFO_FILENAME:mastering-emacs.info
+#+TEXINFO_CLASS: info
+#+TEXINFO_HEADER:
+#+TEXINFO_POST_HEADER:
+#+SUBTITLE:Notes and Outine
+#+SUBAUTHOR:
+#+TEXINFO_DIR_CATEGORY:Emacs
+#+TEXINFO_DIR_TITLE:Mastering
+#+TEXINFO_DIR_DESC:notes about mastering Emacs
+#+TEXINFO_PRINTED_TITLE:Mastering Emacs
+#+OPTIONS: H:4
+
+*Note:* I forked this from the illustrious [[https://github.com/wlharvey4/MasteringEmacs/blob/master/mastering-emacs.org][Wesley Harvey]]. Nice work, Wes.
+
+[[https://www.masteringemacs.org/][Mastering Emacs]]
+
+* Overview
+** In The Beginning
+   + Emacs began in 1976 [[https://www.gnu.org/software/emacs/manual/html_mono/efaq. html#Origin-of-the-term-Emacs]]
+   + Came from an editor called Teco
+** Some Implementations
+:CP:
+#+CINDEX: xemacs
+#+CINDEX: sxemacs
+:END:
+   + XEmacs fork
+     - [[http://www.xemacs.org]]
+     - [[https://www.jwz.org/doc/lemacs.html]]
+   + SXEmacs fork of XEmacs
+     - [[http://www.sxemacs.org]]
+   + and Gnu Emacs
+     - [[https://www.gnu.org/software/emacs/]]
+** Starter Packages
+:CP:
+#+CINDEX: starter packages
+#+CINDEX: packages, starter
+:END:
+*** Steve Purcell’s .emacs.d
+:CP:
+#+CINDEX:Steve Purcell @code{.emacs.d}
+#+CINDEX:Purcell, Steve
+:END:
+
+[[https://www.youtube.com/watch?v=Gq0hG_om9xY][Steve Purcell interview by Sacha Chua]]
+
+Steve Purcell's ~emacs~ config file is not meant to be a ``starter'' file, but
+is famous in the community.  Purcell does not maintain it as a starter file,
+but only for his own purposes.  He knows that it is forked and circulated, and
+so allows it to be used for educational purposes I suppose.  He is a (the?)
+maintainer of MELPA, and has written and reviewed a lot of elisp code.
+
+    + [[https://github.com/purcell/emacs.d]]
+
+*** Bozhidar Batzov’s Prelude
+:CP:
+#+CINDEX: Batzov Prelude
+#+CINDEX: Prelude from Batzov
+:END:
+    + [[https://github.com/bbatsov/prelude]]
+*** Awesome Emacs
+:CP:
+#+CINDEX: Awesome Emacs
+:END:
+    + [[https://github.com/emacs-tw/awesome-emacs]]
+** Lisp
+*** eLisp Introduction
+    + [[https://www.gnu.org/software/emacs/manual/eintr.html]]
+:CP:
+#+CINDEX: elisp
+:END:
+** Emacs as OS
+*** C Core
+When you run Emacs you are in fact  launching a tiny C core responsible for the
+low-level interactions with your operating system’s ABI.  That includes mundane
+things like  file-system and network  access; drawing  things to the  screen or
+printing control codes to the terminal.
+*** Elisp Interpreter
+:CP:
+#+CINDEX: elisp interpreter
+#+CINDEX: ui thread
+#+CINDEX: uptime
+#+CINDEX: @code{M-x emacs-uptime}
+:END:
+The cornerstone of Emacs though is the elisp interpreter — without it, there is
+no Emacs; speed  and asynchrony are the two main  issues.  The interpreter runs
+in a single thread  and intensive tasks will lock the UI  thread. But there are
+workarounds.
+
+When  you write  elisp you  are not  just  writing snippets  of code  run in  a
+sandbox,  isolated from  everything  — you  are altering  a  living system;  an
+operating system running on an operating  system.  Every variable you alter and
+every function  you call is  carried out by the  very same interpreter  you use
+when you edit text.
+
+Emacs  is  a hacker’s  dream  because  it is  one  giant,  mutable state.   Its
+simplicity is  both a blessing and  a curse. You can  re-define live functions;
+change variables left and right; and you  can query the system for its state at
+any time — state that changes with every key stroke as Emacs responds to events
+from your keyboard to your network  stack. Emacs is self-documenting because it
+is the document. There  are no other editors that can do  that. No editor comes
+close.
+
+And yet Emacs never  crashes — not really, anyway. Emacs  has an uptime counter
+to prove  that it doesn’t  (~M-x emacs-uptime~)  — multi-month uptimes  are not
+uncommon.
+
+So when you ask Emacs a question – as I will show you how to do later – you are
+asking your Emacs  what its state is.  Because of this, Emacs  has an excellent
+elisp debugger and un-limited access to  every facet of Emacs’s own interpreter
+and state — so  it has excellent code completion too. Any  time you encounter a
+lisp expression  you can tell  Emacs to evaluate it,  and it will:  from adding
+numbers to setting variables to downloading packages.
+*** Concepts
+**** Buffer
+:CP:
+#+CINDEX: buffer
+:END:
+In Emacs, all files are buffers, but not all buffers are files.
+
+Emacs uses these buffers for more than  just editing text. It can also act like
+an I/O device  and talk to another process,  such as a shell like  bash or even
+Python.
+
+Almost all of Emacs’s own commands act  on buffers.  So when you tell Emacs to,
+for example, search & replace it will actually search and replace on a buffer –
+maybe the active  buffer you’re writing in, or perhaps  a temporary duplicate –
+and not an internal data structure like you might think.
+
+In Emacs, the buffer is the /data structure/.
+
+This is an extremely powerful concept because the very same commands you use to
+move  around  and edit  in  Emacs  are almost  always  the  same ones  you  use
+behind-the-scenes in elisp. So once you memorize Emacs’s own user commands, you
+can use them in a simple function call to mimic what you’d do by hand.
+**** Windows and Frames
+:CP:
+#+CINDEX: windows
+#+CINDEX: frames
+:END:
+The /frame/ is the window and the /window/  is the frame.  That is, a frame has
+at least one  window, but can have  multiple windows, and each  window can have
+one /buffer/.  That is, a /buffer/ must  be viewed in a /window/, which must be
+in a /frame/.  A /frame/ is made up of /window/ panes.
+
+You are  free to create as  many frames as you  like, and to tile  up the frame
+into as many windows  as you like.  This allows you to  see multiple buffers on
+the screen at one time.
+**** Modeline Echo Area Minibuffer
+:CP:
+#+CINDEX: modeline
+#+CINDEX: minibuffer
+#+CINDEX: echo area
+:END:
+Emacs uses the /modeline/ to communicate facts about Emacs and the buffer you
+are in.  This is equivalent to a /status bar/.  Many different kinds of
+information can be displayed in the modeline.
+
+The /minibuffer/ is below the modeline.  This is where errors and general
+information is displayed.  It is nearly identical to a normal buffer; the
+one-line minibuffer will expand to multiple lines if necessary.  It is how you
+communicate with Emacs.
+
+The /echo area/ and the /minibuffer/ share the same spot on the screen.
+**** Point and Mark
+:CP:
+#+CINDEX: point
+#+CINDEX: mark
+#+CINDEX: region
+#+CINDEX: transient mark mode
+:END:
+/Point/ is  your current cursor position  in a buffer.  Each  buffer tracks its
+own point separately,  so each buffer has a different  position for point.  The
+``current buffer'' is  that buffer which currently ``has the  point.''  This is
+the buffer that you can write and move  around in.  Only one buffer can ever be
+the ``current buffer'' at any one time.
+
+The point  is one part of  a duo called /point  and mark/.  The point  and mark
+represent the boundaries of a /region/, which is a contiguous block of text.
+Emacs can show you the region.  This is called /transient mark mode/.
+**** Killing Yanking and CUA
+/Killing/ is cutting, /yanking/ is pasting, and copying is known as /saving to
+the kill ring/.
+**** Init Files
+     + ~.emacs.d~
+     + ~init.el~
+     + ~.emacs~
+**** Modes
+Major modes in Emacs control how  buffers behave.  Each buffer will always have
+a major  mode.  You are  free to change  a buffer’s major  mode at any  time by
+typing the command for another one.  Each buffer can have just one major mode.
+
+Minor modes, by contrast, are typically optional add-ons that you enable for
+some (or all) of your buffers.
+
+The major mode is  always displayed in the modeline. Some  minor modes are also
+displayed in the modeline,  but usually only the ones that  alter the buffer or
+how you interact with it in some way.
+* First Steps
+** Installing
+*** Version
+#+CINDEX: version
+To check Emacs' version, type: ~emacs --version~
+
+As of 2015 the upcoming version is GNU Emacs 25. If your version of Emacs is
+version 23.x or older --- upgrade.
+
+#+BEGIN_EXAMPLE
+$ /usr/bin/emacs --version
+GNU Emacs 22.1.1
+Copyright (C) 2007 Free Software Foundation, Inc.
+GNU Emacs comes with ABSOLUTELY NO WARRANTY.
+You may redistribute copies of Emacs
+under the terms of the GNU General Public License.
+For more information about these matters, see the file named COPYING.
+#+END_EXAMPLE
+
+*** Emacs on Mac OS
+:CI:
+#+CINDEX: Mac OS, installing
+:END:
+Mac OSX, in particular, seems to attract  a great deal of conflicting advice on
+how  to best  run Emacs;  the best  advice  I can  offer is  to try  out a  few
+different approaches and find one that fits you.
+
+:CI:
+#+CINDEX: Mac OS, unofficial builds
+:END:
+ + Unofficial build  --- One approach (though  there are several) is  to use an
+   unofficial build of Emacs.
+
+**** Emacs For Mac OSX
+#+CINDEX: Emacs For Mac OSX
+#+CINDEX: Mac OSX, flavors
+[[http://emacsformacosx.com/][Emacs For Mac OSX]]
+
+   - Pure Emacs! No extras! No nonsense!
+   - About These Emacs Builds
+     * I build three different release flavors of Emacs:
+       1. Official releases --- These should be more stable but are not released
+            very often.
+       2. Pretests --- These are much more  stable and are meant for vetting the
+                      code for last minute bugs before a final release.
+       3. Nightlies ---  These are bleeding edge builds and  may have bugs. They
+                       are built directly from the [[http://git.savannah.gnu.org/cgit/emacs.git/][public Git repository]]. I try
+                       to build these nightly.
+     * The scripts I run basically just  configure and build right from the GNU
+       source --- I  don't add any patches or any  extraneous lisp packages.  I
+       do include  the old  Carbon icon  on the  disk image  because I  like it
+       better than the new Cocoa icon but it is not enabled by default.
+     * Emacs is built on  various versions of Mac OS X: 10.6,  10.7 and 10.9 as
+       of this writing. The 10.6 builds  also build 32-bit and PowerPC binaries
+       (only Emacs 24 builds PowerPC ---  Emacs dropped support for it in Emacs
+       25).  The  later OSes  only build  64-bit builds.  All the  binaries are
+       combined  into a  single executable  and a  small Ruby  launcher chooses
+       which binary to run based on the machine's OS and architecture.
+     * Why not just use  a fat binary? Because fat binaries can  only hold 1 of
+       each architecture and Emacs has multiple x86_64 architectures binaries.
+     * Why are there multiple x86_64 binaries? Because the Emacs source does OS
+       feature detection at compile time instead  of at run-time. So if I build
+       Emacs on  10.9 then it  will contain hard-coded  calls to 10.9  APIs and
+       will not run on 10.6. If I compile  it on 10.6, then it will also run on
+       10.9, but it won't take advantage of any of the features in 10.9.
+     * Because  of  the unstable  nature  of  nighly  builds, and  (sadly)  the
+       relative fragility  of OS X  running on VMs,  there may be  days missing
+       here and there.
+     * *Note:* Recent Emacs builds (since 2009-12-09) have 64 bit Intel support
+       in the Universal Binary. Yay!
+     * *Also  Note:* Recent  Emacs builds  (since 2012-12-16)  have been  built
+       against Mac OS 10.7 (Lion) and have  Lion full screen support if you are
+       running on Lion  or Mountain Lion. They also have  better retina display
+       support and are code signed. Also Yay!
+     * *Also  Also  Note:*  Recent  Emacs  builds  (since  2016-08-15)  include
+       ~gnutls~ (except on Mac OS 10.6 ---  Homebrew doesn't work on 10.6 and I
+       don't want to spend a lot of  time compiling ~gnutls~ on a platform that
+       is  barely  used).    You  can  now  use  https  urls   in  the  package
+       configuration. Yay!
+     * *Also Also  Also Note:*  Recent Emacs builds  (since 2018-04-10)  do not
+       include  ~gnutls~  on  10.8  and lower.   Unfortunately  the  method  of
+       downloading  ~gnutls~ (Homebrew)  stopped  working  because the  servers
+       stopped  supporting old  SSL versions  and  10.8's SSL  libs aren't  new
+       enough.  The  Emacs 26.0.91-1  pretest  is  the  last version  that  has
+       ~gnutls~ on Mac OS 10.8.
+
+#+CINDEX: Mac OSX, build scripts
+   - The Build Scripts
+     * Get them here: https://github.com/caldwell/build-emacs
+     * I rewrote the build scripts in 2014 to make them more modular so I could
+       easily control them with Jenkins. I  also moved them from shell to Ruby,
+       which cleaned things up tremendously. They still aren't documented super
+       well, but they should be easier to read, at least.
+
+#+CINDEX: Mac OSX, tips and tricks
+#+CINDEX: Mac OSX, @code{Emacs.app}
+    - Tips  and  Tricks  --  Here  are  some tips  and  tricks  on  setting  up
+      ~Emacs.app~ on  Mac OS X.  These  are based on my  personal experience of
+      using ~Emacs.app~ for the past 10 years  or so; there may be better ways,
+      but these work for me.
+
+@@texinfo:@heading Running @code{Emacs.app} from the command line with @command{emacs}@@
+
+Call this script @@texinfo:@command{emacs}@@ and put it somewhere in your
+@@texinfo:@env{PATH}@@ (@@texinfo:@code{~/bin}@@ or
+@@texinfo:@code{/usr/local/bin}@@):
+
+#+BEGIN_EXAMPLE
+#!/bin/sh
+/Applications/Emacs.app/Contents/MacOS/Emacs "$@"
+#+END_EXAMPLE
+
+@@texinfo: @heading Using @command{emacsclient}@@
+
+ 1. Make sure the latest @@texinfo:@code{emacsclient}@@ binary is in your path:
+
+#+BEGIN_EXAMPLE
+ln -s /Applications/Emacs.app/Contents/MacOS/bin/emacsclient /usr/local/bin
+# or ~/bin if you prefer
+#+END_EXAMPLE
+
+ 2. Call this script @@texinfo:@command{ec}@@ and  put it somewhere in your @@texinfo:@env{PATH}@@
+    (@@texinfo:@code{~/bin}@@ or @@texinfo:@code{/usr/local/bin}@@):
+
+#+BEGIN_EXAMPLE
+#!/bin/sh
+which osascript > /dev/null 2>&1 && osascript -e 'tell application "Emacs" to activate'
+emacsclient -c "$@"
+#+END_EXAMPLE
+
+ 3.  Add   @@texinfo:@command{alias  emacs=ec}@@   or  @@texinfo:@command{alias
+    emacsclient=ec}@@   to  your   @@texinfo:@code{.bashrc}@@.   Or   just  use
+    @@texinfo:@command{ec}@@ directly.
+
+@@texinfo:@heading Using Emacs as the @command{mergetool} for @command{git}@@
+
+ 1. Add add this snippet to your @@texinfo:@code{.gitconfig}@@:
+
+#+BEGIN_EXAMPLE
+[merge]
+        tool = ediff
+[mergetool "ediff"]
+        cmd = emacs --eval \"(ediff-merge-files-with-ancestor \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" nil \\\"$MERGED\\\")\"
+#+END_EXAMPLE
+
+ 2. If you want to use @@texinfo:@command{emacsclient}@@, add this snippet
+    instead:
+
+#+BEGIN_EXAMPLE
+[merge]
+  tool = ediff
+[mergetool "ediff"]
+  cmd = emacsclient -c -a \"\"  --eval \"(ediff-merge-files-with-ancestor \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" nil \\\"$MERGED\\\")\"
+#+END_EXAMPLE
+
+@@texinfo:@heading Changing the Modifier Keys@@
+
+@@texinfo:@subheading Easy@@
+The easiest way is to use the Customize interface: ~M-x customize-group RET ns RET~.
+
+@@texinfo:@subheading Hard@@
+If you don't like Customize and want to do it manually, the following variables
+control the modifier keys:
+
+ - ns-alternate-modifier
+ - ns-command-modifier
+ - ns-control-modifier
+ - ns-function-modifier
+ - ns-option-modifier (just a different name for ns-alternate-modifier)
+ - ns-right-alternate-modifier
+ - ns-right-command-modifier
+ - ns-right-control-modifier
+ - ns-right-option-modifier
+
+Each variable can be set to ~'control~, ~'meta~, ~'alt~, ~'super~, or ~'hyper~.
+
+In addition ~ns-alternative-modifier~ (and  ~ns-option-modifier~) can be set to
+~'none~, which  lets it get interpreted  by the OS so  it can be used  to input
+special characters.
+
+The ~ns-right-*~  variables are set to  ~'left~ by default which  makes them the
+same as their ~left~ counterpart.
+
+@@texinfo:@heading Verifying the Binary Integrity@@
+
+This  site serves  the binaries  via SSL  and while  the binaries  are not  GPG
+signed, the application is code signed. You can verify the signature like this:
+ : codesign -dvv /Applications/Emacs.app
+
+Or, if you haven't installed emacs yet, but have mounted the disk image:
+ : codesign -dvv /Volumes/Emacs/Emacs.app
+
+Look for the following in the output:
+
+#+BEGIN_EXAMPLE
+Authority=Developer ID Application: Galvanix
+Authority=Developer ID Certification Authority
+Authority=Apple Root CA
+#+END_EXAMPLE
+
+~Galvanix~  is my  consulting partnership  and is  what I  registered my  Apple
+developer account under. If you see that, the binary is intact.
+
+**** Emacs For Mac OS Wiki
+:CI:
+#+CINDEX: wiki, mac os
+:END:
+[[https://www.emacswiki.org/emacs/EmacsForMacOS][EmacsForMacOS Wiki]]
+
+***** Distributions
+
+****** Vanilla
+These builds are based on the development version of GNU Emacs and do not
+contain any additional packages or patches.  Popular Mac keyboard shortcuts are
+available though (e.g. ~Command-O~ for opening a file); these are mapped to the
+~Super~ modifier (i.e., the Apple/Command key functions as ~Super~).
+
+#+CINDEX: EmacsForMacOS
+[[http://emacsformacosx.com/][EmacsForMacOS]]
+
+****** Extras
+
+******* Mitsuhara Yamamoto's Mac Port
+#+CINDEX: Mac Port
+[[https://bitbucket.org/mituharu/emacs-mac/][Mac Port]]
+
+ Based on the latest stable release of GNU Emacs (26.1 as of 2018-06-14) and
+ claims to incorporate most of the features of Carbon Emacs and the
+ Carbon+AppKit port from Emacs 22.3. It has improved ~C-g~ support, an emulation
+ of ‘select’ that doesn’t require periodic polling, full screen support,
+ subpixel font rendering, and smooth (pixel) scrolling.  See the [[https://bitbucket.org/mituharu/emacs-mac/][readme]] for more
+ details. Available via Homebrew and MacPorts (as emacs-mac-app), as discussed
+ below, or prebuilt binaries.
+
+******* Aquamacs
+#+CINDEX: Aquamacs
+- [[http://aquamacs.org/][Aquamacs]]
+
+- [[https://github.com/davidswelt/aquamacs-emacs/][Github Aquamacs-Emacs]]
+
+Is a convenient distribution based on GNU Emacs 25.1.
+
+Aquamacs comes preconfigured with a large number of packages and differs from
+other Emacsen in that it feels more like a Mac OS X application.
+
+OS X standard keyboard shortcuts are supported, files open in separate windows
+or tabs, nice fonts are available, and it has a convenient drag&drop
+installer.
+
+Hundreds of file types are supported (C, Java, HTML, Python, Ruby, AppleScript,
+XML, R (Splus), LaTeX (AUCTeX) etc.).
+
+All these extra modes come included and readily configured – no InitFile
+hacking.
+
+Spell checking is easy to install (e.g., CocoAspell) and asian input methods
+are also supplied, and options to deal with the missing Meta key on Mac
+keyboards.
+
+Aquamacs is based on Cocoa, the modern user interface framework in OS X.
+
+It is a ready-to-use Universal App for PPC and Intel Macs that works well on
+all recent Mac OS X versions.  Recommended for Mac users who want an Emacs that
+is tailored to the Mac.
+
+Experimental versions based on GNU Emacs 25 are also available.
+
+******* Emacs Modified for macOS
+- [[https://vigou3.gitlab.io/emacs-modified-macos/][Emacs Modified for macOS]]
+
+*Emacs Modified for macOS* is a distribution of GNU Emacs 26.1 (released May
+28, 2018) bundled with a few select packages for R developers and LaTeX users.
+The distribution is based on the latest stable release of GNU Emacs compiled by
+David Caldwell and distributed on Emacs for Mac OS X.
+
+******** Philosophy
+This distribution of Emacs is based on the NeXTstep port part of the official
+sources of GNU Emacs. Other than the additions mentioned above and the minor
+configurations found in the site-start.el file, this is a stock distribution of
+Emacs. Users of Emacs on other platforms will appreciate the similar look and
+feel of the application.
+
+******** vs. Aquamacs
+#+CINDEX: Aquamacs
+Those looking for a more Mac-like version of Emacs may consider Aquamacs. I
+used Aquamacs myself for two years, but I got tired of disabling the newer
+“features” in each release of the application. For me Aquamacs insists too much
+on opening new frames and on playing with fonts. Moreover, ESS is not kept up
+to date on a regular basis.
+
+****** Building From Source
+- To download emacs using git, use this command:
+  : git clone git://git.savannah.gnu.org/emacs.git
+- Tarball Available from the [[http://savannah.gnu.org/projects/emacs/][GNU Savannah emacs]] page.  Click on “Download Area”
+  under “Quick Overview”.
+
+******* Building
+- There are many options for building emacs (such as whether to build for the
+  X11 GUI or the Cocoa GUI), which are discussed in the INSTALL file.
+- There is also a script (~emacs/mac/make-package~) to create a Mac OS X
+  package for use by the installer.
+- The “normal” way to build Emacs under Mac OS X is:
+#+BEGIN_EXAMPLE
+./configure --with-ns
+ make install
+#+END_EXAMPLE
+- When the build is complete, you should see ~Emacs.app~ in
+  ~./nextstep/Emacs.app~.  Simply copy it to your applications folder and open
+  it to run.
+- For more detailed instructions, see the ~nextstep/INSTALL~ file.
+- Additionally, you may benefit from reading the build script here: http://github.com/ieure/emacs-nightly.
+
+**** iTerm Wiki for Emacs
+:CI:
+#+CINDEX: iTerm
+:END:
+[[https://www.emacswiki.org/emacs/iTerm2#toc11][iTerm Wiki for Emacs --- Super and Hyper Keys]]
+
+***** Why getting Super and Hyper working in a terminal is not straightforward
+The reason for this has to do a lot with DEC terminal history and the keys that
+were available  in some of the  earliest possible terminals.  The  DEC terminal
+became the default basis of emulation for most software.
+
+Contrast  this with  the [[https://en.wikipedia.org/wiki/Space-cadet_keyboard][Space-cadet]]  keyboard  that influenced  the design  of
+Emacs, made  for MIT Lisp  machines.  It  included several modifier  keys which
+allowed multiple  character sets  as well  as a large  macro space  for binding
+commands to key combinations.   Two modifier keys to the left  of the space bar
+on the Space-cadet keyboard include the *Super* and *Hyper* keys.
+
+While insanely  useful for the  experienced user,  fewer people worked  on Lisp
+machines  compared  to  the  widespread  availability  of  VT-series  character
+terminals. All  command line and  serial-terminal interaction you’ll  ever find
+supports VT-100.
+
+In GUI mode most emacsen will bind the Windows or Option key to *Super*U. Or if
+you’re a Mac  user, you might have swapped  *Alt* and *⌘* so the  *Meta* key is
+closest to the spacebar and easier to reach.
+
+When  you press  a key  on your  keyboard your  terminal emulator  will send  a
+character  or  an escape  sequence  down  the  connection.   For DEC  or  xterm
+terminals, some keys may not send signals.  iTerm2 can make use of any key that
+OSX will respond to and you can  customize it to run commands locally, remotely
+or send signals down the terminal connection to the remote machine.
+
+***** Testing escape codes
+First,  connect  your  remote  machine  and  issue  the  cat  command  with  no
+parameters. Depending on  your OS, termcap on the remote  and the codepage your
+keyboard is set  to, you’ll see either  a character or an  escape sequence when
+you type something.
+
+Let’s see how the Latin letter ~O~ works when pressed with modifier keys.
+ + When I press ~o~, I get an ~o~.
+ + But when I press ~ALT+o~, I get ~^[o~
+ + When I press ~CTRL+ALT+o~, I get ~^[^O~
+ + And when I press ~SHIFT+ALT+o~, I get ~^[O~
+
+These combos are being  read by the remote machine and being  fed to ~STDIN~ to
+~cat~ (and ~cat~ is reading them back  as output).  They’re also the most basic
+escape sequences, as ~^~ is the code for ~COMMAND~, and ~^[~ is for ~ALT/META~,
+known  as the  escape sequence  ~^[~ .   For terminals  and IBM  PCs, the  ~^[~
+signifies some sort  of terminal code, signifying a keypress  or some action to
+be taken  on the terminal  or the  remote.  If your  keyboard has a  D-pad, try
+hitting  ~<up> <down>  <right>~ and  ~<left>~.  Usually  these will  be ~^[[A~,
+~^[[B~, ~^[[C~ and ~^[[D~, respectively.
+
+You can press ~C-c~ to get out of ~cat~
+
+Now let’s  try sending a  more complicated escape  sequence using some  keys on
+your keyboard and fool Emacs on the  remote into thinking you pressed a *Hyper*
+key combo.
+ + Go into your iTerm2 settings for your connection profile.
+ + In the Keys panel, let’s set a key combo for ~Ctrl+⌘+Option+A~, which is the
+   three leftmost keys next to the space bar plus the letter ~A~.
+ + I’m pretty confident your remote termcap probably does not have an entry for
+   ~^[[1;P9~, so let’s start off with that code.
+ + Your setting should look like this:
+   + Keyboard Shortcut :: ~^+Option+Control+a~
+   + Action :: Send Escape Sequence
+   + Escape :: ~[1;P9~
+ + Let’s get Emacs to listen for this key.  Evaluate the following Lisp code in
+   an Emacs session (I  took the liberty of adding escapes for  the rest of the
+   keys):
+ + Now we can bind Hyper to something.  Let’s try this:
+   + ~(global-set-key (kbd "H-a") 'dired)~
+ + Now when  you press ~Ctrl+⌘+Option+A~, ~dired~ should pop  up.  Proceed with
+   adding the rest  of the keys and  escape codes in your  iTerm2 setup.  Also,
+   you can use the ~cat~ command to  check your work and ensure that the proper
+   escape sequences are reaching the remote machine.
+ + You can also  make combinations with ~Control~ and ~META~  such as ~C-c H-o~
+   with this technique.  For ~C-c H-o~ you would hit ~C-c~ and then release the
+   keys, then ~Ctrl+⌘+Option+o~ for the ~H-o~ part.
+ +  Now  you can  make  loads  more keybindings  for  all  your favorite  Emacs
+   commands.
+
+** Starting
+** Interface
+** Keys
+*** Control
+*** Extended
+*** Universal
+*** Remembering Keys
+** Configuring
+*** Customizing
+*** Evaluating Lisp
+*** Package Manager
+*** Color Themes
+** Help
+*** Info
+*** Apropos
+*** Describe
+** Blogs on Using Emacs
+
+- [[https://cestlaz.github.io/stories/emacs/][Using Emacs Series]]
+
+- [[http://ergoemacs.org/emacs/emacs.html][Practical Emacs Tutorial]]
+
+- [[http://tuhdo.github.io/emacs-tutor.html][Emacs Mini Manual (PART 1) - THE BASICS]]
+
+- [[http://emacsrocks.com/][Emacs Rocks]]
+
+- [[http://emacsmovies.org/][EmacsMovies.org]]
+
+- [[https://github.com/emacs-tw/awesome-emacs][Awesome Emacs]]
+
+- [[https://www.reddit.com/r/emacs][reddit emacs]]
+
+* Concept Index
+  :PROPERTIES:
+  :INDEX:    cp
+  :END:
