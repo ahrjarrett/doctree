@@ -29,7 +29,10 @@ class App extends React.Component<PropTypes, StateTypes> {
           <IngredientsList ingredients={this.state.ingredients} />
         </div>
         <div className="column-2" />
-        <FetchRecipe ingredients={this.state.ingredients} />
+        <FetchRecipe
+          ingredients={this.state.ingredients}
+          query={this.state.ingredients.join("+")}
+        />
       </AppStyles>
     )
   }

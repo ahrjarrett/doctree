@@ -1,3 +1,1 @@
-export default {
-  delete: require("./delete")
-};
+export default require("./helpers")

@@ -1,31 +1,81 @@
 import React from "react"
 import axios from "axios"
-import { arraysEqual } from "@ahrjarrett/shared"
+import helpers from "@ahrjarrett/shared"
+const APP_ID = process.env.REACT_APP_FOOD_APP_ID
+const APP_KEY = process.env.REACT_APP_FOOD_APP_KEY
 
 interface PropTypes {
-  ingredients?: string[]
+  ingredients: string[]
+  query: string
 }
-interface StateTypes {}
+
+interface StateTypes {
+  response: ResponseType | null
+}
+
+interface ResponseType {
+  data: {
+    q: string
+  }
+}
 
 class FetchRecipe extends React.Component<PropTypes, StateTypes> {
-  componentDidMount() {
-    console.log("mounted!")
-    console.log("axios!", axios)
+  constructor(props: PropTypes) {
+    super(props)
+    this.state = {
+      response: null
+    }
   }
 
-  componentDidUpdate() {
-    console.log("updated!")
+  componentDidUpdate(prevProps: PropTypes, prevState: StateTypes) {
+    console.group("component updating!")
+    console.log("prevProps", prevProps)
+    console.log("prevState", prevState)
+    console.log("this.props", this.props)
+    console.log("this.state", this.state)
+    console.groupEnd()
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const { ingredients } = this.props
-  //   if (!ingredients || !ingredients.length) return false
-  //   if (ingredients.length !== nextProps.ingredients.length) return true
-  //   if (arraysEqual(ingredients, nextState)) return false
-  // }
+  handleFetch = async (e: React.MouseEvent<HTMLElement>) => {
+    const { query: QUERY } = this.props
+    const API_CALL = `https://api.edamam.com/search?q=${QUERY}&app_id=${APP_ID}&app_key=${APP_KEY}`
+
+    const response = await axios.get(API_CALL)
+    this.handleResponse(response)
+  }
+
+  handleResponse = (response: ResponseType | null) => {
+    this.setState({ response })
+  }
+
+  shouldComponentUpdate(nextProps: PropTypes, nextState: StateTypes) {
+    if (nextState.response !== null) {
+      // If next response & no previous response, update:
+      if (!this.state.response) return true
+      // If previous query is different than next query, update:
+      if (nextState.response.data.q !== this.state.response.data.q) return true
+    }
+
+    if (!helpers.arraysEqual(this.props.ingredients, nextProps.ingredients))
+      return true
+
+    return false
+  }
 
   render() {
-    return <div className="fetch-recipe">Fetch Recipe!</div>
+    return (
+      <div className="fetch-recipe">
+        <h4>
+          Query: <span>{this.props.query}</span>
+        </h4>
+        <button onClick={this.handleFetch}>Fetch Recipe!</button>
+        <pre style={{ width: "900px" }}>
+          {!this.state.response
+            ? "Wait for response..."
+            : JSON.stringify(this.state.response, undefined, 2)}
+        </pre>
+      </div>
+    )
   }
 }
 
