@@ -1,19 +1,28 @@
 import React from "react"
 import axios from "axios"
 import helpers from "@ahrjarrett/shared"
+import { RecipeType } from "./App"
+
+interface ResponseType {
+  data: {
+    q: string
+    hits: [
+      {
+        recipe: RecipeType
+      }
+    ]
+  }
+}
 
 interface PropTypes {
   ingredients: string[]
+  propogateRecipe: (recipe: RecipeType) => void
   query: string
 }
 
 interface StateTypes {
   response: ResponseType | null
   uri: string
-}
-
-interface ResponseType {
-  data: { q: string }
 }
 
 class FetchRecipe extends React.Component<PropTypes, StateTypes> {
@@ -44,12 +53,12 @@ class FetchRecipe extends React.Component<PropTypes, StateTypes> {
   handleFetch = async (e: React.MouseEvent<HTMLElement>) => {
     const uri = this.makeUriEndpoint(this.props.query)
     const response = await axios.get(uri)
-    // REMOVE SET STATE FOR URI LATER!
-    this.setState({ uri }, () => this.handleResponse(response))
+    this.handleResponse(response)
   }
 
   handleResponse = (response: ResponseType | null) => {
     this.setState({ response })
+    if (response) this.props.propogateRecipe(response.data.hits[0].recipe)
   }
 
   shouldComponentUpdate(nextProps: PropTypes, nextState: StateTypes) {
@@ -70,20 +79,12 @@ class FetchRecipe extends React.Component<PropTypes, StateTypes> {
         <h4>
           Query: <span>{this.props.query}</span>
         </h4>
-        <h4>
-          URI Call:{" "}
-          {this.state.uri && (
-            <a href={this.state.uri} target="_blank">
-              {this.state.uri}
-            </a>
-          )}
-        </h4>
         <button onClick={this.handleFetch}>Fetch Recipe!</button>
-        <pre style={{ width: "900px" }}>
+        {/* <pre style={{ width: "900px" }}>
           {!this.state.response
             ? "Wait for response..."
             : JSON.stringify(this.state.response, undefined, 2)}
-        </pre>
+        </pre> */}
       </div>
     )
   }

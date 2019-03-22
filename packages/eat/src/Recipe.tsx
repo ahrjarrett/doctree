@@ -3,7 +3,6 @@ import { RecipeType } from "./App"
 
 interface PropTypes {
   recipe: RecipeType | null
-  propogateRecipe: (recipe: RecipeType) => void
 }
 
 interface StateTypes {}
