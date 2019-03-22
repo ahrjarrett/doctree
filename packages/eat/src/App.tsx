@@ -29,7 +29,7 @@ interface IngredientType {
 interface PropTypes {}
 interface StateTypes {
   ingredients: string[]
-  recipe: RecipeType | null
+  recipes: [{ recipe: RecipeType }] | null
 }
 
 class App extends React.Component<PropTypes, StateTypes> {
@@ -37,7 +37,7 @@ class App extends React.Component<PropTypes, StateTypes> {
     super(props)
     this.state = {
       ingredients: [],
-      recipe: null
+      recipes: null
     }
   }
 
@@ -45,8 +45,8 @@ class App extends React.Component<PropTypes, StateTypes> {
     this.setState({ ingredients: [...this.state.ingredients, ingredient] })
   }
 
-  getChildRecipe = (recipe: RecipeType) => {
-    this.setState({ recipe })
+  getChildRecipes = (recipes: [{ recipe: RecipeType }]) => {
+    this.setState({ recipes })
   }
 
   render() {
@@ -59,10 +59,15 @@ class App extends React.Component<PropTypes, StateTypes> {
         <div className="column-2">
           <FetchRecipe
             ingredients={this.state.ingredients}
-            propogateRecipe={this.getChildRecipe}
+            propogateRecipes={this.getChildRecipes}
             query={this.state.ingredients.join("+")}
           />
-          <Recipe recipe={this.state.recipe} />
+          <div className="recipes">
+            {this.state.recipes &&
+              this.state.recipes.map(({ recipe }, i) => (
+                <Recipe recipe={recipe} key={i} />
+              ))}
+          </div>
         </div>
       </AppStyles>
     )

@@ -16,7 +16,7 @@ interface ResponseType {
 
 interface PropTypes {
   ingredients: string[]
-  propogateRecipe: (recipe: RecipeType) => void
+  propogateRecipes: (recipes: [{ recipe: RecipeType }]) => void
   query: string
 }
 
@@ -58,7 +58,7 @@ class FetchRecipe extends React.Component<PropTypes, StateTypes> {
 
   handleResponse = (response: ResponseType | null) => {
     this.setState({ response })
-    if (response) this.props.propogateRecipe(response.data.hits[0].recipe)
+    if (response) this.props.propogateRecipes(response.data.hits)
   }
 
   shouldComponentUpdate(nextProps: PropTypes, nextState: StateTypes) {
