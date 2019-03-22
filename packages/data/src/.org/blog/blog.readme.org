@@ -1,0 +1,147 @@
+#+TITLE: README: Gatsby Org-Mode Blog
+#+AUTHOR: Andrew Jarrett <ahrjarrett@gmail.com>
+#+DATE: <2019-03-13 Wed>
+
+* AWS
+
+Gatsby blog with org-mode rendering.
+
+- [[https://github.com/ahrjarrett/ahrjarrett.com/tree/master/packages/blog][Repo]] part of the ahrjarrett monorepo
+- [[https://xiaoxinghu.github.io/orgajs/docs/generate-static-website-with-gatsby][gatsby-orga docs]]
+
+** Amplify Config
+
+Maybe I should create a GraphQL API to serve my data, instead of doing this quirky Github thing!
+
+
+| Project name  | org-blog            |
+|---------------+---------------------|
+| environment   | local               |
+| Src path      | src                 |
+| Build path    | public              |
+| Build command | gatsby build        |
+| Start command | gatsby serve        |
+| Region        | US Ohio (US East-2) |
+
+** Hosting
+
+Did ~amplify add hosting~:
+
+- Static Website URL:
+
+http://orgblog-local.s3-website.us-east-2.amazonaws.com/
+
+- Added Cloudfront CDN:
+
+| Bucket Name | orgblog    |
+| index doc   | index.html |
+| error doc   | index.html |
+
+** Point subdomain to app
+
+Go into Route 53 and click Create Record Set. Create a new record set:
+
+| Name                | blog.jeeves.dev                       |
+| Type                | Choosing IPv6 to learn about it       |
+| Alias               | Yes                                   |
+| Target (Cloudfront) | https://d24j2v3111v1y5.cloudfront.net |
+| Rest:               | Accepting default settings            |
+
+** Add API?
+
+Add GraphQL endpoint for my own files? Very interested in gatbsy-orga's feature where we can _query for nodes, not just files_ (see below)
+
+** Add Auth?
+
+That would keep my files safe, and allow for collaboration.
+
+
+* Config
+
+Currently using orga to create an AST and my own package to take that AST and recursively build a tree of React components from it (~@ahrjarrett/org-mode~).
+
+Also using ~@mosch/gatsby-source-github~ to pull down org files from my repo https://github.com/ahrjarrett/ahrjarrett.com using this GraphQL query:
+
+#+BEGIN_SRC 
+{
+  allGithubFile(
+    filter: {
+      relativePath: { regex: "/^(packages/data/src/org/).+(.org)$/" }
+    }
+  ) {
+    edges {
+      node {
+      base
+    }
+  }
+}
+#+END_SRC
+
+
+* Ideas / Plans
+
+** Dynamic search of org files
+
+This is interesting:
+
+/gatsby-transformer-orga plugin provides 2 ways to generate your content from your org-mode source files/
+
+1. one document per org-mode file
+2. one document per section (sub-tree)
+
+#+BEGIN_QUOTE
+The former is the default option. To enable section based generation, add ORGA_PUBLISH_KEYWORD to your org file, and sections with matching keyword will be transformed into a standalone document. E.g.
+#+END_QUOTE
+
+Which looks like this in the org file:
+
+#+BEGIN_SRC 
+  #+ORGA_PUBLISH_KEYWORD: DONE
+
+     * DONE My First Post
+       CLOSED: [2018-12-14 Fri 15:44]
+
+       ...
+
+     * TODO A Draft
+#+END_SRC
+
+
+** Comments via Github
+
+Found this while reading Wesley's mastering-org file -- this is definitely what I want to implement!
+
+http://donw.io/post/github-comments/
+
+** Gatsby Plugins
+
+- [[https://github.com/Rulikkk/gatsby-remark-emoji][Slack-style emojis]]
+- Fullstory / Hotjar tracking
+- [[https://www.gatsbyjs.org/packages/gatsby-remark-code-repls/?%3Drepl][Sandbox / REPL link generation]] :interesting:
+- [[https://github.com/search?q%3Dgatsby-plugin-klipse][Better REPL example with Klipse]]
+- Advanced Sitemap -> ties into a wiki
+- Google Scholar Metadata
+ 
+  
+
+** Deploy GQL Playground in Production
+
+Mount on ~___playground~ ?
+
+** GraphQL Voyager of your own GQL API
+
+** Invent a world.
+
+Create your own Emacs-inspired Wiki about it. Literature as a self-serve experience.
+
+Build a GraphQL endpoint and use Voyager to visualize it.
+
+* Fixes
+
+** Routing
+
+Maybe move away from client-side routing?
+
+[[https://www.gatsbyjs.org/packages/gatsby-plugin-express/][Express routing in Gatsby]]
+
+

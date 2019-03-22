@@ -1,0 +1,43 @@
+#+TITLE: README: Ask Jeeves Brainstorming
+
+* What should we ask Jeeves?
+
+** What should I do today?
+
+Jonah had an idea about being lazy and having Jeeves plan your day. There are some cool APIs out there:
+
+*** Events
+
+- API with a huge list of events! 
+
+https://www.eventbrite.com/d/tx--austin/events--today/
+
+- API for movies playing near me?
+- Include Rotten Tomatoes API for reviews?
+
+*** Authentication to allow user to set preferences, get better results over time
+
+
+** GraphQL APIs
+
+[[https://github.com/APIs-guru/graphql-apis][Good list of a bunch]]
+
+   
+*** Search / Scrape
+
+- [[http://gdom.graphene-python.org/graphql?query%3D%257B%250A%2B%2Bpage%2528url%253A%2522http%253A%252F%252Fnews.ycombinator.com%2522%2529%2B%257B%250A%2B%2B%2B%2Bitems%253A%2Bquery%2528selector%253A%2522tr.athing%2522%2529%2B%257B%250A%2B%2B%2B%2B%2B%2Brank%253A%2Btext%2528selector%253A%2522td%2Bspan.rank%2522%2529%250A%2B%2B%2B%2B%2B%2Btitle%253A%2Btext%2528selector%253A%2522td.title%2Ba%2522%2529%250A%2B%2B%2B%2B%2B%2Bsitebit%253A%2Btext%2528selector%253A%2522span.comhead%2Ba%2522%2529%250A%2B%2B%2B%2B%2B%2Burl%253A%2Battr%2528selector%253A%2522td.title%2Ba%2522%252C%2Bname%253A%2522href%2522%2529%250A%2B%2B%2B%2B%2B%2Battrs%253A%2Bnext%2B%257B%250A%2B%2B%2B%2B%2B%2B%2B%2B%2Bscore%253A%2Btext%2528selector%253A%2522span.score%2522%2529%250A%2B%2B%2B%2B%2B%2B%2B%2B%2Buser%253A%2Btext%2528selector%253A%2522a%253Aeq%25280%2529%2522%2529%250A%2B%2B%2B%2B%2B%2B%2B%2B%2Bcomments%253A%2Btext%2528selector%253A%2522a%253Aeq%25282%2529%2522%2529%250A%2B%2B%2B%2B%2B%2B%257D%250A%2B%2B%2B%2B%257D%250A%2B%2B%257D%250A%257D][DOM traversal / scraping in GQL]]
+  
+
+*** Food / Business
+
+- [[https://www.yelp.com/developers/graphiql][Yelp, if you're cool with letting them brand all over you]]
+
+  
+*** Music
+
+- Spotify Gatsby plugin, [[https://spotify-api-graphql-console.herokuapp.com/][Spotify GraphQL API]]
+- [[https://github.com/APIs-guru/graphql-apis][MusicBrainz]], music metadata encyclopedia
+  
+
+*** Get location by IP address
+  

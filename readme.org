@@ -82,3 +82,112 @@ https://medium.com/@limichelle21/connecting-google-domains-to-amazon-s3-d0d9da46
 
 
 
+
+* Lerna / Yarn Workspace
+
+Followed this guide:
+
+https://medium.com/@jsilvax/a-workflow-guide-for-lerna-with-yarn-workspaces-60f97481149d
+
+** Lerna Notes
+
+*** lerna exec
+
+Run a command in all packages:
+
+#+BEGIN_SRC 
+lerna exec -- <cmd_here>
+#+END_SRC
+
+
+*** lerna bootstrap
+
+Unnecessary when using Yarn workspaces!
+
+#+BEGIN_QUOTE
+In most Lerna tutorials, it is advocated to use the lerna bootstrap command, however when yarn workspaces is enabled this is unecessary and redundant.
+
+lerna bootstrap when you're using Yarn workspaces is literally redundant? All lerna bootstrap --npm-client yarn --use-workspaces (CLI equivalent of your lerna.json config) does is call yarn install in the root. — Issue 1308
+#+END_QUOTE
+
+
+
+** Yarn Workspace Notes
+
+First, turn on Yarn Workspaces:
+
+#+BEGIN_SRC 
+yarn config set workspaces-experimental true
+#+END_SRC
+
+- =yarn.lock= files:
+
+Note that Workspaces don’t have their own yarn.lock files, and the root yarn.lock contains all the dependencies for all the Workspaces. When you want to change a dependency inside a Workspace, the root yarn.lock will be changed as well as the Workspace’s package.json.
+
+
+
+*** yarn link
+
+Say we want to use our =org-mode= package in another local app?
+
+Create a sym-link by cd'ing into the =org-mode= directory and running
+
+#+BEGIN_SRC 
+yarn link
+
+# Output:
+
+# success Registered "@ahrjarrett/org-mode".
+# info You can now run `yarn link "@ahrjarrett/org-mode"` in the projects 
+# where you want to use this module and it will be used instead.
+#+END_SRC
+
+From the guide at the top of this first node:
+
+#+BEGIN_QUOTE
+Any changes in /packages/my-design-system-core will be reflected in my-client-app. Now a developer can easily do local development on both projects and see it reflected.
+#+END_QUOTE
+
+*** yarn unlink
+
+Just like link above, used:
+
+/When the developer is finished and no longer wants to use the local package we need to unlink/
+
+Move to @ahrjarrett/org-mode and run
+
+#+BEGIN_SRC
+yarn unlink
+
+# success Unregistered "@my-scope-name/my-design-system-core".
+# info You can now run `yarn unlink "@my-scope-name/my-design-system-core"` 
+# in the projects where you no longer want to use this module.
+#+END_SRC
+
+Now cd to the repo that was linked, and unlink it!
+
+
+** Add a local package to another
+
+#+BEGIN_SRC 
+lerna add @my-scope-name/design-system-button --scope=@my-scope-name/my-design-system-form
+#+END_SRC
+
+
+** Common Dev Dependencies (e.g. Prettier)
+
+If you have common dev dependencies, it’s better to specify them in the workspace root package.json. For instance, this can be dependencies like Jest, Husky, Storybook, Eslint, Prettier, etc.
+
+*** Add common dependency to workspace root
+
+#+BEGIN_SRC 
+yarn add pkg-name --dev -W
+#+END_SRC
+
+** Removing Depedencies
+
+If there’s a dependency that all packages use but that you want to remove, Lerna has the exec command that runs an arbitrary command in each package. With this knowledge, we can use exec to remove a dependency on all packages.
+
+#+BEGIN_SRC 
+lerna exec -- yarn remove dep-name
+#+END_SRC

@@ -1,0 +1,22 @@
+#+TITLE: Soft Skills
+#+DATE: [2017-12-13 Wed]
+#+AUTHOR: Andrew Jarrett
+#+EMAIL: ahrjarrett@gmail.com
+
+* Section 1
+  :LOGBOOK:
+  CLOCK: [2017-12-13 Wed 03:47]--[2017-12-13 Wed 04:12] =>  0:25
+  :END:
+  - “The skill of self-teaching is a skill that literally enables you to do just about anything you can imagine.” /p. 1/
+** Chapter 1: Career
+   - “Jobs are owned by the company, you own your career.” —Earl Nightingale
+** Chapter 2: Getting Started With a Bang
+   - “Most software developers starting out in their careers make a few huge mistakes. The biggest of those mistakes, by far, is not treating their software development career as a business.” /p. 9/
+   - “...think of an employer as a customer for your business of developing software.” /p. 10/
+     - This one resonated with be, considering that I used to think of myself as being in business for myself when I worked at OE.
+   - *Question:* What do you have to sell? What is your product or service?
+     - “The service you provide as a software developer has a tangible value, and it’s your job to communicate not only what that value is, but what makes it different than the offerings of thousands of other software developers out there.” /p. 11/
+     - “You can imagine that most software developers starting out don’t think about their careers in this way. Instead of starting out with a bang, they enter the scene with a barely audible pop.” /p. 11/
+*** TODO If you had to describe the specific service you can provide a perspective employer or client in a single sentence, what would it be?
+    :PROPERTIES: career writing-assignment
+**** /An obsessively curious self-learner who has worked in many positions for a variety of tech startups, which informs my holistic view of how to find and maintain the health and bottom-line of your company./

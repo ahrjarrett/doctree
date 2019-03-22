@@ -1,0 +1,753 @@
+# -*- mode: org; fill-column: 99; -*-
+#+TITLE:Mastering Org-Mode
+#+AUTHOR:WLHarvey4
+#+EMAIL:wlharvey4@mac.com
+#+DATE:<2019-03-11 Mon 21:40>
+#+VERSION:{{{version}}}
+#+MACRO:version 0.2.7
+
+#+TEXINFO_FILENAME:mastering-org.info
+#+TEXINFO_CLASS: info
+#+TEXINFO_HEADER:
+#+TEXINFO_POST_HEADER:
+#+SUBTITLE:Version {{{version}}} {{{time(%F %R)}}}
+#+SUBAUTHOR:
+#+TEXINFO_DIR_CATEGORY:Org-Mode
+#+TEXINFO_DIR_TITLE:Mastering Org-Mode
+#+TEXINFO_DIR_DESC:How to master org-mode in a decade
+#+TEXINFO_PRINTED_TITLE:How To Master Org-Mode In A Decade
+
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:
+#+LATEX_HEADER:
+#+LATEX_HEADER_EXTRA:
+#+DESCRIPTION:
+#+KEYWORDS:
+#+SUBTITLE:
+#+LATEX_COMPILER: pdflatex
+#+DATE: \today
+
+#+OPTIONS: html-link-use-abs-url:nil html-postamble:auto
+#+OPTIONS: html-preamble:t html-scripts:t html-style:t
+#+OPTIONS: html5-fancy:nil tex:t
+#+HTML_DOCTYPE: xhtml-strict
+#+HTML_CONTAINER: div
+#+DESCRIPTION:
+#+KEYWORDS:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+HTML_HEAD:
+#+HTML_HEAD_EXTRA:
+#+SUBTITLE:
+#+INFOJS_OPT:
+#+CREATOR: <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.14)
+#+LATEX_HEADER:
+
+*Note:* Forked from the always thorough [[https://github.com/wlharvey4/Mastering-Org][Wesley Harvey’s repo of the same name]].
+
+* Glossary
+
+** Agenda
+
+  - Agenda :: Org can select items based on various criteria and display them in a separate
+              buffer. Six different view types are provided, one of which is ~agenda~: like a
+              calendar and shows information for specific dates.  The extracted information is
+              displayed in a special /agenda/ buffer.
+
+    + Agenda Files :: The information to be shown is normally collected from all /agenda/
+                      files, the files listed in the variable ~org-agenda-files~.  If a
+                      directory is part of this list, all files with the extension ~.org~
+                      in this directory will be part of the list.  Add and remove files
+                      from this list using ~C-c [~ and ~C-c ]~.
+
+    + Cycling through agenda files :: ~C-,'~ ~(org-cycle-agenda-files)~
+
+    + Switch between buffers :: ~M-x org-switchb <RET>~ ~iswitchb~ like interface
+
+    + Agenda Dispatcher :: The views are created through a dispatcher, which should be bound to a
+         global key—for example ~C-c a~.  After pressing ~C-c a~, an additional letter is required
+         to execute a command.  ~a~ produces a calendar-like /agenda/ view.  ~t~ produces a list of
+         ~TODO~ items.  ~m~ produces headlines matching a ~TAGS~ expression.  There are others as
+         well.  See [[https://orgmode.org/manual/Agenda-dispatcher.html#Agenda-dispatcher][Agender Dispatcher]].
+
+** Babel
+   - Babel :: [[https://orgmode.org/worg/org-contrib/babel/][active code in Org-mode]]
+
+              Babel is Org-mode's ability to execute source code within Org-mode documents.  Babel
+              started life as Org-babel, an extension to Org-mode.  It was integrated into the
+              Org-mode core at version 7.0. The author of Babel is Eric Schulte. The secondary
+              author is Dan Davison.
+
+              [[https://orgmode.org/worg/org-contrib/babel/languages.html][List of supported languages]] with information on requirements, configuration
+              instructions, and pointers to language specific documentation.
+
+   - Babel Tutorial :: https://orgmode.org/worg/org-contrib/babel/intro.html
+
+                       An online set of installation and setup instructions, as well as an overview
+                       of the main features of Babel, with plenty of examples.
+
+   - Reference Card :: [[https://org-babel.readthedocs.io/en/latest/][Org Babel Reference Card]]
+
+   - Babel Documentation :: https://orgmode.org/manual/Working-with-source-code.html
+
+   - Literate Programming ::
+
+        [[https://www.jstatsoft.org/article/view/v046i03][A Multi-Language Computing Environment for Literate Programming and Reproducible Research]]
+
+        A journal paper providing the most up to date and complete introduction to using Org-mode
+        and Babel for Reproducible research and literate programming.
+
+        [[https://caiorss.github.io/Emacs-Elisp-Programming/Org-mode-recipes.html][Literate Programming Recipes]]
+
+        [[http://www.howardism.org/Technical/Emacs/literate-programming-tutorial.html][Introduction to Literate Programming]]
+
+   - Examples and Uses :: [[https://orgmode.org/worg/org-contrib/babel/uses.html][Source Code Blocks: Uses]]
+
+        [[http://eschulte.github.io/org-scraps/][Scraps]]
+
+** Capture
+
+  - Capture :: *Capture* lets you quickly store notes with little interruption of your work
+               flow [fn:remember].  Capturing is controlled by ~org-remember.el~.
+
+    + Set Up Capture :: set a default target file for notes, and define a global key for
+      capturing new material.
+      : (setq org-default-notes-file (concat org-directory "/notes.org"))
+      : (define-key global-map "\C-cc" 'org-capture)
+
+    + Use Capture<<capture>> :: ~C-c c~ is the basic command ~(org-capture)~; it has some alternates:
+
+      + ~(org-capture &optional ARG)~ :: ~C-c c~; with a prefix ~C-u C-c c~, find the last stored
+           capture; with two prefixes ~C-u C-u C-c c~, visit the last stored capture in a separate
+           buffer.  Can also jump to the bookmark ~org-capture-last-stored~.  With a zero prefix
+           ~C-0 C-c c~, insert the capture at point.
+      + ~(org-capture-finalize)~ :: ~C-c C-c~
+      + ~(org-capture-refile)~ :: ~C-c C-w~
+      + ~(org-capture-kill)~ :: ~C-c C-k~
+
+[fn:remember] Org’s method for capturing new items is heavily inspired by John Wiegley excellent
+~remember.el~ package.]
+
+
+  - Capture Templates :: You can use templates for different types of capture items, and for
+       different target locations.  Because the code is quite complex, you should create new
+       templates using the customize interface, using ~C-c c C~.
+
+    See [[https://orgmode.org/manual/Capture-templates.html#Capture-templates][Capture Templates]] for full details
+
+** Category
+
+  - Category :: The /category/ is a broad label assigned to each agenda item.  By default, the
+                category is simply derived from the file name.  You can specify a file-wide
+                category using the in-buffer setting ~#+CATEGORY: Value~ outside of a heading.  A
+                different in-buffer category can be added to a heading, or you can give each entry
+                its own category with the ~:CATEGORY:Value~ property.  The AGENDA VIEW uses the
+                category as the first item in a line.
+
+** Drawer
+
+  - Drawer (~:DRAWERNAME:~) :: A place to hide content and settings.  A drawer name is delimited by
+       colons.  A drawer must be terminated by an ~:END:~ keyword.  Anything can go inside a
+       /drawer/ except a heading and another drawer.
+
+       ~C-c C-x d~ :: ~(org-insert-drawer &optional ARG DRAWER)~; interactively insert a drawer at
+       point; with an active region, put the region inside a drawer; with a prefix argument, insert
+       a /property drawer/ (see [[property-drawer][Property Drawer]]; see [[logbook-drawer][Logbook Drawer]]).
+
+** Footnote
+
+  - Footnote (~[fn:m]~) :: A footnote is started by a /footnote marker/ in square brackets in
+       column 0, no indentation allowed. It ends at the next footnote definition, headline, or
+       after two consecutive empty lines.  The /footnote reference/ is simply the /marker/ in
+       square brackets, inside text.  Markers always start with ~fn:~.
+
+       Footnote Example:
+       : The Org homepage[fn:1] now looks a lot better than it used to.
+       : ...
+       : [fn:1] The link is: https://orgmode.org
+
+       Footnotes may also be *named footnotes*: ~[fn:name]~ (name must be unique).
+
+       Footnames may also be *inline footnotes*: ~[fn:inline definition]~.  This is basically a
+       LaTeX-like anonymous footnote where the definition is given directly at the reference point.
+
+       Finally, a hybrid footnote with both a label and an in-line definition, allowing further
+       references to the same footnote.
+       : [fn:name:a definition]
+** Hyperlink
+
+  - Hyperlink :: A link to another place in a file, another file, Usenet article, email, etc.
+                 Links are categorized as /internal/ or /external/.  [[info:org#Handling%20links][Handling Links]]
+
+    + Link Format :: =[[link][Description] ]= where [Description] is optional
+
+    + ~C-c l~ :: ~(org-store-link)~ store a link to the current location (because this is a /global
+                 command/, you must create a key binding yourself.
+
+      - Org buffers :: cursor on ~<<target>>~; cursor on headline; ~:CUSTOM_ID:~ property;
+
+      - Email News :: link will point to current thing
+
+      - Web browsers :: EWW, W3, W3M link will point to current URL, with page title as description
+
+      - Files :: link will point to the file, with a search string pointing to the contents of the
+                 current line; can create custom functions to select the search string.
+
+    + ~C-c C-l~ :: create or edit a link; all links stored during the current session are part of
+                   the history; can access them with ~<UP>~ and ~<DOWN>~ (or ~M-p/n~).
+
+    + ~C-u C-c C-l~ :: a link to a file will be inserted; may use file name completion to select
+                       the name of the file.  (Force an absolute path with 2 ~C-u~ prefixes).
+
+    + ~C-c C-o~ or ~<RET>~:: follow a link; execute a command in a shell link; run an internal
+      search; create a TAGS view; compiles an agenda for date; visit an external file; run an
+      external program (based on file extension); to visit without running, call with a ~C-u~
+      prefix;
+
+    + ~C-c C-x C-v~ :: ~(org-toggle-inline-image)~
+
+    + ~C-c &~ :: return to calling position (using Org's mark ring)
+
+    + ~C-c %~ :: Push current position onto the mark ring to make for an easy return.
+
+    + ~C-c C-x C-n/p~ :: next/previous link
+
+    + Internal Link :: a link that does not look like a URL is considered an /internal link/
+
+      * custom-id link :: ~[[#my-custom-id] ]~, which links to the entry with the
+                          ~:CUSTOM_ID:my-custom-id~ property, which must be unique in the file.
+
+      * text link :: ~[[My Target][description] ]~ performs a text search in the current file.  The
+                     preferred match is to a /dedicated target/, which is the text in double angle
+                     brackets: ~<<My Target>>~.  If there is no dedicated target, then there will
+                     be a search for an exact name: ~#+NAME: My Target~, placed just before the
+                     element it refers to.  Note that you must use the ~#+CAPTION:~ keyword.
+                     Finally, there will be a search for a headline that is exactly the link text,
+                     plus optionally ~TODO~ and tags.
+
+                     Use in-buffer completion to insert a link targeting a headline: ~* abc M-<TAB>~
+
+    + External Link :: Link to a file, website, Usenet, or email message, plus more.  An external
+                       link is a URL-like locator, starting with a short identifying string and a
+                       colon.  See 4.3 External Links for a list of examples.
+
+      - If the description is a file name or URL that points to an image, HTML export will inline
+        the image as a clickable link; if there is no description, that image will be inlined
+        into the exported HTML file.
+
+** Key
+
+  - ~#+KEY:~ :: *In-buffer setting* ==> See [[https://orgmode.org/org.html#In_002dbuffer-settings][In-Buffer Settings]]
+
+    /In-buffer settings/ start with ‘#+’, followed by a keyword, a colon, and then a word for each
+                setting.  There are dozens upon dozens of these.  To see an alphabetical list of
+                (most) of them, look in the index under ~#~.  Unfortunately, not all are in the
+                index.
+
+    ==> [[https://orgmode.org/org.html#Main-Index][#-Index]]
+
+    You will see numerous /in-buffer settings/ scattered throughout the manual and tutorials, but
+                they are not introduced prior, so they can be somewhat cryptic at first.
+
+    In addition to /in-buffer settings/, there is another similar construct called *OPTIONS*
+                (~#+OPTIONS:~) which is used to set in-buffer settings as well (primarily for
+                export settings).  /Options/ uses a large set of short, abbreviated key-value pairs
+                ([[https://orgmode.org/manual/Export-settings.html#Export-settings][Options]]).  Unfortunately, the manual uses the term 'options' for in-buffer
+                settings as well as ~OPTIONS~.
+
+** Keyword
+
+  - Keyword :: A ~TODO~ state, e.g. one of: ~TODO~ ~DONE~.  These are the default states.  You can
+               customize the states using ~TODO~ kewords, e.g., ~TODO~ -> ~FEEDBACK~ -> ~VERIFY~ ->
+               ~DONE~ | ~VERIFIED~.
+
+               Org offers many facets to this functionality, all of which is configurable.  See
+               [[https://orgmode.org/manual/Workflow-states.html#Workflow-states][TODO Keywords]] and [[https://orgmode.org/manual/TODO-extensions.html#TODO-extensions][Extended TODO Keywords]].
+
+** Outline
+
+  - Outline :: Org is implemented on top of Outline mode.  Outlines allow a document to be
+               organized in a hierarchical structure.  An overview of this structure is achieved by
+               *folding* (/hiding/) large parts of the document to show only the general document
+               structure and the parts currently being worked on.
+
+    + ~<TAB>~ :: ~(org-cycle &optional ARG)~
+
+         This function has many different semantic meanings depending upon its context and how many
+         arguments precede it.
+
+         When point is at the beginning of a headline, rotate the subtree through 3 different
+                 states (called /local cycling/): FOLDED -> CHILDREN -> SUBTREE
+
+         When called with a single prefix ~C-u~, rotate the buffer through 3 states (/global
+         cycling/): OVERVIEW -> CONTENTS -> SHOW ALL
+
+         When called with two prefix arguments (~C-u C-u~) switch to the startup visibility.
+
+         When called with three prefix arguments (~C-u C-u C-u~) show the entire buffer, including
+                 drawers.
+
+    + ~<S-TAB>~ :: ~(org-shifttab & optional ARG)~
+
+         Global visibility cycling (unless within a table; then ~(org-table-previous-field)~;
+
+** Property
+
+  - PROPERTY (~:PROPERTY:value~) :: A property is a key-value pair associated with an entry.
+       Depending on how one is set up, it can be associated with a single entry or with a tree, or
+       with every entry in a file.  Like a tag, a property is delimited on both ends by colons, so
+       this is a property: ~:A_PROPERTY:Some value~.  The key portion is case-insensitive.
+
+  - Property Drawer (~:PROPERTIES:...:END:~)<<property-drawer>> :: A drawer called ~:PROPERTIES:~,
+       inside of which are kept various individual properties.
+
+       ~C-u C-c C-x d~ :: (org-insert-drawer &optional ARG); insert a property drawer below the
+       current headline.
+
+  - Logbook Drawer (~:LOGBOOK:...:END:~)<<logbook-drawer>> :: A special drawer to store /state change notes/ and /clock
+       times/.  See [[state-change][State Change]].
+
+** Refile
+
+  - REFILE :: Refile or copy /captured/ data (see [[capture][Capture]])
+
+    + ~(org-refile)~ :: ~C-c C-w~ Refile the entry or region at point. This command
+                        offers possible locations for refiling the entry and lets you
+                        select one with completion.  By default, all level 1 headlines in
+                        the current buffer are considered to be targets, but you can have
+                        more complex definitions across a number of files using variable
+                        ~org-refile-targets~.  This command utilizes many different
+                        prefix patterns to alter the semantics.  See [[https://orgmode.org/manual/Refile-and-copy.html#Refile-and-copy][Refile and Copy]].
+
+    + ~(org-copy)~ :: Copying works like refiling, except that the original note is not
+                      deleted.
+
+** TAG
+
+  - TAG (~:tag:~) :: Words delimited by colons (~:~) added to the end of a headline to give extra
+                     context.
+    ==> See [[https://orgmode.org/org.html#Tags][Tags]].  They can be stacked (called a /list of tags/): ~:tag1:tag2:~
+
+    Tags are normal words containing /letters/, /numbers/, /underscores (_)/, and /ampersands (@)/.
+
+    + ~C-c C-c~ :: activate changes to in-buffer settings
+
+** ~TODO~
+
+  - ~TODO~ STATE CHANGE<<state-change>> :: keep track of when a state change occurred and maybe
+       take a note about this change.  You can either record just a timestamp, or a time-stamped
+       note for a change.  These records will be inserted after the headline as an itemized list,
+       newest first.
+
+       To keep the notes hidden and out of the way, place them into a special drawer called
+       ~:LOGBOOK:~.  [[logbook-drawer][Logbook Drawer]]   Globally customize the variable ~org-log-into-drawer~ to get
+       this behavior.  You can also set a property called ~:LOG-INTO-DRAWER:DrawerName~.
+
+       ~C-c C-z~ :: ~(org-add-note)~  add a note to the current entry
+
+       To time-stamp when a ~TODO~ is changed to ~DONE~, set the variable ~org-log-done~ to the
+       value of ~time~, or use the in-buffer setting of ~#+STARTUP: logdone~.  A line ~CLOSED:
+       [timestamp]~ will be inserted.
+
+       To also record a note when cycling a ~TODO~ to ~DONE~, set the variable ~org-log-done~ to
+       the value ~note~ instead, or add an in-buffer setting of ~#+STARTUP: lognotedone~.
+
+       To customize special logging for other state changes, see [[https://orgmode.org/manual/Tracking-TODO-state-changes.html#Tracking-TODO-state-changes][Tracking TODO State Changes]]
+
+  - TAG (~:tag:~) :: Words delimited by colons (~:~) added to the end of a headline to give extra
+                     context.
+    ==> See [[https://orgmode.org/org.html#Tags][Tags]].  They can be stacked (called a /list of tags/): ~:tag1:tag2:~
+
+    Tags are normal words containing /letters/, /numbers/, /underscores (_)/, and /ampersands (@)/.
+
+    + ~C-c C-c~ :: activate changes to in-buffer settings
+
+  - Clocking Time :: Clock the time you spend on a specific task in a project.  When you start
+                     working on an item, start the clock.  When you stop, or when you mark ~DONE~,
+                     stop the clock.  The corresponding time interval is recorded.  Org will also
+                     comput the total time spent on each subtree of a project.  [[info:org#Clocking%20commands][Clocking Commands]]
+
+                     Consider creating global key bindings for ~(org-clock-out)~ and
+                     ~(org-clock-in-last)~ 
+
+    + ~C-c C-x C-i~ :: ~(org-clock-in)~ --- inserts the ~CLOCK~ keyword together with a timestamp.
+
+      * ~C-u C-c C-x C-i~ :: select from a list of recently clocked tasks.
+
+      * ~C-u C-u C-c C-x C-i~ :: clock into the task at point and mark it as the /default task/; the
+           /default task/ will then be available with ~d~ when selecting a clocking task.
+
+      * ~C-u C-u C-u C-c C-x C-i~ :: force continuous clocking by starting the clock when the last
+           clock is stopped.
+
+    + ~C-c C-x C-o~ :: ~(org-clock-out)~ --- stop the clock; inserts another timestamp at the same
+                       location where the clock was started.  Computes the resulting time and
+                       inserts it.  Have the option of inserting an additional note using the
+                       variable: ~org-log-note-clock-out~, or ~#+STARTUP: lognoteclock-out~.
+
+    + ~C-c C-x C-x~ :: ~(org-clock-in-last)~ --- reclock the last clocked task.
+
+      * ~C-u C-c C-x C-x~ :: select the task from the clock history
+
+      * ~C-u C-u C-c C-x C-x~ :: force continuous clocking by starting the clock when the last clock
+           is stopped.
+
+    + ~C-c C-x C-e~ :: ~(org-clock-modify-effort-estimate)~
+
+    + ~C-c C-c~ or ~C-c C-y~ :: ~(org-evaluate-time-range)~
+
+    + ~C-S-<up/down>~ :: ~(org-clock-timestamps-up/down)~ --- both timestamps; clock duration
+         remains the same
+
+    + ~S-M-<up/down>~ :: ~(org-timestamp-up/down)~ --- timestamp at point, and next or previous
+
+    + ~C-c C-t~ :: ~(org-todo)~ --- changes ~TODO~ to ~DONE~ and stops clock
+
+    + ~C-c C-x C-q~ :: ~(org-clock-cancel)~
+
+    + ~C-c C-x C-j~ :: ~(org-clock-goto)~ --- jumpt to headline of currently clocked-in task
+
+      * ~C-u C-c C-x C-j~ :: select the target task from a list of recently clocked tasks
+
+    + ~C-c C-x C-d~ :: ~(org-clock-display)~ --- display time summaries for each subtree in the
+                       current buffer.
+
+    + ~l~ :: in the agenda, ~l~ key shows which tasks have been worked on or closed in a day
+
+** View
+ - An organized view of specific types of items through a collection process across all org files.
+   1. agenda view --- dated items
+   2. todo view --- action items
+      + ~C-c a t~ ~(org-todo-list)~ global todo list
+      + ~C-c a T~ specific todo keyword
+   3. match view --- headlines based upon tags, properties, todo states
+      + ~C-c a m~ ~(org-tags-view)~
+      + ~C-c a M~ specific tags
+   4. search view --- entries with specified keywords
+      + ~C-c a s~ ~(org-search-view)~
+   5. stuck projects view --- projects that cannot ``move''
+   6. custom view --- special searches and combinations of views
+      + ~C-c a #~ ~(org-agenda-list-stuck-projects)~
+
+* Basics
+
+** Org Mode Basics
+
+- http://www.star.bris.ac.uk/bjm/org-basics.html
+
+* Editing
+
+* Navigating
+
+* Capture
+
+  Quickly store notes in the flow.  Based upon John Wiegley's =Remember= package.
+
+** Setup
+
+   - Set a default target file for notes
+     : (setq org-default-notes-file (concat org-directory "/notes.org"))
+
+   - Define a global key for capturing new material.  See Org Activation
+     : (global-set-key (kbd "C-c c") 'org-capture)
+
+** Using
+
+   - ORG-CAPTURE :: Display the capture templates menu
+     : ~C-c c: (org-capture)~
+
+     If you have templates defined, it offers these templates for selection; otherwise, use a new
+     Org outline node as the default template.  It inserts the template into the target file and
+     switches to an indirect buffer narrowed to this new node.  You may then insert the information
+     you want.
+
+     You can also call =capture= from the *agenda*
+     : k c
+
+     Any timestamps inserted by the selected capture template defaults to the date at point in the
+                    agenda
+
+   - ORG-CAPTURE-FINALIZE :: Resume your work
+     : ~[C-u] C-c C-c: (org-capture-finalize)~
+
+     - Return to the window configuration before the capture process and resume your work.
+
+     - When called with a prefix argument, finalize and then jump to the captured item.
+
+   - ORG-CAPTURE-REFILE :: Refile the note to an appropriate place
+     : ~C-c C-w: (org-capture-refile)~
+
+     This is a normal refiling command that will be executed; =point='s position is important.
+     Make sure =point= is on the appropriate parent node.  See [[info:org#Refile%20and%20Copy][Refile and Copy]].
+
+     Any prefix argument given to this command is passed on to the ~org-refile~ command.
+
+   - ORG-CAPTURE-KILL :: Abort
+     : ~C-c C-k: (org-capture-kill)~
+
+     Abort the capture procedure and return to the previous state.
+
+** Capture Templates
+
+   You can use templates for different types of capture items, and for different target locations.
+   Create templates using the =customize= interface.  Customize the variable
+   ~org-capture-templates~.
+
+*** Elements
+
+    Each entry in org-capture-templates is a list with the following items:
+
+    - keys ::
+        the key(s) that select the template, as string characters (``a'' to use a single key)
+      (``bt'' to use two keys).
+
+      When using several keys, keys using the same prefix key must be sequential in the list and
+      preceded by a 2-element entry explaining the prefix key:
+      : ("b" "Templates for marking stuff to buy")
+      If you do not define a template for the C key, this key opens the Customize buffer for this
+      complex variable.
+
+    - description ::
+                     A short string describing the template
+
+    - type ::
+              The type of entry, a symbol.
+
+      - ~entry~
+
+        An Org mode node, with a headline. Will be filed as the child of the target entry or as a
+        top-level entry. The target file should be an Org file.
+
+      - ~item~
+
+        A plain list item, placed in the first plain list at the target location. Again the target
+        file should be an Org file.
+
+      - ~checkitem~
+
+        A checkbox item. This only differs from the plain list item by the default template.
+
+      - ~table-line~
+
+        A new line in the first table at the target location. Where exactly the line will be
+        inserted depends on the properties ~:prepend~ and ~:table-line-pos~
+
+      - ~plain~
+
+        Text to be inserted as it is.
+
+    - target ::
+
+      Specification of where the captured item should be placed.
+
+      - targets usually define a node and entries will become children of this node.
+
+      - other types will be added to the table or list in the body of this node.
+
+      - most target specifications contain a file name.  If that file name is the empty string, it
+        defaults to ~org-default-notes-file~.
+
+      - a file can also be given as a variable or as a function called with no argument.
+
+      - when an absolute path is not specified for a target, it is taken as relative to
+        ~org-directory~.
+
+      Valid values are:
+
+      - ~(file "path/to/file")~ ::
+           Text will be placed at the beginning or end of that file.
+
+      - ~(id "id of existing org entry")~ ::
+           Filing as child of this entry, or in the body of the entry.
+
+      - ~(file+headline "filename" "node headline")~ ::
+           Fast configuration if the target heading is unique in the file.
+
+      - ~(file+olp "filename" "Level 1 heading" "Level 2" ...)~ ::
+           For non-unique headings, the full path is safer.
+
+      - ~(file+regexp "filename" "regexp to find location")~ ::
+           Use a regular expression to position point.
+
+      - ~(file+olp+datetree "filename" [ "Level 1 heading" ...])~ ::
+           This target creates a heading in a date tree for today’s date.  If the optional outline
+           path is given, the tree will be built under the node it is pointing to, instead of at
+           top level.
+
+      - ~(file+function "filename" function-finding-location)~ ::
+           A function to find the right location in the file.
+
+      - ~(clock)~ ::
+                     File to the entry that is currently being clocked.
+
+      - ~(function function-finding-location)~ ::
+           Most general way: write your own function which both visits the file and moves point to
+           the right location.
+
+    - template
+
+    - properties
+
+*** Explansion
+
+*** In Context
+
+* Examples
+
+** Examples and Cookbook
+
+- [[http://ehneilsen.net/notebook/orgExamples/org-examples.html][Emacs org-mode examples and cookbook]]
+
+* Blogging with Org
+
+  - [[https://explog.in/][expLog]] & https://explog.in/config.html
+
+  - [[https://cestlaz.github.io/posts/using-emacs-35-blogging/][Using Emacs 35 - Blogging]]
+
+  - [[https://www.reddit.com/r/emacs/comments/857ab1/blogging_with_emacs/][Hugo also has good direct support for org-mode]]
+
+    #+BEGIN_QUOTE
+    Anyhow, if it's any comfort, hugo is a really fast static site generator that live updates the
+    browser as soon as I C-x C-s my Org file (which auto-triggers the export to .md via ox-hugo)
+    #+END_QUOTE
+
+    - [[https://github.com/kaushalmodi/ox-hugo][ox-hugo]]
+
+      I develop an Org exporter called =ox-hugo= which is basically a Markdown (with bits and
+      pieces of HTML where Markdown falls short) exporter + TOML/YAML front-matter generator for
+      Hugo static sites.  In the process of supporting basically the whole of the Org syntax that I
+      know of, and making any Org document exportable almost in par with ox-html, I ended up with
+      this [[https://github.com/kaushalmodi/ox-hugo/blob/master/test/site/content-org/all-posts.org][humongous test file]]. It covers probably every niche of Org syntax that I or folks who
+      filed issues on the repo could think of (a recent one being.. variations in Org syntax for
+      inline vs standalone images, hyperlinked vs not, with/without HTML target attribute being set
+      via =#+ATTR_HTML=, with/without captions). I am mentioning that file with hopes that orga is
+      able to support all kinds of Org syntax in that. Many tests in there are for testing the Hugo
+      front-matter export, but majority of that test file should work for your project too.  In
+      addition, how does orga support subtree properties, tags, etc which is critical for folks
+      using a single Org file (like that test file) to store all their Org documents organized as
+      subtrees (instead of having a physical Org file for each document)?  Once again, great to see
+      more Org mode out in the wild :)
+
+    - [[http://www.modernemacs.com/post/org-mode-blogging/][An Emacs Blogging Workflow]]
+
+      Hugo is a static site generator. It natively supports org-mode, builds fast, and has live
+      reloading.
+
+  - [[http://donw.io/post/github-comments/][Using Github for Comments]]
+
+  - [[https://github.com/bastibe/org-static-blog][ORG-STATIC-BLOG]]
+
+  - [[https://github.com/novoid/lazyblorg][lazyblorg – blogging with Org-mode for very lazy people]]
+
+  - [[https://xiaoxinghu.github.io/orgajs/][ORGA]]
+
+    - [[https://github.com/xiaoxinghu/orgajs][orgajs on Github]]
+
+    - [[https://github.com/xiaoxinghu/gatsby-orga][gatsby orga starter project]]
+
+      - [[https://www.reddit.com/r/orgmode/comments/7wjmwr/orga_the_ultimate_orgmode_parser_in_javascript/][Orga the Ultimate org-mode parser in JavaScript]]
+
+    - [[http://endlessparentheses.com/how-i-blog-one-year-of-posts-in-a-single-org-file.html][How I blog: One year of posts in a single org file]]
+
+      *When this blog was conceived, I decided that I wanted it to be entirely contained in a
+      single org file*, and that this would also be my Emacs init file.... Before anything else, it
+      should go without saying that the content of the posts is written in org-mode. The engine I
+      use for exporting is a large wrapper around ox-jekyll, and the posts are all pushed to Github
+      and rendered by their built-in Jekyll support.
+
+      - <<single-file>>Why keep a blog in [[single-file-fail][a single file]]?
+
+      First of all because org, once you learn its knobs and bobs, is just plain powerful.... This
+      is a small difference, but it applies all around. If I want to link to a previous post, I
+      find it with C-c C-j and then move back with C-u C-SPC, all without leaving the buffer. When
+      I look at the posts list, the tags are listed right beside the title, I don’t have to open a
+      file to see them.... You see, if posts were separate files I would have to copy the snippets
+      to a separate org file, and then write about them there, and then export them to Jekyll. In
+      this scenario, I just know I would eventually change some snippet (a healthy init file is a
+      fluid creature) and forget to update the corresponding org file, and the thought of leaving
+      out-dated code lying around sent a chill through my spine. Not to mention, this whole flow of
+      “init file → org post → jekyll post” has one layer too many for my taste, and redundancy is
+      an evil I slay with a chainsaw.
+
+    - [[https://github.com/yoshinari-nomura/org-octopress][Org-octopress – org-mode in octopress.]]
+
+      Org-octopress is a package to help users those who want to write blog articles in org-style
+      using Octopress (or Jekyll).
+
+    - [[https://www.sadiqpk.org/blog/2018/08/08/blogging-with-org-mode.html][Blogging with Emacs org-mode]]
+
+      <<single-file-fail>>All pages of this website has been designed in org-mode. Not just this
+      blog. The [[https://gitlab.com/sadiq/sadiq.gitlab.io][repository]] contain source code for the complete website.... For about a year, I
+      have been trying to find a suitable workflow to blog using Emacs org-mode. *My idea was to
+      put all articles (posts) in [[single-file][a single org file]], which failed misserably* for the following
+      reasons:
+
+      - The default org-mode html export is designed to work on seperate files. So single file org
+        export requires custom code which I don't want to write.
+
+      - I wish to link to the source org file from each html article, which is not possible if
+        every article is written in a single file.
+
+      - Last year, I did write around 500 lines of code, which worked. Pretty much all of them were
+        unmaintainable hacks. A few days back, I gave it a try again. This time, with a different
+        design:
+
+      - Each article is written in seperate org files, with dated directory names. Eg.: A
+        hello-world.org file in 2018/08/08 dir for Hello World article.
+
+      - Manually created blog index and atom feeds so that I don't have to wait another year to
+        pass the salt.
+
+    - [[https://orgmode.org/worg/org-blog-wiki.html][Blogs and Wikis with Org]]
+
+    - [[https://orgmode.org/worg/org-web.html][Web Pages Made with Org-Mode]]
+
+    - [[https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing Org-mode files to HTML]]
+
+    - [[https://justin.abrah.ms/emacs/orgmode_static_site_generator.html][Writing a static site generator using org-mode.]]
+
+      This site is now generated through org-mode, an emacs library which is used for
+      outlining. The generation of the HTML lies in the export functionality of outlines. The
+      benefits of this system is that its easy, uses a tool that I'm already familiar with, and
+      extensible.
+
+      The heart of my blog lies in org-modes export format. You can find the documentation for it here. This post, currently looks something like the picture above. Standard org-mode stuff.
+
+      The exporting stuff lives in a small amount of elisp (which is in a non-exported node of my
+      ~index.org~ (which turns into ~index.html~)). When I export my org project, it publishes via
+      tramp to my server's web root.
+
+    - [[https://justin.abrah.ms/emacs/literate_programming.html][Literate programming with org-babel]]
+
+    - [[https://pavpanchekha.com/blog/org-mode-publish.html][Using Org-mode to Publish a Web Site]]
+
+      This blog is written with Org-mode from Emacs, and deployed using a git hook.
+
+    - [[http://danamlund.dk/emacs/orgsite.html][Example of making and managing a website with emacs org-mode]]
+
+    - [[https://trashbird1240.wordpress.com/2012/01/17/set-up-a-website-using-emacs-org-mode/][Set up a website using Emacs’ Org Mode]]
+
+    - [[https://jgkamat.gitlab.io/blog/website1.html][Creating A Blog in Org Mode]]
+
+      Org is a very powerful tool, but most of the org setups I've seen hasn't used it to its full
+      potential. This website is one example of a complex, multi-page project built in org. This
+      post is a 'brief' overview of how it was created.
+
+    - [[https://ogbe.net/blog/blogging_with_org.html][Blogging using org-mode (and nothing else)]]
+
+      Obviously, the Org publishing feature was all that I needed. I whipped up a nice little
+      configuration that produces this website from a set of Org source files, some custom CSS and
+      HTML, and some custom Elisp.
+
+    - [[https://bastibe.de/2013-11-13-blogging-with-emacs.html][Blogging with Emacs]]
+
+    - [[https://thibaultmarin.github.io/blog/posts/2016-11-13-Personal_website_in_org.html][Personal website in org]] <<
+
+      This post describes the configuration for this website, which is statically generated using
+      emacs and org-mode. Org-mode's publishing functionality is used to generate the HTML content
+      from source org files.
+
+    - [[http://www.bobnewell.net/publish/35years/orgpublish.html][Publishing with Org-Publish]]
+
+    - [[https://www.baty.net/2015/publishing-my-notes-using-org-mode/][Publishing My Notes Using Org Mode]]

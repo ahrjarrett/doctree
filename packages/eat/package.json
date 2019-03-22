@@ -1,5 +1,5 @@
 {
-  "name": "@ahrjarrett/root",
+  "name": "@ahrjarrett/eat",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -9,15 +9,14 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@ahrjarrett/org-mode": "1.0.0",
-    "@ahrjarrett/shared": "1.0.0",
-    "axios": "0.18.0",
-    "node-uuid": "1.4.8",
+    "@types/jest": "24.0.11",
+    "@types/node": "11.11.5",
+    "@types/react": "16.8.8",
+    "@types/react-dom": "16.8.3",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-router-dom": "4.3.1",
     "react-scripts": "2.1.8",
-    "styled-components": "4.1.3"
+    "typescript": "3.3.4000"
   },
   "eslintConfig": {
     "extends": "react-app"
