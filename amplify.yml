@@ -3,14 +3,15 @@ frontend:
   phases:
     preBuild:
       commands:
+        - cd packages/root
         - yarn install
     # IMPORTANT - Please verify your build commands
     build:
       commands:
-        - yarn run build
+        - yarn build
   artifacts:
     # IMPORTANT - Please verify your build output directory
-    baseDirectory: /
+    baseDirectory: /build
     files:
       - "**/*"
   cache:
