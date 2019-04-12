@@ -49,12 +49,16 @@ class App extends React.Component<PropTypes, StateTypes> {
     this.setState({ recipes })
   }
 
+  removeIngredient = idx: number => {
+    this.setState({ ingredients: [...this.state.ingredients.slice(0, idx), ...this.state.ingredients.slice(idx + 1) ] })
+  }
+
   render() {
     return (
       <AppStyles className="app">
         <div className="column-1">
           <AddIngredient propogateIngredient={this.getChildIngredient} />
-          <IngredientsList ingredients={this.state.ingredients} />
+          <IngredientsList removeIngredient={this.removeIngredient} ingredients={this.state.ingredients} />
         </div>
         <div className="column-2">
           <FetchRecipe

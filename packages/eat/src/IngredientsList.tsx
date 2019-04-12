@@ -1,4 +1,5 @@
 import React from "react"
+import Ingredient from "./Ingredient"
 
 interface PropTypes {
   ingredients: string[]
@@ -15,7 +16,7 @@ class IngredientsList extends React.Component<PropTypes, StateTypes> {
       <div className="add-ingredients">
         <ul>
           {this.props.ingredients.map((ingredient, i) => (
-            <li key={i}>{ingredient}</li>
+            <Ingredient key={i} ingredient={ingredient} />
           ))}
         </ul>
       </div>
